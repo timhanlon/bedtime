@@ -1,8 +1,8 @@
 {
-  "name": "my-module",
-  "version": "1.0.0",
-  "description": "My new Nuxt module",
-  "repository": "your-org/my-module",
+  "name": "nuxt-stories",
+  "version": "0.0.1",
+  "description": "Nuxt module for creating component stories",
+  "repository": "timhanlon/nuxt-stories",
   "license": "MIT",
   "type": "module",
   "exports": {

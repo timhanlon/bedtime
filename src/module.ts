@@ -43,6 +43,7 @@ export default defineNuxtModule<StoriesModuleOptions>({
       pathPrefix: false,
       prefix: '',
       global: true,
+      watch: true,
     })
 
     // 2. Scan for story files
