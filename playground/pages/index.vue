@@ -1,0 +1,37 @@
+<template>
+  <div class="container">
+    <h1>Nuxt Stories Playground</h1>
+    <p>Welcome to the Nuxt Stories playground! This demo includes:</p>
+    <ul>
+      <li>
+        <NuxtLink to="/stories">View Component Stories</NuxtLink>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+ul {
+  margin-top: 1rem;
+}
+
+a {
+  color: #00dc82;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+</style>

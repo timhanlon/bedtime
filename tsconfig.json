@@ -1,8 +1,21 @@
 {
-  "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "declaration": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "types": ["node"]
+  },
+  "include": [
+    "./src/**/*"
+  ],
   "exclude": [
-    "dist",
     "node_modules",
-    "playground",
+    "dist"
   ]
 }
