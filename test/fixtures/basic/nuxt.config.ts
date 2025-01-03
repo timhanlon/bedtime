@@ -1,7 +1,9 @@
-import MyModule from '../../../src/module'
+import { defineNuxtConfig } from 'nuxt/config'
 
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    MyModule,
-  ],
+  modules: ['../../../src/module'],
+  stories: {
+    // use defaults
+  },
 })
