@@ -9,12 +9,12 @@ describe('nuxt-stories', async () => {
 
   describe('Story Component', () => {
     it('renders with title', async () => {
-      const html = await $fetch('/stories/Button_Button')
+      const html = await $fetch('/stories/BaseButton')
       expect(html).toContain('Button Component')
     })
 
     it('renders content in story-content div', async () => {
-      const html = await $fetch('/stories/Button_Button')
+      const html = await $fetch('/stories/BaseButton')
       expect(html).toContain('class="story-content"')
       expect(html).toContain('<button>Click me</button>')
     })
@@ -22,13 +22,13 @@ describe('nuxt-stories', async () => {
 
   describe('Variant Component', () => {
     it('renders variants with names', async () => {
-      const html = await $fetch('/stories/Button_Button')
+      const html = await $fetch('/stories/BaseButton')
       expect(html).toContain('Default')
       expect(html).toContain('Disabled')
     })
 
     it('renders variant content correctly', async () => {
-      const html = await $fetch('/stories/Button_Button')
+      const html = await $fetch('/stories/BaseButton')
       expect(html).toContain('<button>Click me</button>')
       expect(html).toContain('<button disabled')
     })
@@ -38,14 +38,14 @@ describe('nuxt-stories', async () => {
     it('lists all stories', async () => {
       const html = await $fetch('/stories')
       expect(html).toContain('All Stories')
-      expect(html).toContain('Button_Button')
-      expect(html).toContain('href="/stories/Button_Button"')
+      expect(html).toContain('BaseButton')
+      expect(html).toContain('href="/stories/BaseButton"')
     })
   })
 
   describe('Story Page', () => {
     it('renders story page', async () => {
-      const html = await $fetch('/stories/Button_Button')
+      const html = await $fetch('/stories/BaseButton')
       expect(html).toContain('Button Component')
       expect(html).toContain('Default')
       expect(html).toContain('Disabled')
@@ -65,14 +65,14 @@ describe('nuxt-stories', async () => {
       expect(indexHtml).toBeTruthy()
 
       // Test dynamic route exists
-      const storyHtml = await $fetch('/stories/Button_Button')
+      const storyHtml = await $fetch('/stories/BaseButton')
       expect(storyHtml).toBeTruthy()
     })
 
     it('discovers story files', async () => {
       const html = await $fetch('/stories')
       // Should find our Button story
-      expect(html).toContain('Button_Button')
+      expect(html).toContain('BaseButton')
     })
   })
 })
