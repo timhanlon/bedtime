@@ -74,7 +74,7 @@ export default defineNuxtModule<StoriesModuleOptions>({
           .replace(/^.*components\//, '')
           .replace(/\.story\.vue$/, '')
           .replace(/[\\/]/g, '_'),
-        path: path.replace(/^components\//, '') + '.vue',
+        path: path,
       })),
     }
   },

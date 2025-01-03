@@ -8,8 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRuntimeConfig, defineAsyncComponent } from '#app'
+import { computed, defineAsyncComponent } from 'vue'
+import { useRoute, useRuntimeConfig } from '#app'
 
 defineOptions({
   name: 'StoriesSlugPage',
@@ -18,12 +18,18 @@ defineOptions({
 const route = useRoute()
 const config = useRuntimeConfig()
 
+// Use Vite's glob import to get all story files
+const modules = import.meta.glob('/components/**/*.story.vue')
+
 const storyFile = computed(() =>
   config.public.stories.files.find(f => f.slug === route.params.slug),
 )
 
 const story = computed(() => {
   if (!storyFile.value) return null
-  return defineAsyncComponent(() => import(`~/components/${storyFile.value.path}`))
+  const importPath = '/' + storyFile.value.path
+  const importFn = modules[importPath]
+  if (!importFn) return null
+  return defineAsyncComponent(importFn)
 })
 </script>
