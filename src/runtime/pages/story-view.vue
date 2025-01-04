@@ -19,22 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue'
-import type { Story } from '../types'
+import { computed } from 'vue'
+import { useStory } from '../composables/useStory'
 import { useHead, useRoute } from '#imports'
-import { stories as storyList } from '#nuxt-stories'
 
 const route = useRoute()
-const stories = computed<Story[]>(() => storyList)
-const story = computed(() => stories.value.find(s => s.kebabName === route.params.slug))
+const { getByKebabName, getComponent } = useStory()
 
-const modules = import.meta.glob('/components/**/*.story.vue')
-
-const storyComponent = computed(() => {
-  if (!story.value?.shortPath) return null
-  const importPath = '/' + story.value.shortPath
-  return defineAsyncComponent(() => modules[importPath]?.())
-})
+const story = computed(() => getByKebabName(route.params.slug as string))
+const storyComponent = computed(() => getComponent(story.value))
 
 useHead({
   title: story.value?.pascalName,

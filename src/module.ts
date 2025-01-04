@@ -45,6 +45,11 @@ export default defineNuxtModule<StoriesModuleOptions>({
     // Set up the alias to point to the generated file
     nuxt.options.alias['#nuxt-stories'] = resolver.resolve(nuxt.options.buildDir, 'stories.mjs')
 
+    // Add composables directory
+    nuxt.hook('imports:dirs', (dirs) => {
+      dirs.push(resolve(runtimeDir, 'composables'))
+    })
+
     const stories: Array<StoryComponent> = []
     // Create a stub stories.mjs file
     addTemplate({

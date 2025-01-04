@@ -1,23 +1,15 @@
 export interface Story {
-  slug: string
-  path: string
+  kebabName: string
+  pascalName: string
+  shortPath: string
+  global: boolean
 }
 
-declare module '#nuxt-stories/stories' {
+declare module '#nuxt-stories' {
   const stories: Story[]
   export { stories }
 }
 
 declare module '#imports' {
-  const useStories: () => {
-    stories: import('vue').ComputedRef<Story[]>
-    getStoryBySlug: (slug: string) => Story | undefined
-  }
-  export { useStories }
-}
-
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $stories: Story[]
-  }
+  export { useStory } from './composables/useStory'
 }
