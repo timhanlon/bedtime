@@ -9,7 +9,7 @@ declare module '@nuxt/schema' {
   }
 }
 
-describe('nuxt-stories module', async () => {
+describe('nuxt-stories module with default config', async () => {
   await setup({
     rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
   })
