@@ -16,9 +16,54 @@ Find and replace all on all files (CMD+SHIFT+F):
 
 Nuxt module for creating component stories.
 
+Inspired by [Histoire](https://histoire.dev/).
+
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 <!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-stories?file=playground%2Fapp.vue) -->
 <!-- - [📖 &nbsp;Documentation](https://example.com) -->
+
+## Goals
+
+- Excellent DX
+- Fast HMR
+- Idiomatic Vue/Nuxt syntax
+- Thinnest possible implementation
+- Ensure compatibility across the Nuxt module ecosystem
+- Escape hatches for complex/unusual use cases
+
+## Todo
+
+- [ ] Detect and warn/error on non-Vite environments
+- [ ] Static builds
+- [ ] Configurable story glob
+- [ ] Ensure compatibility with [layers](https://nuxt.com/docs/getting-started/layers)
+- [ ] Improve ergonomics of `useStory`
+- [ ] Tailwind viewer like Histoire
+- [ ] Ability to group stories
+- [ ] “Good enough” default story viewer
+- [ ] Custom layouts/styles for story viewer
+- [ ] Rename to something that isn’t `nuxt-stories`
+
+## Static Build
+
+I’ve roughly tested this by:
+
+Adding this script to `./package.json`:
+
+```
+	"dev:generate": "nuxi generate playground",
+```
+
+Adding this route rule to `./playground/nuxt.config.ts`:
+
+```
+  routeRules: {
+    '/stories/**': { static: true },
+  },
+```
+
+That resulted in a working static build, but it’d be nice to have this as a first class feature for easy deployments, decoupled from the main application.
+
 
 ## Features
 
