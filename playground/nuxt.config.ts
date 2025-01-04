@@ -8,7 +8,9 @@ declare module '@nuxt/schema' {
 }
 
 export default defineNuxtConfig({
-  modules: ['../src/module'],
+  modules: ['../src/module', '@nuxt/ui'],
+
+  css: ['~/assets/css/main.css'],
 
   compatibilityDate: '2025-01-03',
 

@@ -3,11 +3,11 @@
     <h1>All Stories</h1>
     <ul>
       <li
-        v-for="story in storyList"
-        :key="story.slug"
+        v-for="story in stories"
+        :key="story.kebabName"
       >
-        <NuxtLink :to="'/stories/' + story.slug">
-          {{ formatStoryName(story.slug) }}
+        <NuxtLink :to="'/stories/' + story.kebabName">
+          {{ formatStoryName(story.pascalName) }}
         </NuxtLink>
       </li>
     </ul>
@@ -15,15 +15,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import type { Story } from '../types'
-import { computed } from '#imports'
+import { stories as storyList } from '#nuxt-stories'
 
-definePageMeta({
-  name: 'StoriesIndexPage',
-})
-
-const config = useRuntimeConfig()
-const storyList = computed<Story[]>(() => config.public.stories?.files || [])
+const stories = computed<Story[]>(() => storyList)
 
 function formatStoryName(slug: string): string {
   return slug

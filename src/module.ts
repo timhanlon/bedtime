@@ -2,18 +2,21 @@ import {
   defineNuxtModule,
   addComponentsDir,
   createResolver,
+  addTemplate,
+  updateTemplates,
   useLogger,
 } from '@nuxt/kit'
 import { resolve } from 'pathe'
-import { globby } from 'globby'
+
+interface StoryComponent {
+  pascalName: string
+  kebabName: string
+  shortPath: string
+  global?: boolean | string
+  srcDir: string
+}
 
 export interface StoriesModuleOptions {
-  /**
-   * Glob pattern to locate your story files.
-   * Defaults to scanning `~/components/**.story.vue`.
-   */
-  pattern?: string
-
   /**
    * Route path for the stories index. Defaults to '/stories'.
    */
@@ -26,57 +29,79 @@ export default defineNuxtModule<StoriesModuleOptions>({
     configKey: 'stories',
   },
   defaults: {
-    pattern: 'components/**/**.story.vue',
     storiesRoute: '/stories',
   },
   async setup(options, nuxt) {
-    const logger = useLogger('nuxt-stories')
-    const { pattern = 'components/**/**.story.vue', storiesRoute = '/stories' } = options
+    const { storiesRoute = '/stories' } = options
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
+    const logger = useLogger('nuxt-stories')
 
-    logger.info(`Scanning for story files matching ~/${pattern}`)
+    logger.info('Setting up nuxt-stories module...')
 
-    // 1. Provide two globally available components: <Story /> and <Variant />
-    addComponentsDir({
+    // Add runtime directory to Nuxt
+    nuxt.options.build.transpile.push(runtimeDir)
+
+    // Set up the alias to point to the generated file
+    nuxt.options.alias['#nuxt-stories'] = resolver.resolve(nuxt.options.buildDir, 'stories.mjs')
+
+    const stories: Array<StoryComponent> = []
+    // Create a stub stories.mjs file
+    addTemplate({
+      filename: 'stories.mjs',
+      getContents: () => `export const stories = ${JSON.stringify(stories, null, 2)}`,
+    })
+
+    // Add runtime components
+    logger.debug('Adding runtime components directory:', resolve(runtimeDir, 'components'))
+    await addComponentsDir({
       path: resolve(runtimeDir, 'components'),
       pathPrefix: false,
       prefix: '',
       global: true,
-      watch: true,
     })
 
-    // 2. Scan for story files
-    const storyFiles = await globby(pattern, {
-      cwd: nuxt.options.srcDir,
-      absolute: false,
+    nuxt.hook('components:extend', async (components) => {
+      const storyComponents = components.filter(c => c.pascalName.endsWith('Story') && c.pascalName !== 'Story')
+
+      const newStories = storyComponents.map(component => ({
+        kebabName: component.kebabName,
+        pascalName: component.pascalName,
+        shortPath: component.shortPath,
+        global: component.global,
+        srcDir: resolve(nuxt.options.srcDir, component.shortPath),
+      }))
+
+      // Only update if the stories have changed
+      if (JSON.stringify(stories) !== JSON.stringify(newStories)) {
+        logger.info(`Found ${storyComponents.length} story components`)
+        stories.length = 0 // Clear the array
+        stories.push(...newStories)
+        await updateTemplates({
+          filter: template => template.filename === 'stories.mjs',
+        })
+      }
     })
 
-    logger.info(`Found ${storyFiles.length} story files`)
-
-    // 3. Add runtime routes
+    // Add runtime routes
     nuxt.hook('pages:extend', (pages) => {
-      pages.push({
-        name: 'stories-index',
-        path: storiesRoute,
-        file: resolver.resolve('./runtime/pages/index.vue'),
-      })
-      pages.push({
-        name: 'stories-slug',
-        path: `${storiesRoute}/:slug`,
-        file: resolver.resolve('./runtime/pages/[slug].vue'),
-      })
+      if (!pages.some(page => page.name === 'stories-index')) {
+        pages.push({
+          name: 'stories-index',
+          path: storiesRoute,
+          file: resolver.resolve('./runtime/pages/stories-index.vue'),
+        })
+      }
+
+      if (!pages.some(page => page.name === 'stories-slug')) {
+        pages.push({
+          name: 'stories-slug',
+          path: `${storiesRoute}/:slug`,
+          file: resolver.resolve('./runtime/pages/story-view.vue'),
+        })
+      }
     })
 
-    // 4. Add runtime config for story files
-    nuxt.options.runtimeConfig.public.stories = {
-      files: storyFiles.map(path => ({
-        slug: path
-          .replace(/^.*components\//, '')
-          .replace(/\.story\.vue$/, '')
-          .replace(/[\\/]/g, '_'),
-        path: path,
-      })),
-    }
+    logger.success('Nuxt Stories module setup complete')
   },
 })

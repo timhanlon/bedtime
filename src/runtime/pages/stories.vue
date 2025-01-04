@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 import type { Story } from '../types'
-import { computed } from '#imports'
+import { computed, useRuntimeConfig } from '#imports'
 
 definePageMeta({
   name: 'StoriesIndexPage',

@@ -1,6 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config'
+import StoriesModule from '../../../src/module'
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['../../../src/module'],
+  modules: [StoriesModule],
 })
