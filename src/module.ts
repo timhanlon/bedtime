@@ -39,6 +39,11 @@ export default defineNuxtModule<StoriesModuleOptions>({
 
     logger.info('Setting up nuxt-stories module...')
 
+    // Check if using Vite
+    if (nuxt.options.builder !== '@nuxt/vite-builder') {
+      logger.warn('nuxt-stories does not support non-Vite environments')
+    }
+
     // Add runtime directory to Nuxt
     nuxt.options.build.transpile.push(runtimeDir)
 

@@ -33,7 +33,6 @@ Inspired by [Histoire](https://histoire.dev/).
 
 ## Todo
 
-- [ ] Detect and warn/error on non-Vite environments
 - [ ] Static builds
 - [ ] Configurable story glob
 - [ ] Ensure compatibility with [layers](https://nuxt.com/docs/getting-started/layers)
