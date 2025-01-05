@@ -19,10 +19,6 @@ import { computed } from 'vue'
 import type { Story } from '../types'
 import { stories as storyList } from '#nuxt-stories'
 
-console.log({
-  storyList,
-})
-
 const stories = computed<Story[]>(() => storyList)
 
 function formatStoryName(slug: string): string {

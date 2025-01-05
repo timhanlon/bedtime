@@ -82,6 +82,7 @@ declare module '#nuxt-stories' {
     })
 
     const stories: Array<StoryComponent> = []
+
     // Create a stub stories.mjs file
     addTemplate({
       filename: 'stories.mjs',
@@ -109,16 +110,31 @@ ${stories.map(s => `  '${s.kebabName}': {
       global: true,
     })
 
-    // Add story components
-    for (const dir of storyDirectories) {
-      console.log(resolve(nuxt.options.srcDir, dir))
-      await addComponentsDir({
-        path: resolve(nuxt.options.srcDir, dir),
-        pattern: storyGlob,
-        pathPrefix: false,
-        prefix: '',
-        global: true,
-      })
+    // Get all layers including the app itself
+    const layerStoryDirs = [
+      // Base layer (main app)
+      {
+        cwd: nuxt.options.srcDir,
+        directories: storyDirectories,
+      },
+      // Additional layers
+      ...nuxt.options._layers.map(layer => ({
+        cwd: layer.cwd,
+        directories: storyDirectories,
+      })),
+    ]
+
+    // Add story components from all layers
+    for (const { cwd, directories } of layerStoryDirs) {
+      for (const dir of directories) {
+        await addComponentsDir({
+          path: resolve(cwd, dir),
+          pattern: storyGlob,
+          pathPrefix: false,
+          prefix: '',
+          global: true,
+        })
+      }
     }
 
     nuxt.hook('components:extend', async (components) => {
