@@ -16,23 +16,25 @@ interface StoryComponent {
   srcDir: string
 }
 
-export interface StoriesModuleOptions {
-  /**
-   * Route path for the stories index. Defaults to '/stories'.
-   */
-  storiesRoute?: string
+interface StoriesConfig {
+  storiesRoute: string
+  storyGlob: string
 }
 
-export default defineNuxtModule<StoriesModuleOptions>({
+export default defineNuxtModule({
   meta: {
     name: 'nuxt-stories',
     configKey: 'stories',
+    compatibility: {
+      nuxt: '^3.0.0',
+    },
   },
   defaults: {
     storiesRoute: '/stories',
-  },
-  async setup(options, nuxt) {
-    const { storiesRoute = '/stories' } = options
+    storyGlob: '**/*.story.vue',
+  } as StoriesConfig,
+  async setup(options: StoriesConfig, nuxt) {
+    const { storiesRoute = '/stories', storyGlob = '**/*.story.vue' } = options
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
     const logger = useLogger('nuxt-stories')
@@ -71,8 +73,19 @@ export default defineNuxtModule<StoriesModuleOptions>({
       global: true,
     })
 
+    // Add story components
+    await addComponentsDir({
+      path: nuxt.options.srcDir,
+      pattern: storyGlob,
+      pathPrefix: false,
+      prefix: '',
+      global: true,
+    })
+
     nuxt.hook('components:extend', async (components) => {
-      const storyComponents = components.filter(c => c.pascalName.endsWith('Story') && c.pascalName !== 'Story')
+      const storyComponents = components.filter(c =>
+        c.pascalName.endsWith('Story') && c.pascalName !== 'Story',
+      )
 
       const newStories = storyComponents.map(component => ({
         kebabName: component.kebabName,
