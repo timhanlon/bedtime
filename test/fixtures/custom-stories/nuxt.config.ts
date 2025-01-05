@@ -5,6 +5,7 @@ declare module '@nuxt/schema' {
     stories?: {
       storiesRoute?: string
       storyGlob?: string
+      storyDirectories?: string[]
     }
   }
 }
@@ -12,6 +13,7 @@ declare module '@nuxt/schema' {
 export default defineNuxtConfig({
   modules: ['../../../src/module'],
   stories: {
-    storyGlob: 'stories/**/*.story.vue',
+    storyGlob: '**/*.story.vue',
+    storyDirectories: ['./stories', './components'],
   },
 })

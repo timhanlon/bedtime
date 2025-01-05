@@ -7,7 +7,7 @@
       v-if="story"
       class="story-content"
     >
-      <component :is="storyComponent" />
+      <component :is="story.component" />
     </div>
     <div
       v-else
@@ -24,10 +24,9 @@ import { useStory } from '../composables/useStory'
 import { useHead, useRoute } from '#imports'
 
 const route = useRoute()
-const { getByKebabName, getComponent } = useStory()
+const { stories } = useStory()
 
-const story = computed(() => getByKebabName(route.params.slug as string))
-const storyComponent = computed(() => getComponent(story.value))
+const story = computed(() => stories[route.params.slug as string])
 
 useHead({
   title: story.value?.pascalName,

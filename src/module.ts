@@ -5,6 +5,7 @@ import {
   addTemplate,
   updateTemplates,
   useLogger,
+  addTypeTemplate,
 } from '@nuxt/kit'
 import { resolve } from 'pathe'
 
@@ -19,6 +20,7 @@ interface StoryComponent {
 interface StoriesConfig {
   storiesRoute: string
   storyGlob: string
+  storyDirectories: string[]
 }
 
 export default defineNuxtModule({
@@ -32,14 +34,36 @@ export default defineNuxtModule({
   defaults: {
     storiesRoute: '/stories',
     storyGlob: '**/*.story.vue',
+    storyDirectories: ['./stories', './components'],
   } as StoriesConfig,
   async setup(options: StoriesConfig, nuxt) {
-    const { storiesRoute = '/stories', storyGlob = '**/*.story.vue' } = options
+    const { storiesRoute, storyGlob, storyDirectories } = options
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
     const logger = useLogger('nuxt-stories')
 
     logger.info('Setting up nuxt-stories module...')
+
+    // Add type declarations
+    addTypeTemplate({
+      filename: 'types/nuxt-stories.d.ts',
+      getContents: () => `
+import type { Component } from 'vue'
+
+declare module '#nuxt-stories' {
+  interface Story {
+    kebabName: string
+    pascalName: string
+    shortPath: string
+    global: boolean
+    component: Component
+  }
+  type Stories = Record<string, Story>
+  const stories: Stories
+  export { stories }
+}
+`,
+    })
 
     // Check if using Vite
     if (nuxt.options.builder !== '@nuxt/vite-builder') {
@@ -61,7 +85,19 @@ export default defineNuxtModule({
     // Create a stub stories.mjs file
     addTemplate({
       filename: 'stories.mjs',
-      getContents: () => `export const stories = ${JSON.stringify(stories, null, 2)}`,
+      getContents: () => `
+${stories.map(s => `import ${s.pascalName} from '${s.srcDir}'`).join('\n')}
+
+export const stories = {
+${stories.map(s => `  '${s.kebabName}': {
+    kebabName: '${s.kebabName}',
+    pascalName: '${s.pascalName}',
+    shortPath: '${s.shortPath}',
+    global: ${s.global},
+    component: ${s.pascalName}
+  }`).join(',\n')}
+}
+`,
     })
 
     // Add runtime components
@@ -74,13 +110,16 @@ export default defineNuxtModule({
     })
 
     // Add story components
-    await addComponentsDir({
-      path: nuxt.options.srcDir,
-      pattern: storyGlob,
-      pathPrefix: false,
-      prefix: '',
-      global: true,
-    })
+    for (const dir of storyDirectories) {
+      console.log(resolve(nuxt.options.srcDir, dir))
+      await addComponentsDir({
+        path: resolve(nuxt.options.srcDir, dir),
+        pattern: storyGlob,
+        pathPrefix: false,
+        prefix: '',
+        global: true,
+      })
+    }
 
     nuxt.hook('components:extend', async (components) => {
       const storyComponents = components.filter(c =>

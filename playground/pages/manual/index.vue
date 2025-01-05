@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-const { stories, getComponent } = useStory()
+const { stories } = useStory()
 
-const items = computed(() => stories.value.map(story => ({
+const items = computed(() => Object.entries(stories).map(([kebabName, story]) => ({
   label: story.pascalName,
-  value: story.kebabName,
+  value: kebabName,
+  component: story.component,
 })))
 </script>
 
@@ -14,9 +15,7 @@ const items = computed(() => stories.value.map(story => ({
     <p>You can build your own story viewer with the <code>useStory</code> composable.</p>
     <UTabs :items="items">
       <template #content="{ item }">
-        <component
-          :is="getComponent(stories.find(story => story.kebabName === item.value))"
-        />
+        <component :is="item.component" />
       </template>
     </UTabs>
   </UContainer>
