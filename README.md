@@ -61,6 +61,11 @@ Adding this route rule to `./playground/nuxt.config.ts`:
 
 That resulted in a working static build, but it’d be nice to have this as a first class feature for easy deployments, decoupled from the main application.
 
+I think a combination of baseUrl & ignore would do the trick?
+
+https://nuxt.com/docs/api/nuxt-config#baseurl
+
+https://nuxt.com/docs/api/nuxt-config#ignore
 
 ## Features
 
