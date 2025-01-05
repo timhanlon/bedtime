@@ -34,7 +34,6 @@ Inspired by [Histoire](https://histoire.dev/).
 ## Todo
 
 - [ ] Static builds
-- [ ] Configurable story glob
 - [ ] Ensure compatibility with [layers](https://nuxt.com/docs/getting-started/layers)
 - [ ] Improve ergonomics of `useStory`
 - [ ] Tailwind viewer like Histoire
