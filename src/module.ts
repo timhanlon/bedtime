@@ -131,7 +131,7 @@ interface StoriesConfig {
 
 export default defineNuxtModule({
   meta: {
-    name: 'nuxt-stories',
+    name: 'bedtime',
     configKey: 'stories',
     compatibility: {
       nuxt: '^3.0.0',
@@ -146,9 +146,9 @@ export default defineNuxtModule({
     const { storiesRoute, storyGlob, storyDirectories } = options
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
-    const logger = useLogger('nuxt-stories')
+    const logger = useLogger('bedtime')
 
-    logger.info('Setting up nuxt-stories module...')
+    logger.info('Setting up bedtime module...')
 
     // Add the stories layout
     addLayout({
@@ -158,11 +158,11 @@ export default defineNuxtModule({
 
     // Add type declarations
     addTypeTemplate({
-      filename: 'types/nuxt-stories.d.ts',
+      filename: 'types/bedtime.d.ts',
       getContents: () => `
 import type { Component } from 'vue'
 
-declare module '#nuxt-stories' {
+declare module '#bedtime' {
   interface Story {
     kebabName: string
     pascalName: string
@@ -181,14 +181,14 @@ declare module '#nuxt-stories' {
 
     // Check if using Vite
     if (nuxt.options.builder !== '@nuxt/vite-builder') {
-      logger.warn('nuxt-stories does not support non-Vite environments')
+      logger.warn('bedtime does not support non-Vite environments')
     }
 
     // Add runtime directory to Nuxt
     nuxt.options.build.transpile.push(runtimeDir)
 
     // Set up the alias to point to the generated file
-    nuxt.options.alias['#nuxt-stories'] = resolver.resolve(nuxt.options.buildDir, 'stories.mjs')
+    nuxt.options.alias['#bedtime'] = resolver.resolve(nuxt.options.buildDir, 'stories.mjs')
 
     // Add composables directory
     nuxt.hook('imports:dirs', (dirs) => {
@@ -314,6 +314,6 @@ ${stories.map(s => `  '${s.kebabName}': {
       }
     })
 
-    logger.success('Nuxt Stories module setup complete')
+    logger.success('Bedtime module setup complete')
   },
 })

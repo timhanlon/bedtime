@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { stories } from '#nuxt-stories'
+import { stories } from '#bedtime'
 
 interface StoryDetails {
   template: string | null

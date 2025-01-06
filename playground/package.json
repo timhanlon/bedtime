@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "nuxt-stories-playground",
+  "name": "bedtime-playground",
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",

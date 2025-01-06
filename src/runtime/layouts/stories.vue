@@ -30,7 +30,7 @@
 import { computed } from 'vue'
 import type { Story } from '../types'
 import { useRoute } from '#imports'
-import { stories as storyList } from '#nuxt-stories'
+import { stories as storyList } from '#bedtime'
 
 defineOptions({
   name: 'StoriesLayout',

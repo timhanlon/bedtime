@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url'
 import { describe, it, expect } from 'vitest'
 import { setup, $fetch } from '@nuxt/test-utils/e2e'
 
-describe('nuxt-stories module with layers', async () => {
+describe('bedtime module with layers', async () => {
   await setup({
     rootDir: fileURLToPath(new URL('./fixtures/layers/feature-b', import.meta.url)),
     browser: true,

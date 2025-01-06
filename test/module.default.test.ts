@@ -1,15 +1,8 @@
 import { fileURLToPath } from 'node:url'
 import { describe, it, expect } from 'vitest'
 import { setup, $fetch } from '@nuxt/test-utils/e2e'
-import type { StoriesModuleOptions } from '../src/module'
 
-declare module '@nuxt/schema' {
-  interface NuxtConfig {
-    stories?: StoriesModuleOptions
-  }
-}
-
-describe('nuxt-stories module with default config', async () => {
+describe('bedtime module with default config', async () => {
   await setup({
     rootDir: fileURLToPath(new URL('./fixtures/basic', import.meta.url)),
   })

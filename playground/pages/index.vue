@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <h1>Nuxt Stories Playground</h1>
-    <p>Welcome to the Nuxt Stories playground! This demo includes:</p>
+    <h1>Bedtime Playground</h1>
+    <p>Welcome to the Bedtime playground! This demo includes:</p>
     <ul>
       <li>
         <NuxtLink to="/stories">View Component Stories</NuxtLink>

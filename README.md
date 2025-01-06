@@ -2,24 +2,28 @@
 Get your module up and running quickly.
 
 Find and replace all on all files (CMD+SHIFT+F):
-- Name: Nuxt Stories
-- Package name: nuxt-stories
+- Name: Bedtime
+- Package name: bedtime
 - Description: My new Nuxt module
 -->
 
-# Nuxt Stories
+# Bedtime
 
-[![npm version][npm-version-src]][npm-version-href]
+<!-- [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
+[![Nuxt][nuxt-src]][nuxt-href] -->
 
-Nuxt module for creating component stories.
+Bedtime is a Nuxt module for creating component stories.
 
-Inspired by [Histoire](https://histoire.dev/).
+Inspired by [Histoire](https://histoire.dev/)'s excellent Story/Variant components.
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/nuxt-stories?file=playground%2Fapp.vue) -->
+This is work in progress, expect breaking changes ahead of versioned releases.
+
+Check the [playground](https://github.com/timhanlon/bedtime/tree/dev/playground) for a working example.
+
+<!-- - [✨ &nbsp;Release Notes](/CHANGELOG.md) -->
+<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/bedtime?file=playground%2Fapp.vue) -->
 <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Goals
@@ -31,15 +35,23 @@ Inspired by [Histoire](https://histoire.dev/).
 - Ensure compatibility across the Nuxt module ecosystem
 - Escape hatches for complex/unusual use cases
 
+## Features
+
+<!-- Highlight some of the features your module provide here -->
+- Supports Nuxt [layers](https://nuxt.com/docs/getting-started/layers)
+- Supports stories co-located with components or in a dedicated stories directory
+- Copy Story/Variant templates to clipboard for easy implementation
+
 ## Todo
 
+- [ ] Documentation
 - [ ] Static builds
 - [ ] Improve ergonomics of `useStory`
 - [ ] Tailwind viewer like Histoire
 - [ ] Ability to group stories
 - [ ] Component search
 - [ ] Custom layouts/styles for story viewer
-- [ ] Rename to something that isn’t `nuxt-stories`
+- [ ] Rename to something that isn’t `bedtime`
 
 ## Static Build
 
@@ -67,23 +79,15 @@ https://nuxt.com/docs/api/nuxt-config#baseurl
 
 https://nuxt.com/docs/api/nuxt-config#ignore
 
-## Features
-
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
-
-## Quick Setup
+<!-- ## Quick Setup
 
 Install the module to your Nuxt application with one command:
 
 ```bash
-npx nuxi module add nuxt-stories
+npx nuxi module add bedtime
 ```
 
-That's it! You can now use Nuxt Stories in your Nuxt app ✨
-
+That's it! You can now use Bedtime in your Nuxt app ✨ -->
 
 ## Contribution
 
@@ -118,14 +122,14 @@ That's it! You can now use Nuxt Stories in your Nuxt app ✨
 
 
 <!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/nuxt-stories/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/nuxt-stories
+<!-- [npm-version-src]: https://img.shields.io/npm/v/bedtime/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-version-href]: https://npmjs.com/package/bedtime
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-stories.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/nuxt-stories
+[npm-downloads-src]: https://img.shields.io/npm/dm/bedtime.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-downloads-href]: https://npm.chart.dev/bedtime
 
-[license-src]: https://img.shields.io/npm/l/nuxt-stories.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/nuxt-stories
+[license-src]: https://img.shields.io/npm/l/bedtime.svg?style=flat&colorA=020420&colorB=00DC82
+[license-href]: https://npmjs.com/package/bedtime
 
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-[nuxt-href]: https://nuxt.com
+[nuxt-href]: https://nuxt.com -->
