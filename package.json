@@ -30,7 +30,8 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.15.0",
-    "@vue/compiler-sfc": "^3.3.0"
+    "@vue/compiler-sfc": "^3.3.0",
+    "pathe": "^2.0.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.7.0",

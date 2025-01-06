@@ -10,7 +10,7 @@ import {
   addLayout,
 } from '@nuxt/kit'
 import { resolve } from 'pathe'
-import { parse, compileTemplate } from 'vue/compiler-sfc'
+import { parse, compileTemplate } from '@vue/compiler-sfc'
 import type { ElementNode, TemplateChildNode } from '@vue/compiler-core'
 
 // Clean up template indentation
@@ -123,7 +123,7 @@ interface StoryComponent {
   variants?: Record<string, string>
 }
 
-interface StoriesConfig {
+interface BedtimeConfig {
   storiesRoute: string
   storyGlob: string
   storyDirectories: string[]
@@ -141,8 +141,8 @@ export default defineNuxtModule({
     storiesRoute: '/stories',
     storyGlob: '**/*.story.vue',
     storyDirectories: ['./stories', './components'],
-  } as StoriesConfig,
-  async setup(options: StoriesConfig, nuxt) {
+  } as BedtimeConfig,
+  async setup(options: BedtimeConfig, nuxt) {
     const { storiesRoute, storyGlob, storyDirectories } = options
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
@@ -162,17 +162,31 @@ export default defineNuxtModule({
       getContents: () => `
 import type { Component } from 'vue'
 
-declare module '#bedtime' {
-  interface Story {
-    kebabName: string
-    pascalName: string
-    shortPath: string
-    global: boolean
-    component: Component
-    sourceCode?: string
-    variants?: Record<string, string>
+interface BedtimeConfig {
+  storiesRoute: string
+  storyGlob: string
+  storyDirectories: string[]
+}
+
+declare module '@nuxt/types' {
+  interface NuxtOptions {
+    bedtime?: BedtimeConfig
   }
-  type Stories = Record<string, Story>
+}
+
+interface Story {
+  kebabName: string
+  pascalName: string
+  shortPath: string
+  global: boolean
+  component: Component
+  sourceCode?: string
+  variants?: Record<string, string>
+}
+
+type Stories = Record<string, Story>
+
+declare module '#bedtime' {
   const stories: Stories
   export { stories }
 }
