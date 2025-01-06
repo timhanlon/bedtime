@@ -1,14 +1,3 @@
 {
-  "compilerOptions": {
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "target": "esnext",
-    "lib": ["esnext", "dom"],
-    "jsx": "preserve",
-    "types": ["nuxt"]
-  },
-  "include": [
-    "./**/*",
-    "../src/**/*"
-  ]
+  "extends": "./.nuxt/tsconfig.json"
 }

@@ -44,6 +44,9 @@ Check the [playground](https://github.com/timhanlon/bedtime/tree/dev/playground)
 
 ## Todo
 
+- [ ] Fix 'Components directory not found' warning
+- [ ] Fix 'Your project has layouts' warning
+- [ ] Clean up the damn types *sigh*
 - [ ] Documentation
 - [ ] Static builds
 - [ ] Improve ergonomics of `useStory`

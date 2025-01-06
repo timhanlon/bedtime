@@ -1,16 +1,8 @@
-import type { Component } from 'vue'
-import { stories } from '#bedtime'
-
-interface StoryDetails {
-  template: string | null
-  variants: Record<string, string>
-  hasVariants: boolean
-  component: Component
-  pascalName: string
-}
+import type { BedtimeStory, BedtimeStories } from '../../types/module'
+import { stories } from '#build/stories.mjs'
 
 export function useStory() {
-  function getStoryDetails(name: string): StoryDetails | null {
+  function getStoryDetails(name: string): BedtimeStory | null {
     const story = stories[name]
     if (!story) return null
 
@@ -20,6 +12,9 @@ export function useStory() {
       hasVariants: Object.keys(story.variants ?? {}).length > 0,
       component: story.component,
       pascalName: story.pascalName,
+      kebabName: story.kebabName,
+      shortPath: story.shortPath,
+      global: story.global,
     }
   }
 
@@ -52,6 +47,6 @@ export function useStory() {
     getVariantNames,
     getTemplate,
     // Keep stories object for compatibility
-    stories,
+    stories: stories as BedtimeStories,
   }
 }

@@ -28,16 +28,16 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { Story } from '../types'
+import type { BedtimeStory } from '../../types/module'
 import { useRoute } from '#imports'
-import { stories as storyList } from '#bedtime'
+import { stories as storyList } from '#build/stories.mjs'
 
 defineOptions({
   name: 'StoriesLayout',
 })
 
 const route = useRoute()
-const stories = computed<Story[]>(() => Object.values(storyList))
+const stories = computed<BedtimeStory[]>(() => Object.values(storyList))
 const currentStory = computed(() => route.params.slug as string)
 
 function formatStoryName(name: string): string {
