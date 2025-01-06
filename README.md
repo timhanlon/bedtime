@@ -37,7 +37,7 @@ Inspired by [Histoire](https://histoire.dev/).
 - [ ] Improve ergonomics of `useStory`
 - [ ] Tailwind viewer like Histoire
 - [ ] Ability to group stories
-- [ ] “Good enough” default story viewer
+- [ ] Component search
 - [ ] Custom layouts/styles for story viewer
 - [ ] Rename to something that isn’t `nuxt-stories`
 
@@ -48,7 +48,7 @@ I’ve roughly tested this by:
 Adding this script to `./package.json`:
 
 ```
-	"dev:generate": "nuxi generate playground",
+  "dev:generate": "nuxi generate playground",
 ```
 
 Adding this route rule to `./playground/nuxt.config.ts`:
