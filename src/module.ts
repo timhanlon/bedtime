@@ -182,17 +182,8 @@ export {}
 `,
     })
 
-    // Check if using Vite
-    if (nuxt.options.builder !== '@nuxt/vite-builder') {
-      logger.warn('bedtime does not support non-Vite environments')
-    }
-
     // Add runtime directory to Nuxt
     nuxt.options.build.transpile.push(runtimeDir)
-
-    nuxt.options.alias['#bedtime'] = resolver.resolve(nuxt.options.buildDir, 'module/bedtime')
-    // Set up the alias to point to the generated file
-    nuxt.options.alias['#bedtime/stories'] = resolver.resolve(nuxt.options.buildDir, 'stories.mjs')
 
     // Add composables directory
     nuxt.hook('imports:dirs', (dirs) => {
