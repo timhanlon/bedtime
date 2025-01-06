@@ -247,13 +247,17 @@ ${stories.map(s => `  '${s.kebabName}': {
     // Add story components from all layers
     for (const { cwd, directories } of layerStoryDirs) {
       for (const dir of directories) {
-        await addComponentsDir({
-          path: resolve(cwd, dir),
-          pattern: storyGlob,
-          pathPrefix: false,
-          prefix: '',
-          global: true,
-        })
+        // Check if the directory exists
+        const dirPath = resolve(cwd, dir)
+        if (existsSync(dirPath)) {
+          await addComponentsDir({
+            path: dirPath,
+            pattern: storyGlob,
+            pathPrefix: false,
+            prefix: '',
+            global: true,
+          })
+        }
       }
     }
 
