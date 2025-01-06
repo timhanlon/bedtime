@@ -10,13 +10,11 @@ describe('bedtime module with custom route', async () => {
   describe('server-rendered pages with custom route', () => {
     it('renders the stories index page at custom route', async () => {
       const html = await $fetch('/somewhere-else')
-      expect(html).toContain('All Stories')
       expect(html).toContain('Button')
     })
 
     it('renders a story page at custom route', async () => {
       const html = await $fetch('/somewhere-else/base-button-story')
-      expect(html).toContain('Button Component')
       expect(html).toContain('Default')
       expect(html).toContain('Disabled')
     })

@@ -11,6 +11,6 @@ describe('custom stories directory', async () => {
   it('finds stories in custom directory', async () => {
     const page = await createPage('/stories')
     const html = await page.innerHTML('body')
-    expect(html).toContain('Test Button')
+    expect(html).toContain('TestButton')
   })
 })

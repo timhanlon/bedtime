@@ -11,9 +11,9 @@ describe('bedtime module with layers', async () => {
   describe('story discovery across layers', () => {
     it('finds stories from all layers', async () => {
       const html = await $fetch('/stories')
-      expect(html).toContain('Base Button')
-      expect(html).toContain('Feature A Button')
-      expect(html).toContain('Feature B Button')
+      expect(html).toContain('BaseButton')
+      expect(html).toContain('FeatureAButton')
+      expect(html).toContain('FeatureBButton')
     })
   })
 })

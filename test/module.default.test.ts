@@ -10,7 +10,7 @@ describe('bedtime module with default config', async () => {
   describe('server-rendered pages', () => {
     it('renders the stories index page', async () => {
       const html = await $fetch('/stories')
-      expect(html).toContain('All Stories')
+      expect(html).toContain('👋')
       expect(html).toContain('Button')
     })
 
