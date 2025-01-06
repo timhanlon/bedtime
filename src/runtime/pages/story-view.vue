@@ -1,26 +1,26 @@
 <template>
-  <div class="story-page">
-    <nav>
-      <NuxtLink to="/stories">← Back to Stories</NuxtLink>
-    </nav>
-    <div
-      v-if="story"
-      class="story-content"
-    >
-      <component :is="story.component" />
+  <StoriesLayout>
+    <div class="story-page">
+      <div
+        v-if="story"
+        class="story-content"
+      >
+        <component :is="story.component" />
+      </div>
+      <div
+        v-else
+        class="error"
+      >
+        Story not found
+      </div>
     </div>
-    <div
-      v-else
-      class="error"
-    >
-      Story not found
-    </div>
-  </div>
+  </StoriesLayout>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useStory } from '../composables/useStory'
+import StoriesLayout from '../layouts/stories.vue'
 import { useHead, useRoute } from '#imports'
 
 const route = useRoute()
@@ -36,10 +36,6 @@ useHead({
 <style scoped>
 .story-page {
   padding: 1rem;
-}
-
-nav {
-  margin-bottom: 1rem;
 }
 
 .error {

@@ -6,18 +6,17 @@
     <div class="story-content">
       <slot />
     </div>
-    <div
-      v-if="showTemplate && templateContent"
-      class="story-template"
-    >
-      <pre><code>{{ templateContent }}</code></pre>
-    </div>
+    <TemplateView
+      v-if="showTemplate"
+      :content="templateContent"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, provide } from 'vue'
 import { useStory } from '../composables/useStory'
+import TemplateView from './TemplateView.vue'
 import { useRoute } from '#imports'
 
 defineOptions({
@@ -41,15 +40,9 @@ provide('story-slug', storySlug)
 </script>
 
 <style scoped>
-.story-template {
-  margin-top: 2rem;
-  padding: 1rem;
-  background-color: #f8f8f8;
-  border-radius: 4px;
-}
-
-.story-template pre {
-  margin: 0;
-  white-space: pre-wrap;
+.story-content {
+  & > * + * {
+    margin-top: 1rem; /* aldi space-y-4 */
+  }
 }
 </style>

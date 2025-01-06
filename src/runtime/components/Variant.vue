@@ -1,21 +1,22 @@
 <template>
   <div class="variant">
-    <h2>{{ name }}</h2>
+    <h2 class="variant-title">
+      {{ name }}
+    </h2>
     <div class="variant-content">
       <slot />
     </div>
-    <div
-      v-if="showTemplate && variantTemplateCode"
-      class="variant-template"
-    >
-      <pre><code>{{ variantTemplateCode }}</code></pre>
-    </div>
+    <TemplateView
+      v-if="showTemplate"
+      :content="variantTemplateCode"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { useStory } from '../composables/useStory'
+import TemplateView from './TemplateView.vue'
 
 defineOptions({
   name: 'StoryVariant',
@@ -36,15 +37,13 @@ const variantTemplateCode = computed(() =>
 </script>
 
 <style scoped>
-.variant-template {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #f8f8f8;
-  border-radius: 4px;
+.variant-title {
+  font-size: 14pt;
+  font-weight: 500;
+  letter-spacing: -0.02em;
 }
 
-.variant-template pre {
-  margin: 0;
-  white-space: pre-wrap;
+.variant-content {
+  margin: 0.5rem 0;
 }
 </style>
