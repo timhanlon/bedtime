@@ -7,7 +7,6 @@ import {
   updateTemplates,
   useLogger,
   addTypeTemplate,
-  addLayout,
 } from '@nuxt/kit'
 import { resolve } from 'pathe'
 import { parse, compileTemplate } from '@vue/compiler-sfc'
@@ -149,12 +148,6 @@ export default defineNuxtModule({
     const logger = useLogger('bedtime')
 
     logger.info('Setting up bedtime module...')
-
-    // Add the stories layout
-    addLayout({
-      src: resolver.resolve(runtimeDir, 'layouts/stories.vue'),
-      filename: 'stories.vue',
-    })
 
     // Add type declarations
     addTypeTemplate({
