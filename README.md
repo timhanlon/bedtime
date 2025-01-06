@@ -51,7 +51,6 @@ Check the [playground](https://github.com/timhanlon/bedtime/tree/dev/playground)
 - [ ] Ability to group stories
 - [ ] Component search
 - [ ] Custom layouts/styles for story viewer
-- [ ] Rename to something that isn’t `bedtime`
 
 ## Static Build
 
