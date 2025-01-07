@@ -60,6 +60,23 @@ describe('template extraction', () => {
   })
 
   describe('story with variants', () => {
+    it('should preserve indentation in variants', () => {
+      const template = `
+        <Story>
+          <Variant title="default">
+            <div>
+              <p>Hello</p>
+            </div>
+          </Variant>
+        </Story>
+      `
+
+      const { variants } = extractStoryContent(template, 'test.vue', 'test') as { variants: Record<string, string> }
+      expect(variants.default).toBe(`            <div>
+              <p>Hello</p>
+            </div>`)
+    })
+
     it('should extract v-for template correctly', () => {
       const template = `
         <Story>
