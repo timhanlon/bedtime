@@ -93,11 +93,13 @@ describe('template extraction', () => {
       `
 
       const result = extractStoryContent(template, 'test.vue', 'test')
-      expect(result.template).toContain('v-for="variant in variants"')
-      expect(result.template).toContain(':key="variant"')
-      expect(result.template).toContain('class="mb-2"')
-      expect(result.template).toContain(':label="`${variant} button`"')
-      expect(Object.keys(result.variants)).toHaveLength(0)
+      expect(result.template).toBeNull()
+      const variants = result.variants as Record<string, string>
+      expect(variants.variant).toContain('v-for="variant in variants"')
+      expect(variants.variant).toContain(':key="variant"')
+      expect(variants.variant).toContain('class="mb-2"')
+      expect(variants.variant).toContain(':label="`${variant} button`"')
+      expect(Object.keys(result.variants)).toHaveLength(1)
     })
 
     it('should extract variants correctly', () => {
