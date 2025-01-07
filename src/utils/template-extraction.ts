@@ -2,24 +2,6 @@ import { compileTemplate } from '@vue/compiler-sfc'
 import type { ElementNode, TemplateChildNode } from '@vue/compiler-core'
 
 /**
- * Clean up template indentation
- */
-export function cleanTemplate(template: string) {
-  const lines = template
-    .split('\n')
-    .map(line => line.trim())
-    .filter(Boolean)
-
-  // If it's a single line, return as is
-  if (lines.length === 1) return lines[0]
-
-  // For multiline, add proper indentation
-  return lines[0] + '\n'
-    + lines.slice(1, -1).map(line => '  ' + line).join('\n') + '\n'
-    + lines[lines.length - 1]
-}
-
-/**
  * Extract content from a variant node
  */
 export function extractVariantContent(variantNode: ElementNode, _template: string) {
@@ -94,7 +76,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
       .join('\n')
 
     return {
-      template: content ? cleanTemplate(content) : '',
+      template: content || '',
       variants: {},
     }
   }
@@ -107,7 +89,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
   // Store variant templates
   const variants: Record<string, string> = {}
   processedVariants.forEach(({ title, content }) => {
-    variants[title] = cleanTemplate(content)
+    variants[title] = content
   })
 
   return { template: null, variants }
