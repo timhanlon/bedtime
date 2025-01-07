@@ -1,9 +1,9 @@
 <template>
   <Story title="Button Component">
-    <Variant name="Default">
+    <Variant title="Default">
       <button>Click me</button>
     </Variant>
-    <Variant name="Disabled">
+    <Variant title="Disabled">
       <button disabled>
         Click me
       </button>

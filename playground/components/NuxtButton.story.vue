@@ -1,10 +1,10 @@
 <template>
   <Story>
-    <Variant name="Default">
+    <Variant title="Default">
       <UButton>Button</UButton>
     </Variant>
 
-    <Variant name="Class Overrides">
+    <Variant title="Class Overrides">
       <UButton class="font-bold rounded-full">
         Button
       </UButton>

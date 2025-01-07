@@ -1,6 +1,6 @@
 <template>
   <Story title="Feature A Button">
-    <Variant name="Default">
+    <Variant title="Default">
       <button>Feature A Button</button>
     </Variant>
   </Story>

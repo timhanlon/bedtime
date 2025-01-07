@@ -32,10 +32,10 @@ function cleanTemplate(template: string) {
 function extractVariantContent(variantNode: ElementNode, template: string) {
   if (!variantNode.children) return null
 
-  // Get the name prop
-  const props = variantNode.props?.find(p => p.name === 'name')
-  const name = props?.type === 6 ? props.value?.content || '' : ''
-  if (!name) return null
+  // Get the title prop
+  const props = variantNode.props?.find(p => p.name === 'title')
+  const title = props?.type === 6 ? props.value?.content || '' : ''
+  if (!title) return null
 
   // Get the slot content
   const content = variantNode.children
@@ -49,7 +49,7 @@ function extractVariantContent(variantNode: ElementNode, template: string) {
     .filter(Boolean)
     .join('\n')
 
-  return { name, content }
+  return { title, content }
 }
 
 // Extract story content from template
@@ -101,12 +101,12 @@ function extractStoryContent(template: string, filename: string, id: string) {
   // Process variants
   const processedVariants = variantNodes
     .map(node => extractVariantContent(node, template))
-    .filter((v): v is { name: string, content: string } => v !== null)
+    .filter((v): v is { title: string, content: string } => v !== null)
 
   // Store variant templates
   const variants: Record<string, string> = {}
-  processedVariants.forEach(({ name, content }) => {
-    variants[name] = cleanTemplate(content)
+  processedVariants.forEach(({ title, content }) => {
+    variants[title] = cleanTemplate(content)
   })
 
   return { template: null, variants }
