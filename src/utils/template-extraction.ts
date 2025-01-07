@@ -16,6 +16,9 @@ export function extractVariantContent(variantNode: ElementNode, _template: strin
   const content = variantNode.children
     .filter((child): child is TemplateChildNode => child.type !== 3) // Skip whitespace nodes
     .map((child) => {
+      if ('codegenNode' in child && child.codegenNode?.loc?.source) {
+        return child.codegenNode.loc.source.trim()
+      }
       if ('loc' in child && child.loc?.source) {
         return child.loc.source.trim()
       }
@@ -59,10 +62,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
   // If no variants, return the story content as template
   if (variantNodes.length === 0) {
     const content = storyNode.children
-      .filter((child): child is ElementNode => {
-        // Include element nodes, v-for nodes, and v-if nodes
-        return (child.type === 1 && 'tag' in child) || child.type === 11 || child.type === 9
-      })
+      .filter((child): child is TemplateChildNode => child.type !== 3) // Skip whitespace nodes
       .map((child) => {
         if ('codegenNode' in child && child.codegenNode?.loc?.source) {
           return child.codegenNode.loc.source.trim()
@@ -85,6 +85,14 @@ export function extractStoryContent(template: string, filename: string, id: stri
   const processedVariants = variantNodes
     .map(node => extractVariantContent(node, template))
     .filter((v): v is { title: string, content: string } => v !== null)
+
+  // If there's only one variant, return its content as the template
+  if (processedVariants.length === 1) {
+    return {
+      template: processedVariants[0].content,
+      variants: {},
+    }
+  }
 
   // Store variant templates
   const variants: Record<string, string> = {}

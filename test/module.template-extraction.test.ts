@@ -60,6 +60,29 @@ describe('template extraction', () => {
   })
 
   describe('story with variants', () => {
+    it('should extract v-for template correctly', () => {
+      const template = `
+        <Story>
+          <Variant title="variant">
+            <div v-for="variant in variants" :key="variant" class="mb-2">
+              <UiButton
+                :variant="variant"
+                :label="\`\${variant} button\`"
+                icon="i-heroicons-cog-6-tooth"
+              />
+            </div>
+          </Variant>
+        </Story>
+      `
+
+      const result = extractStoryContent(template, 'test.vue', 'test')
+      expect(result.template).toContain('v-for="variant in variants"')
+      expect(result.template).toContain(':key="variant"')
+      expect(result.template).toContain('class="mb-2"')
+      expect(result.template).toContain(':label="`${variant} button`"')
+      expect(Object.keys(result.variants)).toHaveLength(0)
+    })
+
     it('should extract variants correctly', () => {
       const template = `
         <Story>
