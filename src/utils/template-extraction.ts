@@ -106,18 +106,6 @@ export function extractStoryContent(template: string, filename: string, id: stri
     .map(node => extractVariantContent(node, template))
     .filter((v): v is { title: string, content: string } => v !== null)
 
-  // If there's only one variant, return its content as the template
-  if (processedVariants.length === 1) {
-    // Store the variant content in variants as well
-    const variant = processedVariants[0]
-    const variants: Record<string, string> = {}
-    variants[variant.title] = variant.content
-    return {
-      template: variant.content,
-      variants,
-    }
-  }
-
   // Store variant templates
   const variants: Record<string, string> = {}
   processedVariants.forEach(({ title, content }) => {
