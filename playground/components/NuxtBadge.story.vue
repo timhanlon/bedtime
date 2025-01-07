@@ -1,10 +1,10 @@
 <template>
   <Story>
-    <Variant name="Default">
+    <Variant title="Default">
       <UBadge>Badge</UBadge>
     </Variant>
 
-    <Variant name="Class Overrides">
+    <Variant title="Class Overrides">
       <UBadge class="font-bold rounded-full">
         Badge
       </UBadge>

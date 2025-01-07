@@ -1,7 +1,7 @@
 <template>
   <div class="variant">
     <h2 class="variant-title">
-      {{ name }}
+      {{ title }}
     </h2>
     <div class="variant-content">
       <slot />
@@ -23,7 +23,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<{
-  name: string
+  title: string
   showTemplate?: boolean
 }>(), {
   showTemplate: true,
@@ -32,7 +32,7 @@ const props = withDefaults(defineProps<{
 const storySlug = inject<string | undefined>('story-slug')
 const { getTemplate } = useStory()
 const variantTemplateCode = computed(() =>
-  storySlug ? getTemplate(storySlug, props.name) : null,
+  storySlug ? getTemplate(storySlug, props.title) : null,
 )
 </script>
 
