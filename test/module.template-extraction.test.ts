@@ -20,7 +20,6 @@ describe('template extraction', () => {
       `
 
       const result = extractStoryContent(template, 'test.vue', 'test')
-      console.log('Template content:', result.template)
       expect(result.template).toContain('v-for="size in sizes"')
       expect(result.template).toContain(':key="size"')
       expect(result.template).toContain('class="mb-2"')
