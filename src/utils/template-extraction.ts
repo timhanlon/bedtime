@@ -1,6 +1,15 @@
 import { compileTemplate } from '@vue/compiler-sfc'
 import type { ElementNode, TemplateChildNode } from '@vue/compiler-core'
 
+/**
+ * Get the leading whitespace from a line in the template.
+ * The Vue compiler provides 1-indexed line numbers in loc.start.line,
+ * so we convert to 0-indexed for array access.
+ *
+ * @param template - The full template source
+ * @param startLine - The 1-indexed line number to get indentation from
+ * @returns The whitespace string from the start of the line
+ */
 function getIndentFromTemplate(template: string, startLine: number): string {
   const lines = template.split('\n')
   if (startLine <= 0 || startLine >= lines.length) return ''
@@ -43,8 +52,8 @@ export function extractVariantContent(variantNode: ElementNode, template: string
     .join('')
 
   // Get indentation from template
-  if ('loc' in variantNode) {
-    const indent = getIndentFromTemplate(template, variantNode.loc.start.line + 1)
+  if ('loc' in variantNode && variantNode.children?.[0] && 'loc' in variantNode.children[0]) {
+    const indent = getIndentFromTemplate(template, variantNode.children[0].loc.start.line)
     return { title, content: indent + content }
   }
 
@@ -88,7 +97,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
 
     // Add indentation based on the story's position
     if ('loc' in storyNode) {
-      const indent = getIndentFromTemplate(template, storyNode.loc.start.line + 1)
+      const indent = getIndentFromTemplate(template, storyNode.loc.start.line)
       return {
         template: indent + content,
         variants: {},
