@@ -3,6 +3,21 @@ import { extractStoryContent } from '../src/utils/template-extraction'
 
 describe('template extraction', () => {
   describe('story without variants', () => {
+    it('should preserve indentation in story content', () => {
+      const source = `
+        <Story>
+          <div>
+            <p>Hello</p>
+          </div>
+        </Story>
+      `
+
+      const { template } = extractStoryContent(source, 'test.vue', 'test')
+      expect(template).toBe(`          <div>
+            <p>Hello</p>
+          </div>`)
+    })
+
     it('should extract v-for template correctly', () => {
       const template = `
         <Story>

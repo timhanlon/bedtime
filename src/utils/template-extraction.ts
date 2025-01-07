@@ -95,9 +95,9 @@ export function extractStoryContent(template: string, filename: string, id: stri
       .map(child => extractNodeContent(child, template))
       .join('')
 
-    // Add indentation based on the story's position
-    if ('loc' in storyNode) {
-      const indent = getIndentFromTemplate(template, storyNode.loc.start.line)
+    // Add indentation based on the content's position
+    if ('loc' in storyNode && storyNode.children?.[0] && 'loc' in storyNode.children[0]) {
+      const indent = getIndentFromTemplate(template, storyNode.children[0].loc.start.line)
       return {
         template: indent + content,
         variants: {},
