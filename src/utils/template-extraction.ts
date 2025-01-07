@@ -78,8 +78,8 @@ export function extractStoryContent(template: string, filename: string, id: stri
   if (variantNodes.length === 0) {
     const content = storyNode.children
       .filter((child): child is ElementNode => {
-        // Include both element nodes and v-for nodes
-        return (child.type === 1 && 'tag' in child) || child.type === 11
+        // Include element nodes, v-for nodes, and v-if nodes
+        return (child.type === 1 && 'tag' in child) || child.type === 11 || child.type === 9
       })
       .map((child) => {
         if ('codegenNode' in child && child.codegenNode?.loc?.source) {

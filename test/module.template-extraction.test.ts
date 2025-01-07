@@ -28,6 +28,29 @@ describe('template extraction', () => {
       expect(Object.keys(result.variants)).toHaveLength(0)
     })
 
+    it('should extract v-if template correctly', () => {
+      const template = `
+        <Story>
+          <div
+            v-if="showBadge"
+            class="badge-wrapper"
+          >
+            <UBadge
+              label="Conditional Badge"
+              color="primary"
+            />
+          </div>
+        </Story>
+      `
+
+      const result = extractStoryContent(template, 'test.vue', 'test')
+      expect(result.template).toContain('v-if="showBadge"')
+      expect(result.template).toContain('class="badge-wrapper"')
+      expect(result.template).toContain('label="Conditional Badge"')
+      expect(result.template).toContain('color="primary"')
+      expect(Object.keys(result.variants)).toHaveLength(0)
+    })
+
     it('should handle empty story', () => {
       const template = '<Story></Story>'
       const result = extractStoryContent(template, 'test.vue', 'test')
