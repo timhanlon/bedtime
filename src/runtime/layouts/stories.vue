@@ -37,7 +37,7 @@ defineOptions({
 })
 
 const route = useRoute()
-const stories = computed<BedtimeStory[]>(() => Object.values(storyList))
+const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
 const currentStory = computed(() => route.params.slug as string)
 
 function formatStoryName(name: string): string {
