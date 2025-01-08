@@ -49,6 +49,7 @@ export default defineNuxtConfig({
   modules: ['nuxt-bedtime'],
 
   bedtime: { // optional config, with defaults shown below
+    enabled: true,
     stories: {
       directories: ['./stories', './components'],
       glob: '**/*.story.vue',

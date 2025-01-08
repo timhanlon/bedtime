@@ -23,6 +23,7 @@ interface StoryComponent {
 }
 
 interface BedtimeConfig {
+  enabled: boolean
   stories: {
     directories: string[]
     glob: string
@@ -32,7 +33,7 @@ interface BedtimeConfig {
   }
 }
 
-export default defineNuxtModule({
+export default defineNuxtModule<BedtimeConfig>({
   meta: {
     name: 'bedtime',
     configKey: 'bedtime',
@@ -41,6 +42,7 @@ export default defineNuxtModule({
     },
   },
   defaults: {
+    enabled: true,
     stories: {
       directories: ['./stories', './components'],
       glob: '**/*.story.vue',
@@ -48,9 +50,14 @@ export default defineNuxtModule({
     viewer: {
       route: '/stories',
     },
-  } as BedtimeConfig,
-  async setup(options: BedtimeConfig, nuxt) {
-    const { stories: { glob: storyGlob, directories: storyDirectories }, viewer: { route: storyViewerRoute } } = options
+  },
+  async setup(options, nuxt) {
+    if (!options.enabled) {
+      return
+    }
+
+    const { stories: { glob: storyGlob, directories: storyDirectories }, viewer: { route: storyViewerRoute } } = config
+
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
     const logger = useLogger('bedtime')
@@ -71,6 +78,7 @@ export interface BedtimeConfig {
     glob: string
   }
   viewer: {
+    enabled: boolean
     route: string
   }
 }
@@ -79,7 +87,7 @@ export { BedtimeStory, BedtimeStories }
 
 declare module '@nuxt/types' {
   interface NuxtOptions {
-    bedtime?: BedtimeConfig
+    bedtime?: Partial<BedtimeConfig>
   }
 }
 
