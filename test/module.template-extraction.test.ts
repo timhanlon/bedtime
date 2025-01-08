@@ -3,6 +3,21 @@ import { extractStoryContent } from '../src/utils/template-extraction'
 
 describe('template extraction', () => {
   describe('story without variants', () => {
+    it('should preserve indentation in story content', () => {
+      const source = `
+        <Story>
+          <div>
+            <p>Hello</p>
+          </div>
+        </Story>
+      `
+
+      const { template } = extractStoryContent(source, 'test.vue', 'test')
+      expect(template).toBe(`          <div>
+            <p>Hello</p>
+          </div>`)
+    })
+
     it('should extract v-for template correctly', () => {
       const template = `
         <Story>
@@ -60,6 +75,23 @@ describe('template extraction', () => {
   })
 
   describe('story with variants', () => {
+    it('should preserve indentation in variants', () => {
+      const template = `
+        <Story>
+          <Variant title="default">
+            <div>
+              <p>Hello</p>
+            </div>
+          </Variant>
+        </Story>
+      `
+
+      const { variants } = extractStoryContent(template, 'test.vue', 'test') as { variants: Record<string, string> }
+      expect(variants.default).toBe(`            <div>
+              <p>Hello</p>
+            </div>`)
+    })
+
     it('should extract v-for template correctly', () => {
       const template = `
         <Story>
@@ -76,11 +108,13 @@ describe('template extraction', () => {
       `
 
       const result = extractStoryContent(template, 'test.vue', 'test')
-      expect(result.template).toContain('v-for="variant in variants"')
-      expect(result.template).toContain(':key="variant"')
-      expect(result.template).toContain('class="mb-2"')
-      expect(result.template).toContain(':label="`${variant} button`"')
-      expect(Object.keys(result.variants)).toHaveLength(0)
+      expect(result.template).toBeNull()
+      const variants = result.variants as Record<string, string>
+      expect(variants.variant).toContain('v-for="variant in variants"')
+      expect(variants.variant).toContain(':key="variant"')
+      expect(variants.variant).toContain('class="mb-2"')
+      expect(variants.variant).toContain(':label="`${variant} button`"')
+      expect(Object.keys(result.variants)).toHaveLength(1)
     })
 
     it('should extract variants correctly', () => {
