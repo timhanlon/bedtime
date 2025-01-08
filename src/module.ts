@@ -56,7 +56,7 @@ export default defineNuxtModule<BedtimeConfig>({
       return
     }
 
-    const { stories: { glob: storyGlob, directories: storyDirectories }, viewer: { route: storyViewerRoute } } = config
+    const { stories: { glob: storyGlob, directories: storyDirectories }, viewer: { route: storyViewerRoute } } = options
 
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
