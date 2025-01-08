@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v0.0.3
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.2...v0.0.3)
+
+### 🩹 Fixes
+
+- Playground @nuxt/ui dependency ([1cfb6fc](https://github.com/timhanlon/bedtime/commit/1cfb6fc))
+- Playwright in github ci ([#5](https://github.com/timhanlon/bedtime/pull/5))
+
+### ❤️ Contributors
+
+- Timhanlon <tim@timhanlon.com>
+- Tim Hanlon <tim@timhanlon.com>
+
 ## v0.0.2
 
 
