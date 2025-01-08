@@ -49,17 +49,16 @@ function formatStoryName(name: string): string {
 
 <style scoped>
 .stories-layout {
-  min-height: 100vh;
-  max-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
 .stories-container {
-  flex: 1;
   display: flex;
-  overflow: hidden;
+  flex: 1;
+  min-height: 0;
 }
 
 .stories-sidebar {
@@ -103,6 +102,7 @@ function formatStoryName(name: string): string {
 .stories-main {
   flex: 1;
   overflow-y: auto;
-  height: 100%;
+  padding: 1rem;
+  min-height: 0;
 }
 </style>
