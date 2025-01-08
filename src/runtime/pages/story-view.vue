@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useStory } from '../composables/useStory'
 import StoriesLayout from '../layouts/stories.vue'
 import { useHead, useRoute } from '#imports'
@@ -26,10 +25,10 @@ import { useHead, useRoute } from '#imports'
 const route = useRoute()
 const { stories } = useStory()
 
-const story = computed(() => stories[route.params.slug as string])
+const story = stories[route.params.slug as string]
 
 useHead({
-  title: story.value?.pascalName,
+  title: story ? story.pascalName : 'Story Not Found',
 })
 </script>
 
