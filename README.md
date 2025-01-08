@@ -3,7 +3,7 @@ Get your module up and running quickly.
 
 Find and replace all on all files (CMD+SHIFT+F):
 - Name: Bedtime
-- Package name: bedtime
+- Package name: nuxt-bedtime
 - Description: My new Nuxt module
 -->
 
@@ -23,7 +23,7 @@ This is work in progress, expect breaking changes ahead of versioned releases.
 Check the [playground](https://github.com/timhanlon/bedtime/tree/dev/playground) for a working example.
 
 <!-- - [✨ &nbsp;Release Notes](/CHANGELOG.md) -->
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/bedtime?file=playground%2Fapp.vue) -->
+<!-- - [🏀 Online playground](https://stackblitz.com/github/timhanlon/bedtime?file=playground%2Fapp.vue) -->
 <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Goals
@@ -37,50 +37,28 @@ Check the [playground](https://github.com/timhanlon/bedtime/tree/dev/playground)
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
 - Supports Nuxt [layers](https://nuxt.com/docs/getting-started/layers)
 - Supports stories co-located with components or in a dedicated stories directory
 - Copy Story/Variant templates to clipboard for easy implementation
 
-## Todo
-
-- [ ] Fix 'Components directory not found' warning
-- [ ] Fix 'Your project has layouts' warning
-- [ ] Clean up the damn types *sigh*
-- [ ] Documentation
-- [ ] Static builds
-- [ ] Improve ergonomics of `useStory`
-- [ ] Tailwind viewer like Histoire
-- [ ] Ability to group stories
-- [ ] Component search
-- [ ] Custom layouts/styles for story viewer
-- [ ] npm / pkg.pr.new
-
-## Static Build
-
-I’ve roughly tested this by:
-
-Adding this script to `./package.json`:
+## Usage
 
 ```
-  "dev:generate": "nuxi generate playground",
+// `nuxt.config.ts`
+export default defineNuxtConfig({
+  modules: ['nuxt-bedtime'],
+
+  bedtime: { // optional config, with defaults shown below
+    stories: {
+      directories: ['./stories', './components'],
+      glob: '**/*.story.vue',
+    },
+    viewer: {
+      route: '/stories',
+    },
+  }
+})
 ```
-
-Adding this route rule to `./playground/nuxt.config.ts`:
-
-```
-  routeRules: {
-    '/stories/**': { static: true },
-  },
-```
-
-That resulted in a working static build, but it’d be nice to have this as a first class feature for easy deployments, decoupled from the main application.
-
-I think a combination of baseUrl & ignore would do the trick?
-
-https://nuxt.com/docs/api/nuxt-config#baseurl
-
-https://nuxt.com/docs/api/nuxt-config#ignore
 
 <!-- ## Quick Setup
 
@@ -125,14 +103,14 @@ That's it! You can now use Bedtime in your Nuxt app ✨ -->
 
 
 <!-- Badges -->
-<!-- [npm-version-src]: https://img.shields.io/npm/v/bedtime/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/bedtime
+<!-- [npm-version-src]: https://img.shields.io/npm/v/nuxt-bedtime/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-version-href]: https://npmjs.com/package/nuxt-bedtime
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/bedtime.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/bedtime
+[npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-bedtime.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-downloads-href]: https://npm.chart.dev/nuxt-bedtime
 
-[license-src]: https://img.shields.io/npm/l/bedtime.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/bedtime
+[license-src]: https://img.shields.io/npm/l/nuxt-bedtime.svg?style=flat&colorA=020420&colorB=00DC82
+[license-href]: https://npmjs.com/package/nuxt-bedtime
 
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
 [nuxt-href]: https://nuxt.com -->
