@@ -23,26 +23,34 @@ interface StoryComponent {
 }
 
 interface BedtimeConfig {
-  storiesRoute: string
-  storyGlob: string
-  storyDirectories: string[]
+  stories: {
+    directories: string[]
+    glob: string
+  }
+  viewer: {
+    route: string
+  }
 }
 
 export default defineNuxtModule({
   meta: {
     name: 'bedtime',
-    configKey: 'stories',
+    configKey: 'bedtime',
     compatibility: {
       nuxt: '^3.0.0',
     },
   },
   defaults: {
-    storiesRoute: '/stories',
-    storyGlob: '**/*.story.vue',
-    storyDirectories: ['./stories', './components'],
+    stories: {
+      directories: ['./stories', './components'],
+      glob: '**/*.story.vue',
+    },
+    viewer: {
+      route: '/stories',
+    },
   } as BedtimeConfig,
   async setup(options: BedtimeConfig, nuxt) {
-    const { storiesRoute, storyGlob, storyDirectories } = options
+    const { stories: { glob: storyGlob, directories: storyDirectories }, viewer: { route: storyViewerRoute } } = options
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
     const logger = useLogger('bedtime')
@@ -58,9 +66,13 @@ import type { Component } from 'vue'
 import type { BedtimeStory, BedtimeStories } from '${resolve('src/types/module.ts')}'
 
 export interface BedtimeConfig {
-  storiesRoute: string
-  storyGlob: string
-  storyDirectories: string[]
+  stories: {
+    directories: string[]
+    glob: string
+  }
+  viewer: {
+    route: string
+  }
 }
 
 export { BedtimeStory, BedtimeStories }
@@ -192,7 +204,7 @@ ${stories.map(s => `  '${s.kebabName}': {
       if (!pages.some(page => page.name === 'stories-index')) {
         pages.push({
           name: 'stories-index',
-          path: storiesRoute,
+          path: storyViewerRoute,
           file: resolver.resolve('./runtime/pages/stories-index.vue'),
         })
       }
@@ -200,7 +212,7 @@ ${stories.map(s => `  '${s.kebabName}': {
       if (!pages.some(page => page.name === 'stories-slug')) {
         pages.push({
           name: 'stories-slug',
-          path: `${storiesRoute}/:slug`,
+          path: `${storyViewerRoute}/:slug`,
           file: resolver.resolve('./runtime/pages/story-view.vue'),
         })
       }
