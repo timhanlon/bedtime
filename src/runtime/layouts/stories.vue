@@ -1,7 +1,10 @@
 <template>
   <div class="stories-layout">
     <div class="stories-container">
-      <aside class="stories-sidebar">
+      <aside
+        ref="sidebarRef"
+        class="stories-sidebar"
+      >
         <nav>
           <ul>
             <li
@@ -27,9 +30,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUpdated } from 'vue'
 import type { BedtimeStory } from '../../types/module'
-import { useRoute } from '#imports'
+import type { RouteLocationNormalized } from '#vue-router'
+import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
 
 defineOptions({
@@ -37,8 +41,35 @@ defineOptions({
 })
 
 const route = useRoute()
+const sidebarRef = ref<HTMLElement>()
 const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
 const currentStory = computed(() => route.params.slug as string)
+
+// This scroll position state stuff shouldn't be necessary
+// Maybe it's the fact that this isn't _really_ a Nuxt layout
+const lastScrollTop = useState<number>('bedtime-sidebar-scroll-top', () => 0)
+const saveScrollPosition = () => {
+  if (sidebarRef.value) {
+    lastScrollTop.value = sidebarRef.value.scrollTop
+  }
+}
+const restoreScrollPosition = () => {
+  if (sidebarRef.value) {
+    sidebarRef.value.scrollTop = lastScrollTop.value
+  }
+}
+onBeforeRouteLeave((_to: RouteLocationNormalized, _from: RouteLocationNormalized) => {
+  saveScrollPosition()
+})
+onBeforeRouteUpdate((_to: RouteLocationNormalized, _from: RouteLocationNormalized) => {
+  saveScrollPosition()
+})
+onMounted(() => {
+  restoreScrollPosition()
+})
+onUpdated(() => {
+  restoreScrollPosition()
+})
 
 function formatStoryName(name: string): string {
   return name
