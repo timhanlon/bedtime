@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: npx nypm@latest i
 
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Playground prepare
         run: npm run dev:prepare
 
