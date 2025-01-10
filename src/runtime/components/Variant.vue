@@ -71,8 +71,6 @@ const variantTemplateCode = computed(() =>
 }
 
 .variant-content {
-  & > * + * {
-    margin-top: 1rem;
-  }
+  margin: var(--variant-content-margin);
 }
 </style>

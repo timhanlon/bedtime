@@ -1,6 +1,6 @@
 <template>
   <div
-    class="story"
+    class="story-container"
     :class="storyStyles.container"
   >
     <slot name="title">
@@ -62,6 +62,10 @@ provide('story-slug', storySlug)
 </script>
 
 <style scoped>
+.story-container {
+  padding: var(--story-container-padding);
+}
+
 .story-title {
   font-size: var(--story-title-font-size);
   font-weight: var(--story-title-font-weight);
@@ -70,8 +74,12 @@ provide('story-slug', storySlug)
 }
 
 .story-content {
+  margin: var(--story-content-margin);
+  display: var(--story-content-display);
+  gap: var(--story-content-gap);
+  grid-template-columns: var(--story-content-grid-template-columns);
   & > * + * {
-    margin-top: 1rem;
+    margin-top: var(--story-content-gap);
   }
 }
 </style>
