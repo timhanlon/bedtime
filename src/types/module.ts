@@ -26,14 +26,14 @@ export interface StoryClasses {
   }
 }
 
-export interface BedtimeConfig {
-  enabled?: boolean
-  stories?: {
-    directories?: string[]
-    glob?: string
+export interface BedtimeModuleOptions {
+  enabled: boolean
+  stories: {
+    directories: string[]
+    glob: string
   }
-  viewer?: {
-    route?: string
+  viewer: {
+    route: string
   }
-  classes?: StoryClasses
+  classes: StoryClasses
 }
