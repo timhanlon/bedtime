@@ -3,7 +3,7 @@ import { extractStoryContent } from '../src/utils/template-extraction'
 
 describe('template extraction', () => {
   describe('story without variants', () => {
-    it('should preserve indentation in story content', () => {
+    it('should normalize indentation in story content', () => {
       const source = `
         <Story>
           <div>
@@ -13,9 +13,9 @@ describe('template extraction', () => {
       `
 
       const { template } = extractStoryContent(source, 'test.vue', 'test')
-      expect(template).toBe(`          <div>
-            <p>Hello</p>
-          </div>`)
+      expect(template).toBe(`<div>
+  <p>Hello</p>
+</div>`)
     })
 
     it('should extract v-for template correctly', () => {
@@ -75,7 +75,7 @@ describe('template extraction', () => {
   })
 
   describe('story with variants', () => {
-    it('should preserve indentation in variants', () => {
+    it('should normalize indentation in variants', () => {
       const template = `
         <Story>
           <Variant title="default">
@@ -87,9 +87,9 @@ describe('template extraction', () => {
       `
 
       const { variants } = extractStoryContent(template, 'test.vue', 'test') as { variants: Record<string, string> }
-      expect(variants.default).toBe(`            <div>
-              <p>Hello</p>
-            </div>`)
+      expect(variants.default).toBe(`<div>
+  <p>Hello</p>
+</div>`)
     })
 
     it('should extract v-for template correctly', () => {
