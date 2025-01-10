@@ -32,7 +32,7 @@ interface BedtimeConfig {
   viewer: {
     route: string
   }
-  styles: {
+  classes: {
     story: {
       container: string
       header: string
@@ -63,7 +63,7 @@ export default defineNuxtModule<BedtimeConfig>({
     viewer: {
       route: '/stories',
     },
-    styles: {
+    classes: {
       story: {
         container: '',
         header: '',
@@ -256,9 +256,9 @@ ${stories.map(s => `  '${s.kebabName}': {
 
     // Add runtime config
     nuxt.options.runtimeConfig.public.bedtime = defu(
-      nuxt.options.runtimeConfig.public.bedtime,
-      { styles: options.styles },
-    )
+      nuxt.options.runtimeConfig.public.bedtime || {},
+      options,
+    ) as BedtimeConfig
 
     logger.success('Bedtime module setup complete')
   },
