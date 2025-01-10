@@ -3,14 +3,14 @@
     class="story"
     :class="storyStyles.container"
   >
-    <slot name="header">
-      <h1
+    <slot name="title">
+      <h2
         v-if="title"
-        class="story-header"
-        :class="storyStyles.header"
+        class="story-title"
+        :class="storyStyles.title"
       >
         {{ title }}
-      </h1>
+      </h2>
     </slot>
     <div
       class="story-content"
@@ -18,12 +18,17 @@
     >
       <slot />
     </div>
-    <slot name="footer">
-      <TemplateView
-        v-if="showTemplate"
-        :content="templateContent"
-      />
-    </slot>
+    <div
+      class="story-template"
+      :class="storyStyles.template"
+    >
+      <slot name="template">
+        <TemplateView
+          v-if="showTemplate"
+          :content="storyTemplateCode"
+        />
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -50,17 +55,18 @@ const storyStyles = computed(() => config.public.bedtime?.styles?.story || {})
 const route = useRoute()
 const storySlug = route.params.slug as string
 const { getTemplate } = useStory()
-const templateContent = computed(() => getTemplate(storySlug))
+const storyTemplateCode = computed(() => getTemplate(storySlug))
 
 // Provide story slug to variants
 provide('story-slug', storySlug)
 </script>
 
 <style scoped>
-.story-header {
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+.story-title {
+  font-size: var(--story-title-font-size);
+  font-weight: var(--story-title-font-weight);
+  letter-spacing: var(--story-title-letter-spacing);
+  border-bottom: 1px solid var(--story-border-color);
 }
 
 .story-content {

@@ -1,5 +1,8 @@
 <template>
-  <div class="stories-layout">
+  <div
+    class="stories-layout"
+    data-bedtime-theme="default"
+  >
     <div class="stories-container">
       <aside
         ref="sidebarRef"

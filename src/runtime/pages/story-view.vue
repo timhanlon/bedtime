@@ -33,10 +33,6 @@ useHead({
 </script>
 
 <style scoped>
-.story-page {
-  padding: 1rem;
-}
-
 .error {
   color: #dc2626;
   font-weight: 500;

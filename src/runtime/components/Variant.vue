@@ -1,24 +1,33 @@
 <template>
   <div
-    class="variant"
+    class="variant-container"
     :class="variantStyles.container"
   >
-    <h2
-      class="variant-title"
-      :class="variantStyles.title"
-    >
-      {{ title }}
-    </h2>
+    <slot name="title">
+      <h2
+        class="variant-title"
+        :class="variantStyles.title"
+      >
+        {{ title }}
+      </h2>
+    </slot>
     <div
       class="variant-content"
       :class="variantStyles.content"
     >
       <slot />
     </div>
-    <TemplateView
-      v-if="showTemplate"
-      :content="variantTemplateCode"
-    />
+    <div
+      class="variant-template"
+      :class="variantStyles.template"
+    >
+      <slot name="template">
+        <TemplateView
+          v-if="showTemplate"
+          :content="variantTemplateCode"
+        />
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -50,13 +59,20 @@ const variantTemplateCode = computed(() =>
 </script>
 
 <style scoped>
+.variant-container {
+  padding: var(--variant-container-padding);
+}
+
 .variant-title {
-  font-size: 14pt;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-size: var(--variant-title-font-size);
+  font-weight: var(--variant-title-font-weight);
+  letter-spacing: var(--variant-title-letter-spacing);
+  border-bottom: 1px solid var(--variant-border-color);
 }
 
 .variant-content {
-  margin: 0.5rem 0;
+  & > * + * {
+    margin-top: 1rem;
+  }
 }
 </style>

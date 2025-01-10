@@ -123,6 +123,9 @@ export {}
     // Add runtime directory to Nuxt
     nuxt.options.build.transpile.push(runtimeDir)
 
+    // Add variables.css to Nuxt
+    nuxt.options.css.push(resolve(runtimeDir, 'variables.css'))
+
     // Add composables directory
     nuxt.hook('imports:dirs', (dirs) => {
       dirs.push(resolve(runtimeDir, 'composables'))
