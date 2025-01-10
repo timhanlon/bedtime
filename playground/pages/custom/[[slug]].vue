@@ -15,7 +15,7 @@ const navigationMenuItems = [searchMenuItem, ...stories
   .map(s => ({
     label: s.pascalName,
     icon: 'i-lucide-file-text',
-    to: `${s.kebabName}`,
+    to: `/custom/${s.kebabName}`,
   })),
 ]
 
