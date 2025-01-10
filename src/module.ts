@@ -10,6 +10,7 @@ import {
 } from '@nuxt/kit'
 import { resolve } from 'pathe'
 import { parse } from '@vue/compiler-sfc'
+import { defu } from 'defu'
 import { extractStoryContent } from './utils/template-extraction'
 
 interface StoryComponent {
@@ -31,6 +32,18 @@ interface BedtimeConfig {
   viewer: {
     route: string
   }
+  styles: {
+    story: {
+      container: string
+      header: string
+      content: string
+    }
+    variant: {
+      container: string
+      title: string
+      content: string
+    }
+  }
 }
 
 export default defineNuxtModule<BedtimeConfig>({
@@ -49,6 +62,18 @@ export default defineNuxtModule<BedtimeConfig>({
     },
     viewer: {
       route: '/stories',
+    },
+    styles: {
+      story: {
+        container: '',
+        header: '',
+        content: '',
+      },
+      variant: {
+        container: '',
+        title: '',
+        content: '',
+      },
     },
   },
   async setup(options, nuxt) {
@@ -225,6 +250,12 @@ ${stories.map(s => `  '${s.kebabName}': {
         })
       }
     })
+
+    // Add runtime config
+    nuxt.options.runtimeConfig.public.bedtime = defu(
+      nuxt.options.runtimeConfig.public.bedtime,
+      { styles: options.styles },
+    )
 
     logger.success('Bedtime module setup complete')
   },

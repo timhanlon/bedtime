@@ -1,9 +1,18 @@
 <template>
-  <div class="variant">
-    <h2 class="variant-title">
+  <div
+    class="variant"
+    :class="variantStyles.container"
+  >
+    <h2
+      class="variant-title"
+      :class="variantStyles.title"
+    >
       {{ title }}
     </h2>
-    <div class="variant-content">
+    <div
+      class="variant-content"
+      :class="variantStyles.content"
+    >
       <slot />
     </div>
     <TemplateView
@@ -17,6 +26,7 @@
 import { computed, inject } from 'vue'
 import { useStory } from '../composables/useStory'
 import TemplateView from './TemplateView.vue'
+import { useRuntimeConfig } from '#imports'
 
 defineOptions({
   name: 'StoryVariant',
@@ -28,6 +38,9 @@ const props = withDefaults(defineProps<{
 }>(), {
   showTemplate: true,
 })
+
+const config = useRuntimeConfig()
+const variantStyles = computed(() => config.public.bedtime?.styles?.variant || {})
 
 const storySlug = inject<string | undefined>('story-slug')
 const { getTemplate } = useStory()

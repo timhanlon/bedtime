@@ -12,3 +12,28 @@ export interface BedtimeStory {
 }
 
 export type BedtimeStories = Record<string, BedtimeStory>
+
+export interface StoryStyles {
+  story?: {
+    container?: string
+    header?: string
+    content?: string
+  }
+  variant?: {
+    container?: string
+    title?: string
+    content?: string
+  }
+}
+
+export interface BedtimeConfig {
+  enabled?: boolean
+  stories?: {
+    directories?: string[]
+    glob?: string
+  }
+  viewer?: {
+    route?: string
+  }
+  styles?: StoryStyles
+}

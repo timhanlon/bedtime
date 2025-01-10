@@ -60,7 +60,10 @@ useHead({
       </div>
 
       <div class="p-2">
-        <component :is="story?.component" />
+        <component
+          :is="story?.component"
+          :title="story?.pascalName"
+        />
       </div>
     </div>
 

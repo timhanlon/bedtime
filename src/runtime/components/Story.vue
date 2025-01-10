@@ -1,15 +1,29 @@
 <template>
-  <div class="story">
-    <h1 v-if="title">
-      {{ title }}
-    </h1>
-    <div class="story-content">
+  <div
+    class="story"
+    :class="storyStyles.container"
+  >
+    <slot name="header">
+      <h1
+        v-if="title"
+        class="story-header"
+        :class="storyStyles.header"
+      >
+        {{ title }}
+      </h1>
+    </slot>
+    <div
+      class="story-content"
+      :class="storyStyles.content"
+    >
       <slot />
     </div>
-    <TemplateView
-      v-if="showTemplate"
-      :content="templateContent"
-    />
+    <slot name="footer">
+      <TemplateView
+        v-if="showTemplate"
+        :content="templateContent"
+      />
+    </slot>
   </div>
 </template>
 
@@ -17,7 +31,7 @@
 import { computed, provide } from 'vue'
 import { useStory } from '../composables/useStory'
 import TemplateView from './TemplateView.vue'
-import { useRoute } from '#imports'
+import { useRoute, useRuntimeConfig } from '#imports'
 
 defineOptions({
   name: 'StoryContainer',
@@ -30,6 +44,9 @@ withDefaults(defineProps<{
   showTemplate: true,
 })
 
+const config = useRuntimeConfig()
+const storyStyles = computed(() => config.public.bedtime?.styles?.story || {})
+
 const route = useRoute()
 const storySlug = route.params.slug as string
 const { getTemplate } = useStory()
@@ -40,9 +57,15 @@ provide('story-slug', storySlug)
 </script>
 
 <style scoped>
+.story-header {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
 .story-content {
   & > * + * {
-    margin-top: 1rem; /* aldi space-y-4 */
+    margin-top: 1rem;
   }
 }
 </style>
