@@ -59,10 +59,12 @@ useHead({
         />
       </div>
 
-      <div class="p-2">
+      <div
+        class="p-2 flex-grow"
+        data-bedtime-theme="default"
+      >
         <component
           :is="story?.component"
-          :title="story?.pascalName"
         />
       </div>
     </div>

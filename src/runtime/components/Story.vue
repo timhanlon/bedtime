@@ -64,6 +64,7 @@ provide('story-slug', storySlug)
 <style scoped>
 .story-container {
   padding: var(--story-container-padding);
+  width: var(--story-container-width);
 }
 
 .story-title {
@@ -76,7 +77,7 @@ provide('story-slug', storySlug)
 .story-content {
   margin: var(--story-content-margin);
   display: var(--story-content-display);
-  gap: var(--story-content-gap);
+  gap: var(--story-content-grid-gap);
   grid-template-columns: var(--story-content-grid-template-columns);
   & > * + * {
     margin-top: var(--story-content-gap);

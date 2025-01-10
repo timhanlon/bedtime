@@ -1,10 +1,12 @@
 [data-bedtime-theme='default'] {
   --story-border-color: #e5e5e5;
   --story-container-padding: 0;
+  --story-container-width: 100%;
   --story-content-margin: 1rem 0 0 0;
   --story-content-display: block;
   --story-content-gap: 1rem;
   --story-content-grid-template-columns: ;
+  --story-content-grid-gap: ;
   --story-title-font-weight: 600;
   --story-title-font-size: 1.4rem;
   --story-title-letter-spacing: -0.02em;
