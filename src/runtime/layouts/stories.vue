@@ -16,7 +16,7 @@
             >
               <NuxtLink
                 :to="'/stories/' + story.kebabName"
-                class="sidebar-link"
+                class="stories-sidebar-link"
                 :class="{ active: currentStory === story.kebabName }"
               >
                 {{ formatStoryName(story.pascalName) }}
@@ -83,7 +83,7 @@ function formatStoryName(name: string): string {
 
 <style scoped>
 .stories-layout {
-  height: 100vh;
+  height: var(--stories-layout-height);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -96,10 +96,10 @@ function formatStoryName(name: string): string {
 }
 
 .stories-sidebar {
-  width: 250px;
-  background-color: #f8f8f8;
-  border-right: 1px solid #e5e5e5;
-  padding: 1rem;
+  width: var(--stories-sidebar-width);
+  background-color: var(--stories-sidebar-bg);
+  border-right: var(--stories-sidebar-border);
+  padding: var(--stories-sidebar-padding);
   overflow-y: auto;
   flex-shrink: 0;
 }
@@ -115,28 +115,28 @@ function formatStoryName(name: string): string {
   margin-bottom: 4px;
 }
 
-.sidebar-link {
+.stories-sidebar-link {
   display: block;
-  padding: 0.5rem;
-  color: #374151;
+  padding: var(--stories-sidebar-link-padding);
+  color: var(--stories-sidebar-link-color);
   text-decoration: none;
-  border-radius: 0.375rem;
-  transition: all 0.2s;
+  border-radius: var(--stories-sidebar-link-border-radius);
+  transition: var(--stories-sidebar-link-transition);
 }
 
-.sidebar-link:hover {
-  background-color: #e5e7eb;
+.stories-sidebar-link:hover {
+  background-color: var(--stories-sidebar-link-bg-hover);
 }
 
-.sidebar-link.active {
-  background-color: #e5e7eb;
-  font-weight: 500;
+.stories-sidebar-link.active {
+  background-color: var(--stories-sidebar-link-active-bg);
+  font-weight: var(--stories-sidebar-link-active-weight);
 }
 
 .stories-main {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem;
+  padding: var(--stories-main-padding);
   min-height: 0;
 }
 </style>
