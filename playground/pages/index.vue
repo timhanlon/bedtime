@@ -4,7 +4,10 @@
     <p>Welcome to the Bedtime playground! This demo includes:</p>
     <ul>
       <li>
-        <NuxtLink to="/stories">View Component Stories</NuxtLink>
+        <NuxtLink to="/stories">Default story viewer</NuxtLink>
+      </li>
+      <li>
+        <NuxtLink to="/custom">Custom story viewer</NuxtLink>
       </li>
     </ul>
   </div>

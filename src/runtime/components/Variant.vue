@@ -1,15 +1,33 @@
 <template>
-  <div class="variant">
-    <h2 class="variant-title">
-      {{ title }}
-    </h2>
-    <div class="variant-content">
+  <div
+    class="variant-container"
+    :class="variantClasses.container"
+  >
+    <slot name="title">
+      <h2
+        class="variant-title"
+        :class="variantClasses.title"
+      >
+        {{ title }}
+      </h2>
+    </slot>
+    <div
+      class="variant-content"
+      :class="variantClasses.content"
+    >
       <slot />
     </div>
-    <TemplateView
-      v-if="showTemplate"
-      :content="variantTemplateCode"
-    />
+    <div
+      class="variant-template"
+      :class="variantClasses.template"
+    >
+      <slot name="template">
+        <TemplateView
+          v-if="showTemplate"
+          :content="variantTemplateCode"
+        />
+      </slot>
+    </div>
   </div>
 </template>
 
@@ -17,6 +35,7 @@
 import { computed, inject } from 'vue'
 import { useStory } from '../composables/useStory'
 import TemplateView from './TemplateView.vue'
+import { useRuntimeConfig } from '#imports'
 
 defineOptions({
   name: 'StoryVariant',
@@ -29,6 +48,9 @@ const props = withDefaults(defineProps<{
   showTemplate: true,
 })
 
+const config = useRuntimeConfig()
+const variantClasses = config.public.bedtime?.classes?.variant
+
 const storySlug = inject<string | undefined>('story-slug')
 const { getTemplate } = useStory()
 const variantTemplateCode = computed(() =>
@@ -37,13 +59,20 @@ const variantTemplateCode = computed(() =>
 </script>
 
 <style scoped>
-.variant-title {
-  font-size: 14pt;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-}
+[data-bedtime-theme]:not([data-bedtime-theme='false']) {
+  .variant-container {
+    padding: var(--variant-container-padding);
+  }
 
-.variant-content {
-  margin: 0.5rem 0;
+  .variant-title {
+    font-size: var(--variant-title-font-size);
+    font-weight: var(--variant-title-font-weight);
+    letter-spacing: var(--variant-title-letter-spacing);
+    border-bottom: 1px solid var(--variant-border-color);
+  }
+
+  .variant-content {
+    margin: var(--variant-content-margin);
+  }
 }
 </style>

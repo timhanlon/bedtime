@@ -10,7 +10,7 @@ const selected = ref(drinks[0])
 </script>
 
 <template>
-  <Story>
+  <Story title="Select">
     <USelect
       v-model="selected"
       :items="drinks"

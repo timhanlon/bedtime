@@ -1,5 +1,5 @@
 <template>
-  <Story>
+  <Story title="Button">
     <Variant title="Default">
       <UButton>Button</UButton>
     </Variant>

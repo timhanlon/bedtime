@@ -1,5 +1,5 @@
 <template>
-  <Story>
+  <Story title="Avatar">
     <UChip inset>
       <UAvatar
         src="https://github.com/benjamincanac.png"

@@ -9,10 +9,9 @@ Find and replace all on all files (CMD+SHIFT+F):
 
 # Bedtime
 
-<!-- [![npm version][npm-version-src]][npm-version-href]
+[![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href] -->
+[![Nuxt][nuxt-src]][nuxt-href]
 
 Bedtime is a Nuxt module for creating component stories.
 
@@ -20,10 +19,10 @@ Inspired by [Histoire](https://histoire.dev/)'s excellent Story/Variant componen
 
 This is work in progress, expect breaking changes ahead of versioned releases.
 
-Check the [playground](https://github.com/timhanlon/bedtime/tree/dev/playground) for a working example.
+Check the [playground](https://github.com/timhanlon/bedtime/tree/main/playground) for a working example.
 
-<!-- - [✨ &nbsp;Release Notes](/CHANGELOG.md) -->
-<!-- - [🏀 Online playground](https://stackblitz.com/github/timhanlon/bedtime?file=playground%2Fapp.vue) -->
+- [✨ &nbsp;Release Notes](/CHANGELOG.md)
+- [🏀 Online playground](https://codesandbox.io/p/devbox/github/timhanlon/bedtime/tree/main)
 <!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Goals
@@ -55,7 +54,21 @@ export default defineNuxtConfig({
       glob: '**/*.story.vue',
     },
     viewer: {
+      enabled: true,
       route: '/stories',
+      theme: 'default',
+    },
+    classes: {
+      story: {
+        container: '',
+        title: '',
+        content: '',
+      },
+      variant: {
+        container: '',
+        title: '',
+        content: '',
+      },
     },
   }
 })
@@ -104,14 +117,11 @@ That's it! You can now use Bedtime in your Nuxt app ✨ -->
 
 
 <!-- Badges -->
-<!-- [npm-version-src]: https://img.shields.io/npm/v/nuxt-bedtime/latest.svg?style=flat&colorA=020420&colorB=00DC82
+[npm-version-src]: https://img.shields.io/npm/v/nuxt-bedtime/latest.svg?style=flat&colorA=020420&colorB=00DC82
 [npm-version-href]: https://npmjs.com/package/nuxt-bedtime
 
 [npm-downloads-src]: https://img.shields.io/npm/dm/nuxt-bedtime.svg?style=flat&colorA=020420&colorB=00DC82
 [npm-downloads-href]: https://npm.chart.dev/nuxt-bedtime
 
-[license-src]: https://img.shields.io/npm/l/nuxt-bedtime.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/nuxt-bedtime
-
 [nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-[nuxt-href]: https://nuxt.com -->
+[nuxt-href]: https://nuxt.com

@@ -18,6 +18,33 @@ function getIndentFromTemplate(template: string, startLine: number): string {
   return match ? match[0] : ''
 }
 
+/**
+ * Normalize indentation of a code block by removing common leading whitespace
+ * while preserving relative indentation between lines.
+ *
+ * @param code - The code block to normalize
+ * @returns The code block with normalized indentation
+ */
+function normalizeIndentation(code: string): string {
+  if (!code) return code
+
+  // Split into lines
+  const lines = code.split('\n')
+
+  // Find minimum indentation level (excluding empty lines)
+  const minIndent = lines
+    .filter(line => line.trim())
+    .reduce((min, line) => {
+      const indent = line.match(/^\s*/)?.[0].length ?? 0
+      return Math.min(min, indent)
+    }, Infinity)
+
+  // Remove the common indentation from all lines
+  return lines
+    .map(line => line.slice(minIndent))
+    .join('\n')
+}
+
 function extractNodeContent(node: TemplateChildNode, _template: string): string {
   // For v-for nodes, we need to look at their children
   if (node.type === 11 && 'children' in node && node.children?.[0]) {
@@ -51,13 +78,13 @@ export function extractVariantContent(variantNode: ElementNode, template: string
     .map(child => extractNodeContent(child, template))
     .join('')
 
-  // Get indentation from template
+  // Get indentation from template and normalize it
   if ('loc' in variantNode && variantNode.children?.[0] && 'loc' in variantNode.children[0]) {
     const indent = getIndentFromTemplate(template, variantNode.children[0].loc.start.line)
-    return { title, content: indent + content }
+    return { title, content: normalizeIndentation(indent + content) }
   }
 
-  return { title, content }
+  return { title, content: normalizeIndentation(content) }
 }
 
 /**
@@ -95,17 +122,17 @@ export function extractStoryContent(template: string, filename: string, id: stri
       .map(child => extractNodeContent(child, template))
       .join('')
 
-    // Add indentation based on the content's position
+    // Add indentation based on the content's position and normalize it
     if ('loc' in storyNode && storyNode.children?.[0] && 'loc' in storyNode.children[0]) {
       const indent = getIndentFromTemplate(template, storyNode.children[0].loc.start.line)
       return {
-        template: indent + content,
+        template: normalizeIndentation(indent + content),
         variants: {},
       }
     }
 
     return {
-      template: content,
+      template: normalizeIndentation(content),
       variants: {},
     }
   }

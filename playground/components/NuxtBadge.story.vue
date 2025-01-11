@@ -1,5 +1,5 @@
 <template>
-  <Story>
+  <Story title="Badge">
     <Variant title="Default">
       <UBadge>Badge</UBadge>
     </Variant>
