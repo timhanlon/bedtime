@@ -13,27 +13,38 @@ export interface BedtimeStory {
 
 export type BedtimeStories = Record<string, BedtimeStory>
 
+export interface ComponentSlotClasses {
+  container?: string
+  title?: string
+  content?: string
+}
+
 export interface StoryClasses {
-  story?: {
-    container?: string
-    title?: string
-    content?: string
-  }
-  variant?: {
-    container?: string
-    title?: string
-    content?: string
-  }
+  story?: ComponentSlotClasses
+  variant?: ComponentSlotClasses
+}
+
+export interface StoriesOptions {
+  directories?: string[]
+  glob?: string
+}
+
+export interface ViewerOptions {
+  route: string
 }
 
 export interface BedtimeModuleOptions {
   enabled: boolean
-  stories: {
-    directories: string[]
-    glob: string
-  }
-  viewer: {
-    route: string
-  }
+  stories: StoriesOptions
+  viewer: ViewerOptions
   classes: StoryClasses
+}
+
+export interface ResolvedBedtimeModuleOptions extends Required<BedtimeModuleOptions> {
+  stories: Required<StoriesOptions>
+  viewer: Required<ViewerOptions>
+}
+
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
 }
