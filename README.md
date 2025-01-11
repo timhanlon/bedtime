@@ -55,7 +55,21 @@ export default defineNuxtConfig({
       glob: '**/*.story.vue',
     },
     viewer: {
+      enabled: true,
       route: '/stories',
+      theme: 'default',
+    },
+    classes: {
+      story: {
+        container: '',
+        title: '',
+        content: '',
+      },
+      variant: {
+        container: '',
+        title: '',
+        content: '',
+      },
     },
   }
 })
