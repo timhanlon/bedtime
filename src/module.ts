@@ -247,5 +247,17 @@ ${stories.map(s => `  '${s.kebabName}': {
     })
 
     logger.success('Bedtime module setup complete')
+
+    const isStaticBuild = process.env.BEDTIME_STATIC_BUILD === 'true'
+
+    if (isStaticBuild) {
+      nuxt.options.app.baseURL = resolvedOptions.viewer.route
+      // Ignore everything except the viewer route
+      nuxt.options.ignore.push(
+        'pages/*.vue',
+        'pages/**/*.vue',
+        `!pages/${resolvedOptions.viewer.route}/**/*.vue`,
+      )
+    }
   },
 })
