@@ -46,37 +46,39 @@ const story = stories.find(s => s.kebabName === slug.value)
 useHead({
   title: story?.pascalName,
 })
+
+defineShortcuts({
+  meta_k: () => commandPaletteOpen.value = true,
+})
 </script>
 
 <template>
-  <UApp>
-    <div class="flex">
-      <div class="p-2">
-        <UNavigationMenu
-          orientation="vertical"
-          :items="navigationMenuItems"
-          class="data-[orientation=vertical]:w-48"
-        />
-      </div>
-
-      <div
-        class="p-2 flex-grow"
-        data-bedtime-theme="default"
-      >
-        <component
-          :is="story?.component"
-        />
-      </div>
+  <div class="flex">
+    <div class="p-2">
+      <UNavigationMenu
+        orientation="vertical"
+        :items="navigationMenuItems"
+        class="data-[orientation=vertical]:w-48"
+      />
     </div>
 
-    <UModal :open="commandPaletteOpen">
+    <div
+      class="p-2 flex-grow"
+      data-bedtime-theme="default"
+    >
+      <component
+        :is="story?.component"
+      />
+    </div>
+    <UModal
+      v-model:open="commandPaletteOpen"
+    >
       <template #content>
         <UCommandPalette
-          v-model:open="commandPaletteOpen"
           :groups="groups"
           class="flex-1"
         />
       </template>
     </UModal>
-  </UApp>
+  </div>
 </template>
