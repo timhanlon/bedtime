@@ -39,6 +39,7 @@ export default defineNuxtModule<BedtimeModuleOptions>({
       glob: '**/*.story.vue',
     },
     viewer: {
+      enabled: true,
       route: '/stories',
       theme: 'default',
     },
@@ -224,6 +225,10 @@ ${stories.map(s => `  '${s.kebabName}': {
 
     // Add runtime routes
     nuxt.hook('pages:extend', (pages) => {
+      if (!resolvedOptions.viewer.enabled) {
+        return
+      }
+
       if (!pages.some(page => page.name === 'stories-index')) {
         pages.push({
           name: 'stories-index',

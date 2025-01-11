@@ -31,6 +31,7 @@ export interface StoriesOptions {
 }
 
 export interface ViewerOptions {
+  enabled?: boolean
   route?: string
   theme?: 'default' | string | false
 }
