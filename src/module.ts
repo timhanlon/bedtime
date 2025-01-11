@@ -40,6 +40,7 @@ export default defineNuxtModule<BedtimeModuleOptions>({
     },
     viewer: {
       route: '/stories',
+      theme: 'default',
     },
     classes: {
       story: {
@@ -59,12 +60,14 @@ export default defineNuxtModule<BedtimeModuleOptions>({
       return
     }
 
-    // Add runtime config
+    // Merge options with runtime config
     nuxt.options.runtimeConfig.public.bedtime = defu(
       nuxt.options.runtimeConfig.public.bedtime || {},
       options,
     ) as Required<BedtimeModuleOptions>
 
+    // Ensure our final merged options are typed correctly
+    // Thanks Johann / https://github.com/johannschopplich/nuxt-api-party
     const resolvedOptions = nuxt.options.runtimeConfig.public.bedtime as ResolvedBedtimeModuleOptions
 
     const storyGlob = resolvedOptions.stories.glob
@@ -74,8 +77,6 @@ export default defineNuxtModule<BedtimeModuleOptions>({
     const resolver = createResolver(import.meta.url)
     const runtimeDir = resolver.resolve('./runtime')
     const logger = useLogger('bedtime')
-
-    logger.info(resolvedOptions)
 
     logger.info('Setting up bedtime module...')
 

@@ -1,7 +1,7 @@
 <template>
   <div
     class="stories-layout"
-    data-bedtime-theme="default"
+    :data-bedtime-theme="theme"
   >
     <div class="stories-container">
       <aside
@@ -36,7 +36,7 @@
 import { computed, ref, onMounted, onUpdated } from 'vue'
 import type { BedtimeStory } from '../../types/module'
 import type { RouteLocationNormalized } from '#vue-router'
-import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
+import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useRuntimeConfig, useState } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
 
 defineOptions({
@@ -47,6 +47,8 @@ const route = useRoute()
 const sidebarRef = ref<HTMLElement>()
 const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
 const currentStory = computed(() => route.params.slug as string)
+
+const theme = useRuntimeConfig().public.bedtime?.viewer?.theme
 
 // This scroll position state stuff shouldn't be necessary
 // Maybe it's the fact that this isn't _really_ a Nuxt layout

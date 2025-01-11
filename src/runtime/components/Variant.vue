@@ -1,25 +1,25 @@
 <template>
   <div
     class="variant-container"
-    :class="variantStyles.container"
+    :class="variantClasses.container"
   >
     <slot name="title">
       <h2
         class="variant-title"
-        :class="variantStyles.title"
+        :class="variantClasses.title"
       >
         {{ title }}
       </h2>
     </slot>
     <div
       class="variant-content"
-      :class="variantStyles.content"
+      :class="variantClasses.content"
     >
       <slot />
     </div>
     <div
       class="variant-template"
-      :class="variantStyles.template"
+      :class="variantClasses.template"
     >
       <slot name="template">
         <TemplateView
@@ -49,7 +49,7 @@ const props = withDefaults(defineProps<{
 })
 
 const config = useRuntimeConfig()
-const variantStyles = computed(() => config.public.bedtime?.styles?.variant || {})
+const variantClasses = config.public.bedtime?.classes?.variant
 
 const storySlug = inject<string | undefined>('story-slug')
 const { getTemplate } = useStory()
@@ -59,18 +59,20 @@ const variantTemplateCode = computed(() =>
 </script>
 
 <style scoped>
-.variant-container {
-  padding: var(--variant-container-padding);
-}
+[data-bedtime-theme]:not([data-bedtime-theme='false']) {
+  .variant-container {
+    padding: var(--variant-container-padding);
+  }
 
-.variant-title {
-  font-size: var(--variant-title-font-size);
-  font-weight: var(--variant-title-font-weight);
-  letter-spacing: var(--variant-title-letter-spacing);
-  border-bottom: 1px solid var(--variant-border-color);
-}
+  .variant-title {
+    font-size: var(--variant-title-font-size);
+    font-weight: var(--variant-title-font-weight);
+    letter-spacing: var(--variant-title-letter-spacing);
+    border-bottom: 1px solid var(--variant-border-color);
+  }
 
-.variant-content {
-  margin: var(--variant-content-margin);
+  .variant-content {
+    margin: var(--variant-content-margin);
+  }
 }
 </style>

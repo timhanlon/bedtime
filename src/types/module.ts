@@ -17,6 +17,7 @@ export interface ComponentSlotClasses {
   container?: string
   title?: string
   content?: string
+  template?: string
 }
 
 export interface StoryClasses {
@@ -30,7 +31,8 @@ export interface StoriesOptions {
 }
 
 export interface ViewerOptions {
-  route: string
+  route?: string
+  theme?: 'default' | string | false
 }
 
 export interface BedtimeModuleOptions {
