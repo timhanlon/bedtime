@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.4
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.3...v0.0.4)
+
+### 🚀 Enhancements
+
+- Custom styling ([#6](https://github.com/timhanlon/bedtime/pull/6))
+
+### ❤️ Contributors
+
+- Timhanlon <tim@timhanlon.com>
+
 ## v0.0.3
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.2...v0.0.3)
