@@ -130,5 +130,65 @@ const showTemplate = ref(props.showTemplate)
     font-weight: var(--variant-title-font-weight);
     letter-spacing: var(--variant-title-letter-spacing);
   }
+
+  /* Corner guides */
+  .variant-content::before,
+  .variant-content::after,
+  .variant-content > :first-child::before,
+  .variant-content > :first-child::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    opacity: var(--variant-content-guide-opacity);
+    z-index: 1;
+  }
+
+  /* Top corners */
+  .variant-content::before,
+  .variant-content::after {
+    /* Vertical line */
+    top: calc(var(--variant-content-padding) - 8px);
+    height: 8px;
+    /* Horizontal line */
+    width: 8px;
+  }
+
+  /* Left top corner */
+  .variant-content::before {
+    left: calc(var(--variant-content-padding) - 8px);
+    border-right: 1px solid var(--variant-content-guide-color);
+    border-bottom: 1px solid var(--variant-content-guide-color);
+  }
+
+  /* Right top corner */
+  .variant-content::after {
+    right: calc(var(--variant-content-padding) - 8px);
+    border-left: 1px solid var(--variant-content-guide-color);
+    border-bottom: 1px solid var(--variant-content-guide-color);
+  }
+
+  /* Bottom corners */
+  .variant-content > :first-child::before,
+  .variant-content > :first-child::after {
+    /* Vertical line */
+    bottom: calc(var(--variant-content-padding) - 8px);
+    height: 8px;
+    /* Horizontal line */
+    width: 8px;
+  }
+
+  /* Left bottom corner */
+  .variant-content > :first-child::before {
+    left: calc(var(--variant-content-padding) - 8px);
+    border-right: 1px solid var(--variant-content-guide-color);
+    border-top: 1px solid var(--variant-content-guide-color);
+  }
+
+  /* Right bottom corner */
+  .variant-content > :first-child::after {
+    right: calc(var(--variant-content-padding) - 8px);
+    border-left: 1px solid var(--variant-content-guide-color);
+    border-top: 1px solid var(--variant-content-guide-color);
+  }
 }
 </style>

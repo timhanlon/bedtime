@@ -15,16 +15,17 @@ export default defineNuxtConfig({
     classes: {
       story: {
         actions: 'flex items-center gap-2',
-        container: 'space-y-4',
+        container: 'space-y-2',
         content: 'space-y-4',
         header: 'flex items-center gap-2',
-        title: 'text-2xl font-medium tracking-tight',
+        title: 'text-lg font-medium tracking-tight',
       },
       variant: {
         actions: 'flex items-center gap-2',
-        container: 'space-y-4',
+        container: 'space-y-2',
+        content: 'p-4 border border-gray-200 rounded-md',
         header: 'flex items-center gap-2',
-        title: 'text-xl font-medium tracking-tight',
+        title: 'text-md font-medium tracking-tight',
       },
     },
     viewer: {
