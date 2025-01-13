@@ -1,4 +1,8 @@
 [data-bedtime-theme='default'] {
+  /* Story */
+  --story-actions-align-content: center;
+  --story-actions-display: flex;
+  --story-actions-gap: 0.5rem;
   --story-border-color: #e5e5e5;
   --story-container-padding: 0;
   --story-container-width: 100%;
@@ -7,14 +11,27 @@
   --story-content-gap: 1rem;
   --story-content-grid-template-columns: ;
   --story-content-grid-gap: ;
-  --story-title-font-weight: 600;
-  --story-title-font-size: 1.4rem;
+  --story-header-align-content: center;
+  --story-header-display: flex;
+  --story-header-gap: 1rem;
+  --story-title-text-color: #374151;
+  --story-title-font-weight: 500;
+  --story-title-font-size: 1.2rem;
   --story-title-letter-spacing: -0.02em;
+
+  /* Variant */
+  --variant-actions-align-content: center;
+  --variant-actions-display: flex;
+  --variant-actions-gap: 0.5rem;
   --variant-border-color: #e5e5e5;
   --variant-container-padding: 0;
   --variant-content-margin: 1rem 0 0 0;
-  --variant-title-font-weight: 600;
-  --variant-title-font-size: 1.2rem;
+  --variant-header-align-content: center;
+  --variant-header-display: flex;
+  --variant-header-gap: 1rem;
+  --variant-title-color: #374151;
+  --variant-title-font-size: 1rem;
+  --variant-title-font-weight: 500;
   --variant-title-letter-spacing: -0.02em;
 
   /* Stories Layout */

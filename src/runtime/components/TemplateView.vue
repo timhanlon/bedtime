@@ -3,14 +3,11 @@
     v-if="content"
     class="template-view"
   >
-    <CopyButton :content="content" />
     <pre><code>{{ content }}</code></pre>
   </div>
 </template>
 
 <script setup lang="ts">
-import CopyButton from './CopyButton.vue'
-
 defineProps<{
   content?: string | null
 }>()
