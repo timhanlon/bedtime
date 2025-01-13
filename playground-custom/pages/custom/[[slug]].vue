@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'CustomStoryPage',
+})
+
 const { stories: storyList } = useStory()
 
 const route = useRoute()
