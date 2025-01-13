@@ -1,13 +1,19 @@
+<script setup lang="ts">
+defineOptions({
+  name: 'IndexPage',
+})
+</script>
+
 <template>
   <div class="h-screen flex items-center justify-center flex-col gap-4">
     <h1 class="text-xl font-medium tracking-tight">
       Bedtime Playground
     </h1>
     <UButton
-      to="/stories"
+      to="/custom"
       trailing-icon="i-heroicons-arrow-right"
     >
-      Story Viewer
+      Custom Story Viewer
     </UButton>
   </div>
 </template>

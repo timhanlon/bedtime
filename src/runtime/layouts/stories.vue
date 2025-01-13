@@ -99,8 +99,8 @@ function formatStoryName(name: string): string {
 
 .stories-sidebar {
   width: var(--stories-sidebar-width);
-  background-color: var(--stories-sidebar-bg);
-  border-right: var(--stories-sidebar-border);
+  background-color: var(--stories-sidebar-bg-color);
+  border: var(--stories-sidebar-border);
   padding: var(--stories-sidebar-padding);
   overflow-y: auto;
   flex-shrink: 0;
@@ -124,6 +124,7 @@ function formatStoryName(name: string): string {
   text-decoration: none;
   border-radius: var(--stories-sidebar-link-border-radius);
   transition: var(--stories-sidebar-link-transition);
+  font-size: var(--stories-sidebar-link-font-size);
 }
 
 .stories-sidebar-link:hover {

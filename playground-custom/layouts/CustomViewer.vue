@@ -16,6 +16,14 @@ const navigationMenuItems = [searchMenuItem, ...stories
     label: s.pascalName,
     icon: 'i-lucide-file-text',
     to: `/custom/${s.kebabName}`,
+    // children: s.variants
+    //   ? Object.keys(s.variants).map(variant => ({
+    //       label: variant,
+    //       onSelect: () => {
+
+    //       },
+    //     }))
+    //   : [],
   })),
 ]
 
@@ -39,14 +47,6 @@ const groups = ref([
   },
 ])
 
-const route = useRoute()
-const slug = computed(() => route.params.slug)
-const story = stories.find(s => s.kebabName === slug.value)
-
-useHead({
-  title: story?.pascalName,
-})
-
 defineShortcuts({
   meta_k: () => commandPaletteOpen.value = true,
 })
@@ -64,11 +64,9 @@ defineShortcuts({
 
     <div
       class="p-2 flex-grow"
-      data-bedtime-theme="default"
+      data-bedtime-theme="false"
     >
-      <component
-        :is="story?.component"
-      />
+      <NuxtPage />
     </div>
     <UModal
       v-model:open="commandPaletteOpen"

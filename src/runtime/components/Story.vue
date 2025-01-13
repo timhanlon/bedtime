@@ -1,26 +1,48 @@
 <template>
   <div
     class="story-container"
-    :class="storyClasses.container"
+    :class="story().base({ class: [classes?.container, storyClasses.container] })"
   >
-    <slot name="title">
-      <h2
-        v-if="title"
-        class="story-title"
-        :class="storyClasses.title"
+    <slot name="header">
+      <div
+        class="story-header"
+        :class="story().header({ class: [classes?.header, storyClasses.header] })"
       >
-        {{ title }}
-      </h2>
+        <slot name="title">
+          <h2
+            v-if="title"
+            class="story-title"
+            :class="story().title({ class: [classes?.title, storyClasses.title] })"
+          >
+            {{ title }}
+          </h2>
+        </slot>
+        <slot name="actions">
+          <div
+            class="story-actions"
+            :class="story().actions({ class: [classes?.actions, storyClasses.actions] })"
+          >
+            <CodeButton
+              v-if="storyTemplateCode"
+              v-model="showTemplate"
+            />
+            <CopyButton
+              v-if="storyTemplateCode"
+              :content="storyTemplateCode"
+            />
+          </div>
+        </slot>
+      </div>
     </slot>
     <div
       class="story-content"
-      :class="storyClasses.content"
+      :class="story().content({ class: [classes?.content, storyClasses.content] })"
     >
       <slot />
     </div>
     <div
       class="story-template"
-      :class="storyClasses.template"
+      :class="story().template({ class: [classes?.template, storyClasses.template] })"
     >
       <slot name="template">
         <TemplateView
@@ -33,20 +55,36 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide } from 'vue'
+import { computed, provide, ref } from 'vue'
+import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
+import type { ComponentSlotClasses } from '../../types/module'
+import CodeButton from './CodeButton.vue'
+import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
 import { useRoute, useRuntimeConfig } from '#imports'
+
+const story = tv({
+  slots: {
+    base: '',
+    actions: '',
+    content: '',
+    header: '',
+    template: '',
+    title: '',
+  },
+})
 
 defineOptions({
   name: 'StoryContainer',
 })
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   title?: string
   showTemplate?: boolean
+  classes?: ComponentSlotClasses
 }>(), {
-  showTemplate: true,
+  showTemplate: false,
 })
 
 const config = useRuntimeConfig()
@@ -59,6 +97,8 @@ const storyTemplateCode = computed(() => getTemplate(storySlug))
 
 // Provide story slug to variants
 provide('story-slug', storySlug)
+
+const showTemplate = ref(props.showTemplate)
 </script>
 
 <style scoped>
@@ -69,10 +109,10 @@ provide('story-slug', storySlug)
   }
 
   .story-title {
+    color: var(--story-title-text-color);
     font-size: var(--story-title-font-size);
     font-weight: var(--story-title-font-weight);
     letter-spacing: var(--story-title-letter-spacing);
-    border-bottom: 1px solid var(--story-border-color);
   }
 
   .story-content {
@@ -82,6 +122,20 @@ provide('story-slug', storySlug)
     grid-template-columns: var(--story-content-grid-template-columns);
     & > * + * {
       margin-top: var(--story-content-gap);
+    }
+  }
+
+  .story-actions {
+    align-items: var(--story-actions-align-content);
+    display: var(--story-actions-display);
+    gap: var(--story-actions-gap);
+  }
+
+  .story-header {
+    display: var(--story-header-display);
+    gap: var(--story-header-gap);
+    & > * + * {
+      flex-shrink: 0;
     }
   }
 }

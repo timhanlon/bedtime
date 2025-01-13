@@ -10,8 +10,8 @@
       class="copy-icon"
     >
       <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -35,8 +35,8 @@
       class="check-icon"
     >
       <svg
-        width="18"
-        height="18"
+        width="12"
+        height="12"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -82,9 +82,8 @@ async function copyToClipboard() {
 
 <style scoped>
 .copy-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+  width: 24px;
+  height: 24px;
   padding: 6px;
   background: #ffffff;
   border: 1px solid #e5e7eb;

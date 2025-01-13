@@ -14,10 +14,12 @@ export interface BedtimeStory {
 export type BedtimeStories = Record<string, BedtimeStory>
 
 export interface ComponentSlotClasses {
+  actions?: string
   container?: string
-  title?: string
   content?: string
+  header?: string
   template?: string
+  title?: string
 }
 
 export interface StoryClasses {
