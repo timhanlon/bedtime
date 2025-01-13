@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     storageKey: 'bedtime-color-mode',
   },
 
-  compatibilityDate: '2025-01-03',
+  compatibilityDate: '2025-01-13',
 
   bedtime: {
     classes: {
