@@ -111,7 +111,11 @@ const showTemplate = ref(props.showTemplate)
   }
 
   .variant-content {
+    border: var(--variant-content-border);
+    border-radius: var(--variant-content-border-radius);
     margin: var(--variant-content-margin);
+    padding: var(--variant-content-padding);
+    position: var(--variant-content-position);
   }
 
   .variant-header {

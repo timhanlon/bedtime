@@ -14,10 +14,10 @@
   --story-header-align-content: center;
   --story-header-display: flex;
   --story-header-gap: 1rem;
-  --story-title-text-color: #374151;
-  --story-title-font-weight: 500;
   --story-title-font-size: 1.2rem;
+  --story-title-font-weight: 500;
   --story-title-letter-spacing: -0.02em;
+  --story-title-text-color: #374151;
 
   /* Variant */
   --variant-actions-align-content: center;
@@ -25,23 +25,29 @@
   --variant-actions-gap: 0.5rem;
   --variant-border-color: #e5e5e5;
   --variant-container-padding: 0;
-  --variant-content-margin: 1rem 0 0 0;
+  --variant-content-border: 1px solid #e5e5e5;
+  --variant-content-border-radius: 0.375rem;
+  --variant-content-margin: 0.5rem 0 0 0;
+  --variant-content-padding: 1rem;
+  --variant-content-position: relative;
   --variant-header-align-content: center;
   --variant-header-display: flex;
   --variant-header-gap: 1rem;
-  --variant-title-color: #374151;
   --variant-title-font-size: 1rem;
   --variant-title-font-weight: 500;
   --variant-title-letter-spacing: -0.02em;
+  --variant-title-text-color: #374151;
 
   /* Stories Layout */
   --stories-layout-height: 100vh;
-  --stories-sidebar-width: 250px;
-  --stories-sidebar-bg: #f8f8f8;
+  --stories-main-bg-color: #fff;
+  --stories-main-padding: 1rem;
+  --stories-sidebar-bg-color: #f8f8f8;
   --stories-sidebar-border: 1px solid #e5e5e5;
   --stories-sidebar-padding: 1rem;
-  --stories-main-padding: 1rem;
-  --stories-sidebar-link-color: #374151;
+  --stories-sidebar-width: 250px;
+  --stories-sidebar-link-font-size: 0.875rem;
+  --stories-sidebar-link-bg-color: #374151;
   --stories-sidebar-link-bg-hover: #e5e7eb;
   --stories-sidebar-link-padding: 0.5rem;
   --stories-sidebar-link-border-radius: 0.375rem;

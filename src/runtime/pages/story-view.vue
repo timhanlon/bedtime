@@ -33,6 +33,10 @@ useHead({
 </script>
 
 <style scoped>
+.story-page {
+  background-color: var(--stories-main-bg-color);
+}
+
 .error {
   color: #dc2626;
   font-weight: 500;
