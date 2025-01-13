@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.5
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.4...v0.0.5)
+
+### 🚀 Enhancements
+
+- Tailwind variants ([#7](https://github.com/timhanlon/bedtime/pull/7))
+
+### ❤️ Contributors
+
+- Timhanlon <tim@timhanlon.com>
+
 ## v0.0.4
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.3...v0.0.4)
