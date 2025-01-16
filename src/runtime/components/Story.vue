@@ -30,6 +30,11 @@
               v-if="storyTemplateCode"
               :content="storyTemplateCode"
             />
+            <DevOnly>
+              <OpenInEditorButton
+                @click="openInEditor"
+              />
+            </DevOnly>
           </div>
         </slot>
       </div>
@@ -55,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, ref } from 'vue'
+import { provide, ref } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
@@ -92,13 +97,26 @@ const storyClasses = config.public.bedtime?.classes?.story
 
 const route = useRoute()
 const storySlug = route.params.slug as string
-const { getTemplate } = useStory()
-const storyTemplateCode = computed(() => getTemplate(storySlug))
+const { getTemplate, getStoryDetails } = useStory()
+const storyTemplateCode = getTemplate(storySlug)
+const storyDetails = getStoryDetails(storySlug)
 
-// Provide story slug to variants
 provide('story-slug', storySlug)
 
 const showTemplate = ref(props.showTemplate)
+
+async function openInEditor() {
+  if (!storyDetails) {
+    return
+  }
+  const url = new URL(
+    `/__open-in-editor?file=${storyDetails.shortPath}&line=1&column=1`,
+    new URL(document.location.href).origin,
+  )
+  await fetch(url, {
+    mode: 'no-cors',
+  })
+}
 </script>
 
 <style scoped>

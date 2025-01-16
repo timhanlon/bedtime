@@ -18,8 +18,7 @@ interface StoryComponent {
   pascalName: string
   kebabName: string
   shortPath: string
-  global?: boolean | string
-  srcDir: string
+  filePath: string
   template?: string | null
   variants?: Record<string, string>
 }
@@ -125,14 +124,14 @@ export {}
     addTemplate({
       filename: 'stories.mjs',
       getContents: () => `
-${stories.map(s => `import ${s.pascalName} from '${s.srcDir}'`).join('\n')}
+${stories.map(s => `import ${s.pascalName} from '${s.filePath}'`).join('\n')}
 
 export const stories = {
 ${stories.map(s => `  '${s.kebabName}': {
     kebabName: '${s.kebabName}',
     pascalName: '${s.pascalName}',
     shortPath: '${s.shortPath}',
-    global: ${s.global},
+    filePath: '${s.filePath}',
     component: ${s.pascalName},
     template: ${JSON.stringify(s.template)},
     variants: ${JSON.stringify(s.variants)}
@@ -205,8 +204,7 @@ ${stories.map(s => `  '${s.kebabName}': {
           kebabName: component.kebabName,
           pascalName: component.pascalName,
           shortPath: component.shortPath,
-          global: component.global,
-          srcDir: resolve(nuxt.options.srcDir, component.shortPath),
+          filePath: component.filePath,
           template,
           variants,
         }
