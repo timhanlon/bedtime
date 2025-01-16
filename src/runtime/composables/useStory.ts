@@ -14,7 +14,7 @@ export function useStory() {
       pascalName: story.pascalName,
       kebabName: story.kebabName,
       shortPath: story.shortPath,
-      global: story.global,
+      filePath: story.filePath,
     }
   }
 
