@@ -74,6 +74,18 @@ export default defineNuxtConfig({
 })
 ```
 
+## Open in Editor
+
+Set the `LAUNCH_EDITOR` environment variable to your editor of choice:
+
+```
+LAUNCH_EDITOR=cursor pnpm dev
+```
+
+See [launch-editor](https://github.com/yyx990803/launch-editor/#supported-editors) for more details.
+
+Note: this does not currently work in the playground, due to `nuxt dev playground` overriding the `rootDir`.
+
 <!-- ## Quick Setup
 
 Install the module to your Nuxt application with one command:
