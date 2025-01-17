@@ -106,6 +106,9 @@ export {}
     await installModule('nuxt-shiki', {
       bundledLangs: ['vue'],
     })
+    // https://github.com/pi0/nuxt-shiki/issues/41
+    nuxt.options.nitro.experimental = nuxt.options.nitro.experimental || {}
+    nuxt.options.nitro.experimental.wasm = true
 
     // Ensure types are included in tsconfig
     nuxt.hook('prepare:types', ({ references }) => {

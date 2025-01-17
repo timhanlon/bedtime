@@ -41,7 +41,7 @@
   --variant-title-text-color: #374151;
 
   /* Template View */
-  --template-view-border: 1px solid #e5e5e5;
+  --template-view-border: 0;
   --template-view-border-radius: 0.375rem;
   --template-view-margin: 1rem 0 0 0;
   --template-view-padding: 1rem;
