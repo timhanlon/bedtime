@@ -7,6 +7,7 @@ import {
   updateTemplates,
   useLogger,
   addTypeTemplate,
+  installModule,
 } from '@nuxt/kit'
 import { resolve } from 'pathe'
 import { parse } from '@vue/compiler-sfc'
@@ -100,6 +101,10 @@ declare module '@nuxt/schema' {
 
 export {}
 `,
+    })
+
+    await installModule('nuxt-shiki', {
+      bundledLangs: ['vue'],
     })
 
     // Ensure types are included in tsconfig
