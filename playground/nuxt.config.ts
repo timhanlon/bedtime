@@ -10,4 +10,8 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2025-01-03',
+
+  shiki: {
+    defaultTheme: 'nord',
+  },
 })

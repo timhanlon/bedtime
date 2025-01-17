@@ -1,6 +1,7 @@
 <template>
   <button
     class="open-in-editor-button"
+    title="Open in editor"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

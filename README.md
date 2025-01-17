@@ -86,6 +86,10 @@ See [launch-editor](https://github.com/yyx990803/launch-editor/#supported-editor
 
 Note: this does not currently work in the playground, due to `nuxt dev playground` overriding the `rootDir`.
 
+## Syntax Highlighting
+
+Syntax highlighting is provided by [Nuxt Shiki](https://github.com/nuxt-modules/shiki), and can be configured via the `shiki` key in your `nuxt.config.ts`.
+
 <!-- ## Quick Setup
 
 Install the module to your Nuxt application with one command:
