@@ -13,16 +13,12 @@ import { resolve } from 'pathe'
 import { parse } from '@vue/compiler-sfc'
 import { defu } from 'defu'
 import { extractStoryContent } from './utils/template-extraction'
-import type { BedtimeModuleOptions, ResolvedBedtimeModuleOptions } from './types/module'
-
-interface StoryComponent {
-  pascalName: string
-  kebabName: string
-  shortPath: string
-  filePath: string
-  template?: string | null
-  variants?: Record<string, string>
-}
+import type {
+  BedtimeModuleOptions,
+  ResolvedBedtimeModuleOptions,
+  BedtimeStory,
+  BedtimeVariant,
+} from './types/module'
 
 export default defineNuxtModule<BedtimeModuleOptions>({
   meta: {
@@ -126,7 +122,7 @@ export {}
       dirs.push(resolve(runtimeDir, 'composables'))
     })
 
-    const stories: Array<StoryComponent> = []
+    const stories: Array<BedtimeStory> = []
 
     // Create a stub stories.mjs file
     addTemplate({
@@ -198,13 +194,13 @@ ${stories.map(s => `  '${s.kebabName}': {
         const code = readFileSync(filePath, 'utf-8')
         const { descriptor } = parse(code)
 
-        let template = null
-        const variants: Record<string, string> = {}
+        let template
+        const variants: Record<string, BedtimeVariant> = {}
 
         if (descriptor.template) {
           const { template: extractedTemplate, variants: extractedVariants }
             = extractStoryContent(descriptor.template.content, filePath, component.pascalName)
-          template = extractedTemplate
+          template = extractedTemplate ?? undefined
           Object.assign(variants, extractedVariants)
         }
 

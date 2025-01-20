@@ -4,11 +4,17 @@ export interface BedtimeStory {
   kebabName: string
   pascalName: string
   shortPath: string
-  component: Component
   filePath: string
+  component?: Component
   template?: string
-  variants?: Record<string, string>
-  hasVariants: boolean
+  variants?: Record<string, BedtimeVariant>
+  hasVariants?: boolean
+}
+
+export interface BedtimeVariant {
+  title: string
+  slug: string
+  template: string
 }
 
 export type BedtimeStories = Record<string, BedtimeStory>

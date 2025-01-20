@@ -22,14 +22,6 @@
             class="story-actions"
             :class="story().actions({ class: [classes?.actions, storyClasses.actions] })"
           >
-            <CodeButton
-              v-if="storyTemplateCode"
-              v-model="showTemplate"
-            />
-            <CopyButton
-              v-if="storyTemplateCode"
-              :content="storyTemplateCode"
-            />
             <DevOnly>
               <OpenInEditorButton
                 @click="openInEditor"
@@ -43,30 +35,25 @@
       class="story-content"
       :class="story().content({ class: [classes?.content, storyClasses.content] })"
     >
-      <slot />
-    </div>
-    <div
-      class="story-template"
-      :class="story().template({ class: [classes?.template, storyClasses.template] })"
-    >
-      <slot name="template">
-        <TemplateView
-          v-if="showTemplate"
-          :content="storyTemplateCode"
-        />
-      </slot>
+      <template v-if="hasVariants">
+        <slot />
+      </template>
+      <Variant
+        v-else
+        title="Default"
+      >
+        <slot />
+      </Variant>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { provide, useSlots } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
-import CodeButton from './CodeButton.vue'
-import CopyButton from './CopyButton.vue'
-import TemplateView from './TemplateView.vue'
+import Variant from './Variant.vue'
 import { useRoute, useRuntimeConfig } from '#imports'
 
 const story = tv({
@@ -84,26 +71,29 @@ defineOptions({
   name: 'StoryContainer',
 })
 
-const props = withDefaults(defineProps<{
+defineProps<{
   title?: string
-  showTemplate?: boolean
   classes?: ComponentSlotClasses
-}>(), {
-  showTemplate: false,
-})
+}>()
 
 const config = useRuntimeConfig()
 const storyClasses = config.public.bedtime?.classes?.story
 
 const route = useRoute()
 const storySlug = route.params.slug as string
-const { getTemplate, getStoryDetails } = useStory()
-const storyTemplateCode = getTemplate(storySlug)
+const { getStoryDetails } = useStory()
 const storyDetails = getStoryDetails(storySlug)
 
 provide('story-slug', storySlug)
 
-const showTemplate = ref(props.showTemplate)
+const slots = useSlots()
+const hasVariants = computed(() => {
+  if (!slots.default) return false
+  const defaultSlot = slots.default()
+  return defaultSlot.some(node =>
+    node.type && typeof node.type === 'object' && 'name' in node.type && node.type.name === 'StoryVariant',
+  )
+})
 
 async function openInEditor() {
   if (!storyDetails) {

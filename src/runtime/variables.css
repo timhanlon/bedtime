@@ -32,6 +32,7 @@
   --variant-content-margin: 0.5rem 0 0 0;
   --variant-content-padding: 1rem;
   --variant-content-position: relative;
+  --variant-content-guideline-border: 0;
   --variant-header-align-content: center;
   --variant-header-display: flex;
   --variant-header-gap: 0.5rem;
