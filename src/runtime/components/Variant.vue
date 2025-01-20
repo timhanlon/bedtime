@@ -122,7 +122,7 @@ const showTemplate = ref(props.showTemplate)
     content: '';
     position: absolute;
     inset: var(--variant-content-padding);
-    border: 1px dashed #8882;
+    border: var(--variant-content-guideline-border);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s ease;
