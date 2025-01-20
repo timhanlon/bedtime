@@ -32,6 +32,7 @@
   "dependencies": {
     "@nuxt/kit": "^3.15.0",
     "@vue/compiler-sfc": "^3.3.0",
+    "change-case": "^5.4.4",
     "defu": "^6.1.4",
     "nuxt-shiki": "^0.3.0",
     "pathe": "^2.0.0",
