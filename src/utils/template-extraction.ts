@@ -1,5 +1,7 @@
 import { compileTemplate } from '@vue/compiler-sfc'
 import type { ElementNode, TemplateChildNode } from '@vue/compiler-core'
+import * as changeCase from 'change-case'
+import type { BedtimeVariant } from '../types/module'
 
 /**
  * Get the leading whitespace from a line in the template.
@@ -143,9 +145,14 @@ export function extractStoryContent(template: string, filename: string, id: stri
     .filter((v): v is { title: string, content: string } => v !== null)
 
   // Store variant templates
-  const variants: Record<string, string> = {}
+  const variants: Record<string, BedtimeVariant> = {}
   processedVariants.forEach(({ title, content }) => {
-    variants[title] = content
+    const slug = changeCase.kebabCase(title)
+    variants[slug] = {
+      title,
+      slug,
+      template: content,
+    }
   })
 
   return { template: null, variants }

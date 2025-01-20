@@ -41,7 +41,6 @@
       <Variant
         v-else
         title="Default"
-        :show-template="showTemplate"
       >
         <slot />
       </Variant>

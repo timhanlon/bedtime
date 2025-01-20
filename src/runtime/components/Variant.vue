@@ -118,6 +118,20 @@ const showTemplate = ref(props.showTemplate)
     position: var(--variant-content-position);
   }
 
+  .variant-content::after {
+    content: '';
+    position: absolute;
+    inset: var(--variant-content-padding);
+    border: 1px dashed #8882;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .variant-content:hover::after {
+    opacity: 1;
+  }
+
   .variant-header {
     display: var(--variant-header-display);
     gap: var(--variant-header-gap);

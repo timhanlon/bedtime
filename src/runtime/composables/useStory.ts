@@ -34,7 +34,7 @@ export function useStory() {
 
     // If variant name provided and exists, return that
     if (variantName && story.variants?.[variantName]) {
-      return story.variants[variantName]
+      return story.variants[variantName].template
     }
 
     // Otherwise return story template
