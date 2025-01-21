@@ -13,7 +13,7 @@
   --story-content-grid-gap: ;
   --story-header-align-content: center;
   --story-header-display: flex;
-  --story-header-gap: 1rem;
+  --story-header-gap: 0.5rem;
   --story-title-font-size: 1.2rem;
   --story-title-font-weight: 500;
   --story-title-letter-spacing: -0.02em;
@@ -64,4 +64,18 @@
   --stories-sidebar-link-transition: all 0.2s;
   --stories-sidebar-link-active-bg: #e5e7eb;
   --stories-sidebar-link-active-weight: 500;
+
+  /* Command Palette */
+  --command-palette-bg: #f8fafc;
+  --command-palette-border: 1px solid #e2e8f0;
+  --command-palette-border-radius: 0.5rem;
+  --command-palette-box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --command-palette-item-bg: #fff;
+  --command-palette-item-hover-bg: #f1f5f9;
+  --command-palette-item-selected-bg: #e2e8f0;
+  --command-palette-item-padding: 0.5rem 1rem;
+  --command-palette-item-font-size: 0.9rem;
+  --command-palette-item-cursor: pointer;
+  --command-palette-item-transition: background-color 0.2s ease;
+  --command-palette-input-border: 1px solid #e2e8f0;
 }
