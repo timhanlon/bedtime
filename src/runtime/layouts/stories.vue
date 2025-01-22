@@ -29,6 +29,7 @@
         <slot />
       </main>
     </div>
+    <CommandPalette :items="storyItems" />
   </div>
 </template>
 
@@ -36,7 +37,7 @@
 import { computed, ref, onMounted, onUpdated } from 'vue'
 import type { BedtimeStory } from '../../types/module'
 import type { RouteLocationNormalized } from '#vue-router'
-import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useRuntimeConfig, useState } from '#imports'
+import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useRuntimeConfig, useState, navigateTo } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
 
 defineOptions({
@@ -81,6 +82,14 @@ function formatStoryName(name: string): string {
     .replace(/Story$/, '') // Remove 'Story' suffix
     .trim()
 }
+
+const storyItems = computed(() => {
+  return stories.map(story => ({
+    id: story.kebabName,
+    label: story.pascalName,
+    action: () => { navigateTo(`/stories/${story.kebabName}`) },
+  }))
+})
 </script>
 
 <style scoped>
