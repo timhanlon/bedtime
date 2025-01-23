@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { provide, useSlots } from 'vue'
+import { computed, provide, useSlots } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
@@ -81,19 +81,22 @@ const storyClasses = config.public.bedtime?.classes?.story
 
 const route = useRoute()
 const storySlug = route.params.slug as string
-const { getStoryDetails } = useStory()
+const { getStoryDetails, getVariantMenuItems } = useStory()
 const storyDetails = getStoryDetails(storySlug)
 
 provide('story-slug', storySlug)
+provide('story', storyDetails)
 
 const slots = useSlots()
 const hasVariants = computed(() => {
   if (!slots.default) return false
-  const defaultSlot = slots.default()
+  const defaultSlot = slots.default({})
   return defaultSlot.some(node =>
     node.type && typeof node.type === 'object' && 'name' in node.type && node.type.name === 'StoryVariant',
   )
 })
+
+const variantMenuItems = getVariantMenuItems(storySlug)
 
 async function openInEditor() {
   if (!storyDetails) {

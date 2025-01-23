@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="`variant-${title}`"
+    :id="`variant-${variantDetails?.slug}`"
     class="variant-container"
     :class="variant().base({ class: [classes?.container, variantClasses.container] })"
   >
@@ -57,7 +57,7 @@
 import { computed, inject, ref } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
-import type { ComponentSlotClasses } from '../../types/module'
+import type { ComponentSlotClasses, BedtimeStory } from '../../types/module'
 import CodeButton from './CodeButton.vue'
 import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
@@ -89,10 +89,14 @@ const props = withDefaults(defineProps<{
 const config = useRuntimeConfig()
 const variantClasses = config.public.bedtime?.classes?.variant
 
+const story = inject<BedtimeStory | undefined>('story')
 const storySlug = inject<string | undefined>('story-slug')
-const { getTemplate } = useStory()
+const { getTemplate, getVariantDetails } = useStory()
 const variantTemplateCode = computed(() =>
   storySlug ? getTemplate(storySlug, props.title) : null,
+)
+const variantDetails = computed(() =>
+  storySlug ? getVariantDetails(storySlug, props.title) : null,
 )
 
 const showTemplate = ref(props.showTemplate)
