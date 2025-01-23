@@ -137,7 +137,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     }
 
     return {
-      template: null,
+      template: normalizedContent,
       variants: {
         default: {
           title: 'Default',
