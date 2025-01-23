@@ -57,7 +57,7 @@
 import { computed, inject, ref } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
-import type { ComponentSlotClasses, BedtimeStory } from '../../types/module'
+import type { ComponentSlotClasses } from '../../types/module'
 import CodeButton from './CodeButton.vue'
 import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
@@ -89,7 +89,6 @@ const props = withDefaults(defineProps<{
 const config = useRuntimeConfig()
 const variantClasses = config.public.bedtime?.classes?.variant
 
-const story = inject<BedtimeStory | undefined>('story')
 const storySlug = inject<string | undefined>('story-slug')
 const { getTemplate, getVariantDetails } = useStory()
 const variantTemplateCode = computed(() =>

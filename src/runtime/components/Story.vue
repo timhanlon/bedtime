@@ -81,7 +81,7 @@ const storyClasses = config.public.bedtime?.classes?.story
 
 const route = useRoute()
 const storySlug = route.params.slug as string
-const { getStoryDetails, getVariantMenuItems } = useStory()
+const { getStoryDetails } = useStory()
 const storyDetails = getStoryDetails(storySlug)
 
 provide('story-slug', storySlug)
@@ -95,8 +95,6 @@ const hasVariants = computed(() => {
     node.type && typeof node.type === 'object' && 'name' in node.type && node.type.name === 'StoryVariant',
   )
 })
-
-const variantMenuItems = getVariantMenuItems(storySlug)
 
 async function openInEditor() {
   if (!storyDetails) {
