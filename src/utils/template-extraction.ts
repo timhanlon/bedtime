@@ -120,26 +120,32 @@ export function extractStoryContent(template: string, filename: string, id: stri
 
   const hasVariants = variantNodes.length > 0
 
-  // If no variants, return the story content as template
+  // If no variants, create a Default variant with the story content
   if (!hasVariants) {
     const content = storyNode.children
       .map(child => extractNodeContent(child, template))
       .join('')
 
     // Add indentation based on the content's position and normalize it
+    let normalizedContent = content
     if ('loc' in storyNode && storyNode.children?.[0] && 'loc' in storyNode.children[0]) {
       const indent = getIndentFromTemplate(template, storyNode.children[0].loc.start.line)
-      return {
-        template: normalizeIndentation(indent + content),
-        variants: {},
-        hasVariants,
-      }
+      normalizedContent = normalizeIndentation(indent + content)
+    }
+    else {
+      normalizedContent = normalizeIndentation(content)
     }
 
     return {
-      template: normalizeIndentation(content),
-      variants: {},
-      hasVariants,
+      template: null,
+      variants: {
+        default: {
+          title: 'Default',
+          slug: 'default',
+          template: normalizedContent,
+        },
+      },
+      hasVariants: false,
     }
   }
 
