@@ -99,7 +99,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     id,
   })
 
-  if (!ast || !('children' in ast)) return { template: null, variants: {} }
+  if (!ast || !('children' in ast)) return { template: null, variants: {}, hasVariants: false }
 
   // Find the Story component's content
   const storyNode = ast.children.find(node =>
@@ -108,7 +108,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     && node.tag === 'Story',
   ) as ElementNode | undefined
 
-  if (!storyNode?.children) return { template: null, variants: {} }
+  if (!storyNode?.children) return { template: null, variants: {}, hasVariants: false }
 
   // Find all Variant components
   const variantNodes = storyNode.children
@@ -118,8 +118,10 @@ export function extractStoryContent(template: string, filename: string, id: stri
       && node.tag === 'Variant',
     )
 
+  const hasVariants = variantNodes.length > 0
+
   // If no variants, return the story content as template
-  if (variantNodes.length === 0) {
+  if (!hasVariants) {
     const content = storyNode.children
       .map(child => extractNodeContent(child, template))
       .join('')
@@ -130,12 +132,14 @@ export function extractStoryContent(template: string, filename: string, id: stri
       return {
         template: normalizeIndentation(indent + content),
         variants: {},
+        hasVariants,
       }
     }
 
     return {
       template: normalizeIndentation(content),
       variants: {},
+      hasVariants,
     }
   }
 
@@ -155,5 +159,5 @@ export function extractStoryContent(template: string, filename: string, id: stri
     }
   })
 
-  return { template: null, variants }
+  return { template: null, variants, hasVariants }
 }

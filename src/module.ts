@@ -138,7 +138,8 @@ ${stories.map(s => `  '${s.kebabName}': {
     filePath: '${s.filePath}',
     component: ${s.pascalName},
     template: ${JSON.stringify(s.template)},
-    variants: ${JSON.stringify(s.variants)}
+    variants: ${JSON.stringify(s.variants)},
+    hasVariants: ${s.hasVariants},
   }`).join(',\n')}
 }
 `,
@@ -198,10 +199,19 @@ ${stories.map(s => `  '${s.kebabName}': {
         const variants: Record<string, BedtimeVariant> = {}
 
         if (descriptor.template) {
-          const { template: extractedTemplate, variants: extractedVariants }
+          const { template: extractedTemplate, variants: extractedVariants, hasVariants }
             = extractStoryContent(descriptor.template.content, filePath, component.pascalName)
           template = extractedTemplate ?? undefined
           Object.assign(variants, extractedVariants)
+          return {
+            kebabName: component.kebabName,
+            pascalName: component.pascalName,
+            shortPath: component.shortPath,
+            filePath: component.filePath,
+            template,
+            variants,
+            hasVariants,
+          }
         }
 
         return {
@@ -211,6 +221,7 @@ ${stories.map(s => `  '${s.kebabName}': {
           filePath: component.filePath,
           template,
           variants,
+          hasVariants: false,
         }
       }))
 

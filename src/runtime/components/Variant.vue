@@ -90,9 +90,9 @@ const config = useRuntimeConfig()
 const variantClasses = config.public.bedtime?.classes?.variant
 
 const storySlug = inject<string | undefined>('story-slug')
-const { getVariantTemplate } = useStory()
+const { getTemplate } = useStory()
 const variantTemplateCode = computed(() =>
-  storySlug ? getVariantTemplate(storySlug, props.title) : null,
+  storySlug ? getTemplate(storySlug, props.title) : null,
 )
 
 const showTemplate = ref(props.showTemplate)

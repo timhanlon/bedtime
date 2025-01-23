@@ -28,14 +28,6 @@ export function useStory() {
     return Object.keys(story.variants)
   }
 
-  function getVariantTemplate(storyName: string, variantName?: string): string | null {
-    const story: BedtimeStory = stories[storyName]
-    if (!story || !story.variants) return null
-    const variant = Object.values(story.variants).find((variant: BedtimeVariant) => variant.title === variantName)
-    if (!variant) return null
-    return variant.template
-  }
-
   function getTemplate(storyName: string, variantName?: string): string | null {
     const story: BedtimeStory = stories[storyName]
     if (!story) return null
@@ -55,7 +47,6 @@ export function useStory() {
     getStoryNames,
     getVariantNames,
     getTemplate,
-    getVariantTemplate,
     // Keep stories object for compatibility
     stories: stories as BedtimeStories,
   }
