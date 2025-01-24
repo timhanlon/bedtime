@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "bedtime-playground",
+  "name": "bedtime-playground-custom",
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",

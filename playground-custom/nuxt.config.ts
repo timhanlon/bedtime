@@ -15,15 +15,15 @@ export default defineNuxtConfig({
     classes: {
       story: {
         actions: 'flex items-center gap-2',
-        container: 'space-y-2',
+        container: 'space-y-4',
         content: 'space-y-4',
         header: 'flex items-center gap-2',
         title: 'text-lg font-medium tracking-tight',
       },
       variant: {
         actions: 'flex items-center gap-2',
-        container: 'space-y-2',
-        content: 'p-4 border border-gray-200 rounded-md',
+        container: 'space-y-2 group',
+        content: 'p-4 border border-gray-200 rounded-md group-data-[active="true"]:border-gray-400',
         header: 'flex items-center gap-2',
         title: 'text-md font-medium tracking-tight',
       },
@@ -32,5 +32,10 @@ export default defineNuxtConfig({
       enabled: false,
       theme: false,
     },
+  },
+
+  shiki: {
+    defaultTheme: 'catppuccin-latte',
+    defaultLang: 'vue',
   },
 })

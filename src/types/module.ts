@@ -17,6 +17,19 @@ export interface BedtimeVariant {
   template: string
 }
 
+export interface VariantMenuItem {
+  title: string
+  slug: string
+  isDefault?: boolean
+}
+
+export interface StoryMenuItem {
+  title: string
+  slug: string
+  shortPath: string
+  variants: VariantMenuItem[]
+}
+
 export type BedtimeStories = Record<string, BedtimeStory>
 
 export interface ComponentSlotClasses {

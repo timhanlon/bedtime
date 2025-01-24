@@ -36,8 +36,11 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, onUpdated } from 'vue'
 import type { BedtimeStory } from '../../types/module'
+// @ts-expect-error resolved at runtime
 import type { RouteLocationNormalized } from '#vue-router'
+// @ts-expect-error resolved at runtime
 import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useRuntimeConfig, useState, navigateTo } from '#imports'
+// @ts-expect-error virtual file
 import { stories as storyList } from '#build/stories.mjs'
 
 defineOptions({

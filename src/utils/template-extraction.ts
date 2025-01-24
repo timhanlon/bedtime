@@ -99,7 +99,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     id,
   })
 
-  if (!ast || !('children' in ast)) return { template: null, variants: {} }
+  if (!ast || !('children' in ast)) return { template: null, variants: {}, hasVariants: false }
 
   // Find the Story component's content
   const storyNode = ast.children.find(node =>
@@ -108,7 +108,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     && node.tag === 'Story',
   ) as ElementNode | undefined
 
-  if (!storyNode?.children) return { template: null, variants: {} }
+  if (!storyNode?.children) return { template: null, variants: {}, hasVariants: false }
 
   // Find all Variant components
   const variantNodes = storyNode.children
@@ -118,24 +118,34 @@ export function extractStoryContent(template: string, filename: string, id: stri
       && node.tag === 'Variant',
     )
 
-  // If no variants, return the story content as template
-  if (variantNodes.length === 0) {
+  const hasVariants = variantNodes.length > 0
+
+  // If no variants, create a Default variant with the story content
+  if (!hasVariants) {
     const content = storyNode.children
       .map(child => extractNodeContent(child, template))
       .join('')
 
     // Add indentation based on the content's position and normalize it
+    let normalizedContent = content
     if ('loc' in storyNode && storyNode.children?.[0] && 'loc' in storyNode.children[0]) {
       const indent = getIndentFromTemplate(template, storyNode.children[0].loc.start.line)
-      return {
-        template: normalizeIndentation(indent + content),
-        variants: {},
-      }
+      normalizedContent = normalizeIndentation(indent + content)
+    }
+    else {
+      normalizedContent = normalizeIndentation(content)
     }
 
     return {
-      template: normalizeIndentation(content),
-      variants: {},
+      template: normalizedContent,
+      variants: {
+        default: {
+          title: 'Default',
+          slug: 'default',
+          template: normalizedContent,
+        },
+      },
+      hasVariants: false,
     }
   }
 
@@ -155,5 +165,5 @@ export function extractStoryContent(template: string, filename: string, id: stri
     }
   })
 
-  return { template: null, variants }
+  return { template: null, variants, hasVariants }
 }

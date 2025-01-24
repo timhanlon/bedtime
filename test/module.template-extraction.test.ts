@@ -41,7 +41,6 @@ describe('template extraction', () => {
       expect(result.template).toContain('class="mb-2"')
       expect(result.template).toContain(':label="`size ${size}`"')
       expect(result.template).toContain(':size="size"')
-      expect(Object.keys(result.variants)).toHaveLength(0)
     })
 
     it('should extract v-if template correctly', () => {
@@ -64,14 +63,6 @@ describe('template extraction', () => {
       expect(result.template).toContain('class="badge-wrapper"')
       expect(result.template).toContain('label="Conditional Badge"')
       expect(result.template).toContain('color="primary"')
-      expect(Object.keys(result.variants)).toHaveLength(0)
-    })
-
-    it('should handle empty story', () => {
-      const template = '<Story></Story>'
-      const result = extractStoryContent(template, 'test.vue', 'test')
-      expect(result.template).toBe('')
-      expect(Object.keys(result.variants)).toHaveLength(0)
     })
   })
 

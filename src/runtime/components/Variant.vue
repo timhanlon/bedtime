@@ -1,18 +1,19 @@
 <template>
   <div
-    :id="`variant-${title}`"
+    :id="`variant-${variantDetails?.slug}`"
+    ref="variantContainer"
     class="variant-container"
-    :class="variant().base({ class: [classes?.container, variantClasses.container] })"
+    :class="tvVariant().base({ class: [classes?.container, variantClasses.container] })"
   >
     <slot name="header">
       <div
         class="variant-header"
-        :class="variant().header({ class: [classes?.header, variantClasses.header] })"
+        :class="tvVariant().header({ class: [classes?.header, variantClasses.header] })"
       >
         <slot name="title">
           <h2
             class="variant-title"
-            :class="variant().title({ class: [classes?.title, variantClasses.title] })"
+            :class="tvVariant().title({ class: [classes?.title, variantClasses.title] })"
           >
             {{ title }}
           </h2>
@@ -20,7 +21,7 @@
         <slot name="actions">
           <div
             class="variant-actions"
-            :class="variant().actions({ class: [classes?.actions, variantClasses.actions] })"
+            :class="tvVariant().actions({ class: [classes?.actions, variantClasses?.actions] })"
           >
             <CodeButton
               v-model="showTemplate"
@@ -35,13 +36,13 @@
     </slot>
     <div
       class="variant-content"
-      :class="variant().content({ class: [classes?.content, variantClasses.content] })"
+      :class="tvVariant().content({ class: [classes?.content, variantClasses?.content] })"
     >
       <slot />
     </div>
     <div
       class="variant-template"
-      :class="variant().template({ class: [classes?.template, variantClasses.template] })"
+      :class="tvVariant().template({ class: [classes?.template, variantClasses?.template] })"
     >
       <slot name="template">
         <TemplateView
@@ -54,16 +55,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
 import CodeButton from './CodeButton.vue'
 import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
-import { useRuntimeConfig } from '#imports'
+// @ts-expect-error resolved at runtime
+import { useRoute, useRuntimeConfig } from '#imports'
 
-const variant = tv({
+const tvVariant = tv({
   slots: {
     base: '',
     actions: '',
@@ -87,15 +89,31 @@ const props = withDefaults(defineProps<{
 })
 
 const config = useRuntimeConfig()
-const variantClasses = config.public.bedtime?.classes?.variant
+const variantClasses: ComponentSlotClasses = config.public.bedtime?.classes?.variant
 
 const storySlug = inject<string | undefined>('story-slug')
-const { getVariantTemplate } = useStory()
+const { getTemplate, getVariantDetails } = useStory()
 const variantTemplateCode = computed(() =>
-  storySlug ? getVariantTemplate(storySlug, props.title) : null,
+  storySlug ? getTemplate(storySlug, props.title) : null,
+)
+const variantDetails = computed(() =>
+  storySlug ? getVariantDetails(storySlug, props.title) : null,
 )
 
 const showTemplate = ref(props.showTemplate)
+
+const route = useRoute()
+const variantContainer = ref<HTMLElement | null>(null)
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    if (newHash === `#variant-${variantDetails?.value?.slug}`) {
+      variantContainer.value?.setAttribute('data-active', 'true')
+    }
+    else {
+      variantContainer.value?.removeAttribute('data-active')
+    }
+  }
+})
 </script>
 
 <style scoped>
