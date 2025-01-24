@@ -1,4 +1,5 @@
 import type { BedtimeStory, BedtimeStories, BedtimeVariant, VariantMenuItem, StoryMenuItem } from '../../types/module'
+// @ts-expect-error virtual file
 import { stories as buildStories } from '#build/stories.mjs'
 
 export function useStory() {

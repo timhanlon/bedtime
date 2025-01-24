@@ -54,6 +54,7 @@ import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
 import Variant from './Variant.vue'
+// @ts-expect-error resolved at runtime
 import { useRoute, useRuntimeConfig } from '#imports'
 
 const story = tv({

@@ -61,6 +61,7 @@ import type { ComponentSlotClasses } from '../../types/module'
 import CodeButton from './CodeButton.vue'
 import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
+// @ts-expect-error resolved at runtime
 import { useRuntimeConfig } from '#imports'
 
 const variant = tv({

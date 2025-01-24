@@ -20,6 +20,7 @@
 <script setup lang="ts">
 import { useStory } from '../composables/useStory'
 import StoriesLayout from '../layouts/stories.vue'
+// @ts-expect-error resolved at runtime
 import { useHead, useRoute } from '#imports'
 
 const route = useRoute()

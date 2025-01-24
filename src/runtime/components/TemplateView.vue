@@ -7,6 +7,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-expect-error resolved at runtime
 import { getShikiHighlighter } from '#imports'
 
 const props = defineProps<{
