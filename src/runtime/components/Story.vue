@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { computed, provide, useSlots } from 'vue'
+import type { VNode } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
@@ -92,7 +93,7 @@ const slots = useSlots()
 const hasVariants = computed(() => {
   if (!slots.default) return false
   const defaultSlot = slots.default({})
-  return defaultSlot.some(node =>
+  return defaultSlot.some((node: VNode) =>
     node.type && typeof node.type === 'object' && 'name' in node.type && node.type.name === 'StoryVariant',
   )
 })
