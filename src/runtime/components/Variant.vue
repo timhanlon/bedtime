@@ -2,17 +2,17 @@
   <div
     :id="`variant-${variantDetails?.slug}`"
     class="variant-container"
-    :class="variant().base({ class: [classes?.container, variantClasses.container] })"
+    :class="tvVariant().base({ class: [classes?.container, variantClasses.container] })"
   >
     <slot name="header">
       <div
         class="variant-header"
-        :class="variant().header({ class: [classes?.header, variantClasses.header] })"
+        :class="tvVariant().header({ class: [classes?.header, variantClasses.header] })"
       >
         <slot name="title">
           <h2
             class="variant-title"
-            :class="variant().title({ class: [classes?.title, variantClasses.title] })"
+            :class="tvVariant().title({ class: [classes?.title, variantClasses.title] })"
           >
             {{ title }}
           </h2>
@@ -20,7 +20,7 @@
         <slot name="actions">
           <div
             class="variant-actions"
-            :class="variant().actions({ class: [classes?.actions, variantClasses.actions] })"
+            :class="tvVariant().actions({ class: [classes?.actions, variantClasses?.actions] })"
           >
             <CodeButton
               v-model="showTemplate"
@@ -35,13 +35,13 @@
     </slot>
     <div
       class="variant-content"
-      :class="variant().content({ class: [classes?.content, variantClasses.content] })"
+      :class="tvVariant().content({ class: [classes?.content, variantClasses?.content] })"
     >
       <slot />
     </div>
     <div
       class="variant-template"
-      :class="variant().template({ class: [classes?.template, variantClasses.template] })"
+      :class="tvVariant().template({ class: [classes?.template, variantClasses?.template] })"
     >
       <slot name="template">
         <TemplateView
@@ -64,7 +64,7 @@ import TemplateView from './TemplateView.vue'
 // @ts-expect-error resolved at runtime
 import { useRuntimeConfig } from '#imports'
 
-const variant = tv({
+const tvVariant = tv({
   slots: {
     base: '',
     actions: '',
@@ -88,7 +88,7 @@ const props = withDefaults(defineProps<{
 })
 
 const config = useRuntimeConfig()
-const variantClasses = config.public.bedtime?.classes?.variant
+const variantClasses: ComponentSlotClasses = config.public.bedtime?.classes?.variant
 
 const storySlug = inject<string | undefined>('story-slug')
 const { getTemplate, getVariantDetails } = useStory()

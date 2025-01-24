@@ -1,18 +1,18 @@
 <template>
   <div
     class="story-container"
-    :class="story().base({ class: [classes?.container, storyClasses.container] })"
+    :class="tvStory().base({ class: [classes?.container, storyClasses.container] })"
   >
     <slot name="header">
       <div
         class="story-header"
-        :class="story().header({ class: [classes?.header, storyClasses.header] })"
+        :class="tvStory().header({ class: [classes?.header, storyClasses.header] })"
       >
         <slot name="title">
           <h2
             v-if="title"
             class="story-title"
-            :class="story().title({ class: [classes?.title, storyClasses.title] })"
+            :class="tvStory().title({ class: [classes?.title, storyClasses.title] })"
           >
             {{ title }}
           </h2>
@@ -20,7 +20,7 @@
         <slot name="actions">
           <div
             class="story-actions"
-            :class="story().actions({ class: [classes?.actions, storyClasses.actions] })"
+            :class="tvStory().actions({ class: [classes?.actions, storyClasses.actions] })"
           >
             <DevOnly>
               <OpenInEditorButton
@@ -33,7 +33,7 @@
     </slot>
     <div
       class="story-content"
-      :class="story().content({ class: [classes?.content, storyClasses.content] })"
+      :class="tvStory().content({ class: [classes?.content, storyClasses.content] })"
     >
       <template v-if="hasVariants">
         <slot />
@@ -58,7 +58,7 @@ import Variant from './Variant.vue'
 // @ts-expect-error resolved at runtime
 import { useRoute, useRuntimeConfig } from '#imports'
 
-const story = tv({
+const tvStory = tv({
   slots: {
     base: '',
     actions: '',
@@ -79,7 +79,7 @@ defineProps<{
 }>()
 
 const config = useRuntimeConfig()
-const storyClasses = config.public.bedtime?.classes?.story
+const storyClasses: ComponentSlotClasses = config.public.bedtime?.classes?.story
 
 const route = useRoute()
 const storySlug = route.params.slug as string
