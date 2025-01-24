@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.0.7
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.6...v0.0.7)
+
+### 🚀 Enhancements
+
+- Syntax highlighting ([#10](https://github.com/timhanlon/bedtime/pull/10))
+- Command palette ([#12](https://github.com/timhanlon/bedtime/pull/12))
+- Better custom playground helpers + example ([#14](https://github.com/timhanlon/bedtime/pull/14))
+
+### 🩹 Fixes
+
+- Variant templates ([#13](https://github.com/timhanlon/bedtime/pull/13))
+
+### 💅 Refactors
+
+- Variants ([#11](https://github.com/timhanlon/bedtime/pull/11))
+
+### 📖 Documentation
+
+- Update README ([7bdcdcf](https://github.com/timhanlon/bedtime/commit/7bdcdcf))
+
+### ❤️ Contributors
+
+- Timhanlon <tim@timhanlon.com>
+
 ## v0.0.6
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.5...v0.0.6)
