@@ -36,9 +36,11 @@ Check the [playground](https://github.com/timhanlon/bedtime/tree/main/playground
 
 ## Features
 
+- Compatible with Nuxt 3.15 and Vite 6
 - Supports Nuxt [layers](https://nuxt.com/docs/getting-started/layers)
 - Supports stories co-located with components or in a dedicated stories directory
 - Copy Story/Variant templates to clipboard for easy implementation
+- The `useStory` composable can be used to build your own [custom story viewer](https://github.com/timhanlon/bedtime/tree/main/playground-custom)
 
 ## Usage
 
