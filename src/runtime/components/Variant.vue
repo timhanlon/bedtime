@@ -1,6 +1,7 @@
 <template>
   <div
     :id="`variant-${variantDetails?.slug}`"
+    ref="variantContainer"
     class="variant-container"
     :class="tvVariant().base({ class: [classes?.container, variantClasses.container] })"
   >
@@ -54,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject, ref, watch } from 'vue'
 import { tv } from 'tailwind-variants'
 import { useStory } from '../composables/useStory'
 import type { ComponentSlotClasses } from '../../types/module'
@@ -62,7 +63,7 @@ import CodeButton from './CodeButton.vue'
 import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
 // @ts-expect-error resolved at runtime
-import { useRuntimeConfig } from '#imports'
+import { useRoute, useRuntimeConfig } from '#imports'
 
 const tvVariant = tv({
   slots: {
@@ -100,6 +101,19 @@ const variantDetails = computed(() =>
 )
 
 const showTemplate = ref(props.showTemplate)
+
+const route = useRoute()
+const variantContainer = ref<HTMLElement | null>(null)
+watch(() => route.hash, (newHash) => {
+  if (newHash) {
+    if (newHash === `#variant-${variantDetails?.value?.slug}`) {
+      variantContainer.value?.setAttribute('data-active', 'true')
+    }
+    else {
+      variantContainer.value?.removeAttribute('data-active')
+    }
+  }
+})
 </script>
 
 <style scoped>
