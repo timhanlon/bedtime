@@ -34,7 +34,6 @@
     "@vue/compiler-sfc": "^3.3.0",
     "change-case": "^5.4.4",
     "defu": "^6.1.4",
-    "lucide-vue-next": "^0.471.0",
     "nuxt-shiki": "^0.3.0",
     "pathe": "^2.0.0",
     "tailwind-variants": "^0.3.0"
