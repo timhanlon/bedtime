@@ -136,7 +136,7 @@ ${stories.map(s => `  '${s.kebabName}': {
     pascalName: '${s.pascalName}',
     shortPath: '${s.shortPath}',
     filePath: '${s.filePath}',
-    component: ${s.pascalName},
+    component: () => import('${s.filePath}'),
     template: ${JSON.stringify(s.template)},
     variants: ${JSON.stringify(s.variants)},
     hasVariants: ${s.hasVariants},

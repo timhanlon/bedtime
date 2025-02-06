@@ -5,7 +5,10 @@
         v-if="story"
         class="story-content"
       >
-        <component :is="story.component" />
+        <component
+          :is="storyComponent"
+          v-if="storyComponent"
+        />
       </div>
       <div
         v-else
@@ -18,15 +21,20 @@
 </template>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
 import { useStory } from '../composables/useStory'
 import StoriesLayout from '../layouts/stories.vue'
 // @ts-expect-error resolved at runtime
 import { useHead, useRoute } from '#imports'
 
 const route = useRoute()
-const { stories } = useStory()
+const { getStoryDetails } = useStory()
 
-const story = stories[route.params.slug as string]
+const story = getStoryDetails(route.params.slug as string)
+
+const storyComponent = story?.component
+  ? defineAsyncComponent(story.component)
+  : null
 
 useHead({
   title: story ? story.pascalName : 'Story Not Found',
