@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.0.8
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.7...v0.0.8)
+
+### 🔥 Performance
+
+- Remove lucide-vue-nuxt dependency ([#15](https://github.com/timhanlon/bedtime/pull/15))
+- Async components ([#16](https://github.com/timhanlon/bedtime/pull/16))
+
+### ❤️ Contributors
+
+- Timhanlon <tim@timhanlon.com>
+
 ## v0.0.7
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.6...v0.0.7)
