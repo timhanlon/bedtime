@@ -5,7 +5,7 @@ export interface BedtimeStory {
   pascalName: string
   shortPath: string
   filePath: string
-  component?: Component
+  component?: () => Promise<Component>
   template?: string
   variants?: Record<string, BedtimeVariant>
   hasVariants?: boolean

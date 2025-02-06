@@ -128,15 +128,13 @@ export {}
     addTemplate({
       filename: 'stories.mjs',
       getContents: () => `
-${stories.map(s => `import ${s.pascalName} from '${s.filePath}'`).join('\n')}
-
 export const stories = {
 ${stories.map(s => `  '${s.kebabName}': {
     kebabName: '${s.kebabName}',
     pascalName: '${s.pascalName}',
     shortPath: '${s.shortPath}',
     filePath: '${s.filePath}',
-    component: ${s.pascalName},
+    component: () => import('${s.filePath}'),
     template: ${JSON.stringify(s.template)},
     variants: ${JSON.stringify(s.variants)},
     hasVariants: ${s.hasVariants},
@@ -226,7 +224,8 @@ ${stories.map(s => `  '${s.kebabName}': {
       }))
 
       // Only update if the stories have changed
-      if (JSON.stringify(stories) !== JSON.stringify(newStories)) {
+      // if (JSON.stringify(stories) !== JSON.stringify(newStories)) {
+      if (stories.length !== newStories.length) {
         logger.info(`Found ${storyComponents.length} story components`)
         stories.length = 0 // Clear the array
         stories.push(...newStories)
