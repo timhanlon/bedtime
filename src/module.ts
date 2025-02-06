@@ -128,8 +128,6 @@ export {}
     addTemplate({
       filename: 'stories.mjs',
       getContents: () => `
-${stories.map(s => `import ${s.pascalName} from '${s.filePath}'`).join('\n')}
-
 export const stories = {
 ${stories.map(s => `  '${s.kebabName}': {
     kebabName: '${s.kebabName}',
@@ -186,6 +184,8 @@ ${stories.map(s => `  '${s.kebabName}': {
     }
 
     nuxt.hook('components:extend', async (components) => {
+      logger.warn('components:extend')
+
       const storyComponents = components.filter(c =>
         c.pascalName.endsWith('Story') && c.pascalName !== 'Story',
       )
@@ -226,10 +226,12 @@ ${stories.map(s => `  '${s.kebabName}': {
       }))
 
       // Only update if the stories have changed
-      if (JSON.stringify(stories) !== JSON.stringify(newStories)) {
+      // if (JSON.stringify(stories) !== JSON.stringify(newStories)) {
+      if (stories.length !== newStories.length) {
         logger.info(`Found ${storyComponents.length} story components`)
         stories.length = 0 // Clear the array
         stories.push(...newStories)
+        logger.warn('Updating templates')
         await updateTemplates({
           filter: template => template.filename === 'stories.mjs',
         })
