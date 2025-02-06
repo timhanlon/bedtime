@@ -184,8 +184,6 @@ ${stories.map(s => `  '${s.kebabName}': {
     }
 
     nuxt.hook('components:extend', async (components) => {
-      logger.warn('components:extend')
-
       const storyComponents = components.filter(c =>
         c.pascalName.endsWith('Story') && c.pascalName !== 'Story',
       )
@@ -231,7 +229,6 @@ ${stories.map(s => `  '${s.kebabName}': {
         logger.info(`Found ${storyComponents.length} story components`)
         stories.length = 0 // Clear the array
         stories.push(...newStories)
-        logger.warn('Updating templates')
         await updateTemplates({
           filter: template => template.filename === 'stories.mjs',
         })
