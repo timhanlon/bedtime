@@ -61,7 +61,7 @@ export default defineNuxtModule<BedtimeModuleOptions>({
     nuxt.options.runtimeConfig.public.bedtime = defu(
       nuxt.options.runtimeConfig.public.bedtime || {},
       options,
-    ) as Required<BedtimeModuleOptions>
+    )
 
     // Ensure our final merged options are typed correctly
     // Thanks Johann / https://github.com/johannschopplich/nuxt-api-party
@@ -241,18 +241,10 @@ ${stories.map(s => `  '${s.kebabName}': {
         return
       }
 
-      if (!pages.some(page => page.name === 'stories-index')) {
-        pages.push({
-          name: 'stories-index',
-          path: storyViewerRoute,
-          file: resolver.resolve('./runtime/pages/stories-index.vue'),
-        })
-      }
-
       if (!pages.some(page => page.name === 'stories-slug')) {
         pages.push({
           name: 'stories-slug',
-          path: `${storyViewerRoute}/:slug`,
+          path: `${storyViewerRoute}/:slug?`,
           file: resolver.resolve('./runtime/pages/story-view.vue'),
         })
       }

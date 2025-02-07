@@ -49,14 +49,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, provide, useSlots } from 'vue'
+import { computed, inject, useSlots } from 'vue'
 import type { VNode } from 'vue'
 import { tv } from 'tailwind-variants'
-import { useStory } from '../composables/useStory'
-import type { ComponentSlotClasses } from '../../types/module'
+import type { ComponentSlotClasses, BedtimeStory } from '../../types/module'
 import Variant from './Variant.vue'
 // @ts-expect-error resolved at runtime
-import { useRoute, useRuntimeConfig } from '#imports'
+import { useRuntimeConfig } from '#imports'
 
 const tvStory = tv({
   slots: {
@@ -81,13 +80,7 @@ defineProps<{
 const config = useRuntimeConfig()
 const storyClasses: ComponentSlotClasses = config.public.bedtime?.classes?.story
 
-const route = useRoute()
-const storySlug = route.params.slug as string
-const { getStoryDetails } = useStory()
-const storyDetails = getStoryDetails(storySlug)
-
-provide('story-slug', storySlug)
-provide('story', storyDetails)
+const story = inject<BedtimeStory | undefined>('story')
 
 const slots = useSlots()
 const hasVariants = computed(() => {
@@ -99,11 +92,11 @@ const hasVariants = computed(() => {
 })
 
 async function openInEditor() {
-  if (!storyDetails) {
+  if (!story) {
     return
   }
   const url = new URL(
-    `/__open-in-editor?file=${storyDetails.shortPath}&line=1&column=1`,
+    `/__open-in-editor?file=${story.shortPath}&line=1&column=1`,
     new URL(document.location.href).origin,
   )
   await fetch(url, {
