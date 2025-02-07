@@ -1,6 +1,6 @@
 <template>
   <div
-    :id="`variant-${variantDetails?.slug}`"
+    :id="`variant-${variant?.slug}`"
     ref="variantContainer"
     class="variant-container"
     :class="tvVariant().base({ class: [classes?.container, variantClasses.container] })"
@@ -55,10 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref, watch } from 'vue'
+import { inject, ref, watch } from 'vue'
 import { tv } from 'tailwind-variants'
-import { useStory } from '../composables/useStory'
-import type { ComponentSlotClasses } from '../../types/module'
+import type { ComponentSlotClasses, BedtimeStory } from '../../types/module'
 import CodeButton from './CodeButton.vue'
 import CopyButton from './CopyButton.vue'
 import TemplateView from './TemplateView.vue'
@@ -91,14 +90,9 @@ const props = withDefaults(defineProps<{
 const config = useRuntimeConfig()
 const variantClasses: ComponentSlotClasses = config.public.bedtime?.classes?.variant
 
-const storySlug = inject<string | undefined>('story-slug')
-const { getTemplate, getVariantDetails } = useStory()
-const variantTemplateCode = computed(() =>
-  storySlug ? getTemplate(storySlug, props.title) : null,
-)
-const variantDetails = computed(() =>
-  storySlug ? getVariantDetails(storySlug, props.title) : null,
-)
+const story = inject<BedtimeStory | undefined>('story')
+const variant = Object.values(story?.variants ?? {}).find(variant => variant.title === props.title)
+const variantTemplateCode = variant?.template
 
 const showTemplate = ref(props.showTemplate)
 
@@ -106,7 +100,7 @@ const route = useRoute()
 const variantContainer = ref<HTMLElement | null>(null)
 watch(() => route.hash, (newHash) => {
   if (newHash) {
-    if (newHash === `#variant-${variantDetails?.value?.slug}`) {
+    if (newHash === `#variant-${variant?.slug}`) {
       variantContainer.value?.setAttribute('data-active', 'true')
     }
     else {

@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const highlighter = await getShikiHighlighter()
-const html = highlighter.highlight(props.content, { lang: 'vue' })
+const html = highlighter.highlight(props.content ?? '', { lang: 'vue' })
 </script>
 
 <style scoped>
