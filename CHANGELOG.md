@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.0.9
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.8...v0.0.9)
+
+### 🩹 Fixes
+
+- Vite hmr issues ([#17](https://github.com/timhanlon/bedtime/pull/17))
+
+### ❤️ Contributors
+
+- Timhanlon <tim@timhanlon.com>
+
 ## v0.0.8
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.7...v0.0.8)
