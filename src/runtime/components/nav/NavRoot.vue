@@ -1,5 +1,8 @@
 <template>
-  <nav class="bt-nav-root">
+  <nav
+    class="bt-nav-root"
+    :class="isMounted ? 'block' : 'hidden'"
+  >
     <NavFolder
       v-for="folder in tree.folders"
       :key="folder.title"
@@ -9,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import type { BedtimeStory } from '../../types/module'
 import NavFolder from './NavFolder.vue'
 import type { NavFolderData } from './types'
@@ -80,6 +83,12 @@ const tree = computed<NavFolderData>(() => {
 
   // return
   return tree
+})
+
+// prevent fouc
+const isMounted = ref(false)
+onMounted(() => {
+  isMounted.value = true
 })
 </script>
 

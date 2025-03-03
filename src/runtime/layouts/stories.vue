@@ -7,7 +7,7 @@
       >
         <NavRoot
           :stories="stories"
-          :tree="true"
+          :tree="options.tree"
         />
       </aside>
       <main class="stories-main">
@@ -24,11 +24,13 @@ import NavRoot from '../components/nav/NavRoot.vue'
 import type { RouteLocationNormalized } from '#vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
+import { useOptions } from '../composables/useOptions'
 
 defineOptions({
   name: 'StoriesLayout',
 })
 
+const options = useOptions()
 const sidebarRef = ref<HTMLElement>()
 const stories = Object
   .values(storyList as Record<string, BedtimeStory>)
@@ -76,7 +78,7 @@ onUpdated(() => {
 }
 
 .stories-sidebar {
-  width: 450px;
+  width: 350px;
   background-color: #f8f8f8;
   border-right: 1px solid #e5e5e5;
   padding: 1rem;
