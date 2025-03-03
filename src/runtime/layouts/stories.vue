@@ -5,7 +5,10 @@
         ref="sidebarRef"
         class="stories-sidebar"
       >
-        <StoriesNav :stories="stories" />
+        <NavRoot
+          :stories="stories"
+          :tree="true"
+        />
       </aside>
       <main class="stories-main">
         <slot />
@@ -17,7 +20,7 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, ref } from 'vue'
 import type { BedtimeStory } from '../../types/module'
-import StoriesNav from '../components/nav/StoriesNav.vue'
+import NavRoot from '../components/nav/NavRoot.vue'
 import type { RouteLocationNormalized } from '#vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
@@ -27,7 +30,9 @@ defineOptions({
 })
 
 const sidebarRef = ref<HTMLElement>()
-const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
+const stories = Object
+  .values(storyList as Record<string, BedtimeStory>)
+  .sort((a, b) => a.pascalName.localeCompare(b.pascalName))
 
 // This scroll position state stuff shouldn't be necessary
 // Maybe it's the fact that this isn't _really_ a Nuxt layout
