@@ -5,22 +5,7 @@
         ref="sidebarRef"
         class="stories-sidebar"
       >
-        <nav>
-          <ul>
-            <li
-              v-for="story in stories"
-              :key="story.kebabName"
-            >
-              <NuxtLink
-                :to="'/stories/' + story.kebabName"
-                class="sidebar-link"
-                :class="{ active: currentStory === story.kebabName }"
-              >
-                {{ formatStoryName(story.pascalName) }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </nav>
+        <StoriesNav :stories="stories" />
       </aside>
       <main class="stories-main">
         <slot />
@@ -30,20 +15,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUpdated } from 'vue'
+import { onMounted, onUpdated, ref } from 'vue'
 import type { BedtimeStory } from '../../types/module'
+import StoriesNav from '../components/nav/StoriesNav.vue'
 import type { RouteLocationNormalized } from '#vue-router'
-import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
+import { onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
 
 defineOptions({
   name: 'StoriesLayout',
 })
 
-const route = useRoute()
 const sidebarRef = ref<HTMLElement>()
 const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
-const currentStory = computed(() => route.params.slug as string)
 
 // This scroll position state stuff shouldn't be necessary
 // Maybe it's the fact that this isn't _really_ a Nuxt layout
@@ -70,12 +54,6 @@ onMounted(() => {
 onUpdated(() => {
   restoreScrollPosition()
 })
-
-function formatStoryName(name: string): string {
-  return name
-    .replace(/Story$/, '') // Remove 'Story' suffix
-    .trim()
-}
 </script>
 
 <style scoped>
@@ -93,41 +71,12 @@ function formatStoryName(name: string): string {
 }
 
 .stories-sidebar {
-  width: 250px;
+  width: 450px;
   background-color: #f8f8f8;
   border-right: 1px solid #e5e5e5;
   padding: 1rem;
   overflow-y: auto;
   flex-shrink: 0;
-}
-
-.stories-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.stories-sidebar li {
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-
-.sidebar-link {
-  display: block;
-  padding: 0.5rem;
-  color: #374151;
-  text-decoration: none;
-  border-radius: 0.375rem;
-  transition: all 0.2s;
-}
-
-.sidebar-link:hover {
-  background-color: #e5e7eb;
-}
-
-.sidebar-link.active {
-  background-color: #e5e7eb;
-  font-weight: 500;
 }
 
 .stories-main {
