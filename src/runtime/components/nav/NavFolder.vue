@@ -29,9 +29,9 @@
 </template>
 
 <script setup lang="ts">
+import FolderIcon from '../icons/FolderIcon.vue'
 import NavItem from './NavItem.vue'
 import type { NavFolderData } from './types'
-import FolderIcon from '../icons/FolderIcon.vue'
 
 defineOptions({
   name: 'NavFolder',
