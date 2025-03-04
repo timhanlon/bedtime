@@ -1,16 +1,23 @@
 <template>
-  <div class="bt-nav-folder">
+  <div
+    class="bt-nav-folder"
+    :data-path="folder.path"
+    :data-level="level"
+  >
     <!-- Folder title -->
-    <div class="bt-nav-folder-header flex items-center gap-1.5">
+    <div
+      class="bt-nav-folder-header flex items-center"
+      @click="isClosed = !isClosed"
+    >
       <Icon
-        name="folder-open"
+        :name="isClosed ? 'plus-circle' : 'minus-circle'"
         class="bt-nav-folder-icon"
       />
       <span class="bt-nav-folder-title">{{ folder.title }}</span>
     </div>
 
     <!-- folders -->
-    <div class="bt-nav-folder-container">
+    <div v-if="!isClosed" class="bt-nav-folder-container">
       <div v-if="folder.folders && folder.folders.length > 0">
         <NavFolder
           v-for="subfolder in folder.folders"
@@ -21,11 +28,15 @@
       </div>
 
       <!-- stories -->
-      <div v-if="folder.stories && folder.stories.length > 0">
+      <div
+        v-if="folder.stories && folder.stories.length > 0"
+        class="-ml-[5px]"
+      >
         <NavItem
           v-for="story in folder.stories"
           :key="story.kebabName"
           :story="story"
+          :level="level + 1"
         />
       </div>
     </div>
@@ -33,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import Icon from '../elements/Icon'
 import NavItem from './NavItem.vue'
 import type { NavFolderData } from './types'
@@ -42,18 +53,45 @@ defineOptions({
   name: 'NavFolder',
 })
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   folder: NavFolderData
   level?: number
 }>(), {
   level: 0,
 })
+
+const isClosed = ref(false)
+
+function getClosedKey () {
+  return `bt-folder-closed:${props.folder.path}`
+}
+
+watch(isClosed, () => {
+  const key = getClosedKey()
+  if (isClosed.value) {
+    localStorage.setItem(key, '1')
+  }
+  else {
+    localStorage.removeItem(key)
+  }
+})
+onMounted(() => {
+  const key = getClosedKey()
+  const closed = !!localStorage.getItem(key)
+  if (closed) {
+    isClosed.value = true
+  }
+})
 </script>
 
 <style>
+.bt-nav-folder-header {
+  padding: .25em 0;
+  gap: 0.4em;
+}
+
 .bt-nav-folder-title {
   margin-bottom: .1em;
-  padding: .25em .4em;
   font-weight: 500;
   text-transform: capitalize;
   cursor: default;
@@ -61,7 +99,7 @@ withDefaults(defineProps<{
 }
 
 .bt-nav-folder-container {
-  margin-left: 1em;
+  margin-left: 1.3em;
   margin-bottom: .5em;
 }
 

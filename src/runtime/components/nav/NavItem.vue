@@ -1,5 +1,9 @@
 <template>
-  <div class="bt-nav-item">
+  <div
+    class="bt-nav-item"
+    :data-path="path"
+    :data-level="level"
+  >
     <NuxtLink
       :to="`/stories/${story.kebabName}`"
       class="bt-nav-item-link"
@@ -30,19 +34,19 @@ defineOptions({
 
 const props = defineProps<{
   story: BedtimeStory
+  level: number
 }>()
 
 const currentStory = computed(() => useRoute()?.params.slug as string)
 
-/**
- * Compute formatted story name by removing the 'Story' suffix
- */
-const formattedName = computed(() => {
+const path = computed(() => {
   return props.story.shortPath
-    .split('/')
-    .pop()
-    .replace(/\.story\.vue$/, '') // Remove 'Story' suffix
+    .replace(/\.story\.vue$/, '')
     .trim()
+})
+
+const title = computed(() => {
+  return path.value.split('/').pop()
 })
 </script>
 

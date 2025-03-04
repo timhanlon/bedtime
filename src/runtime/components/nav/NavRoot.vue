@@ -32,6 +32,7 @@ const props = defineProps<{
 const tree = computed<NavFolderData>(() => {
   const tree: NavFolderData = {
     title: 'root',
+    path: '/',
     folders: [],
     stories: [],
   }
@@ -58,6 +59,7 @@ const tree = computed<NavFolderData>(() => {
         if (!folder) {
           folder = {
             title: part,
+            path: parts.slice(0, i + 1).join('/'),
             folders: [],
             stories: [],
           }
