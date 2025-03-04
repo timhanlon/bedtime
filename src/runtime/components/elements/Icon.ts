@@ -1,5 +1,4 @@
-import { h } from 'vue'
-import { useAttrs } from '../../../../playground/.nuxt/imports'
+import { h, useAttrs } from 'vue'
 
 // @see https://heroicons.com/outline
 const PATHS = {
