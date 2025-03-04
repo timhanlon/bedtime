@@ -1,5 +1,8 @@
 <template>
-  <Story title="Badge" :layout="{ width: '33%' }">
+  <Story
+    title="Badge"
+    :layout="{ width: '33%' }"
+  >
     <Variant title="Default">
       <UBadge>Badge</UBadge>
     </Variant>
