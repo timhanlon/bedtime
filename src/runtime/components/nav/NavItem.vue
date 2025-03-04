@@ -80,4 +80,25 @@ const title = computed(() => {
   line-height: 1;
   padding: .25em;
 }
+
+/* legacy variables */
+
+.stories-sidebar-link {
+  display: block;
+  padding: var(--stories-sidebar-link-padding);
+  color: var(--stories-sidebar-link-color);
+  text-decoration: none;
+  border-radius: var(--stories-sidebar-link-border-radius);
+  transition: var(--stories-sidebar-link-transition);
+  font-size: var(--stories-sidebar-link-font-size);
+}
+
+.stories-sidebar-link:hover {
+  background-color: var(--stories-sidebar-link-bg-hover);
+}
+
+.stories-sidebar-link.active {
+  background-color: var(--stories-sidebar-link-active-bg);
+  font-weight: var(--stories-sidebar-link-active-weight);
+}
 </style>

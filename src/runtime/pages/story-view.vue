@@ -4,15 +4,29 @@
     :data-bedtime-theme="theme"
   >
     <div class="stories-container">
+      <!-- sidebar -->
       <aside
         ref="sidebarRef"
         class="stories-sidebar"
       >
-        <NavRoot
-          :stories="stories"
-          :tree="options.tree"
-        />
+        <div class="stories-sidebar-list">
+          <NavRoot
+            :stories="stories"
+            :tree="options.tree"
+          />
+        </div>
+
+        <div class="stories-sidebar-options">
+          <label class="select-none">
+            <input
+              v-model="options.tree"
+              type="checkbox"
+            > Show tree
+          </label>
+        </div>
       </aside>
+
+      <!-- main -->
       <main class="stories-main">
         <div class="story-page">
           <div
@@ -124,39 +138,23 @@ useHead({
   width: var(--stories-sidebar-width);
   background-color: var(--stories-sidebar-bg-color);
   border: var(--stories-sidebar-border);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.stories-sidebar-list {
   padding: var(--stories-sidebar-padding);
+  height: 100%;
+  flex-grow: 1;
   overflow-y: auto;
-  flex-shrink: 0;
 }
 
-.stories-sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.stories-sidebar li {
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-
-.stories-sidebar-link {
-  display: block;
-  padding: var(--stories-sidebar-link-padding);
-  color: var(--stories-sidebar-link-color);
-  text-decoration: none;
-  border-radius: var(--stories-sidebar-link-border-radius);
-  transition: var(--stories-sidebar-link-transition);
-  font-size: var(--stories-sidebar-link-font-size);
-}
-
-.stories-sidebar-link:hover {
-  background-color: var(--stories-sidebar-link-bg-hover);
-}
-
-.stories-sidebar-link.active {
-  background-color: var(--stories-sidebar-link-active-bg);
-  font-weight: var(--stories-sidebar-link-active-weight);
+.stories-sidebar-options {
+  display: flex;
+  align-items: center;
+  border-top: var(--stories-sidebar-border);
+  padding: var(--stories-sidebar-padding);
 }
 
 .stories-main {

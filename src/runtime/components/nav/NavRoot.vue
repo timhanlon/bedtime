@@ -3,11 +3,24 @@
     class="bt-nav-root"
     :class="isMounted ? 'block' : 'hidden'"
   >
-    <NavFolder
-      v-for="folder in tree.folders"
-      :key="folder.title"
-      :folder="folder"
-    />
+    <div v-if="tree">
+      <NavFolder
+        v-for="folder in nested.folders"
+        :key="folder.title"
+        :folder="folder"
+      />
+    </div>
+    <div
+      v-else
+      class="space-y-1"
+    >
+      <NavItem
+        v-for="story in stories"
+        :key="story.shortPath"
+        :story="story"
+        :level="0"
+      />
+    </div>
   </nav>
 </template>
 
@@ -15,6 +28,7 @@
 import { computed, ref, onMounted } from 'vue'
 import type { BedtimeStory } from '../../types/module'
 import NavFolder from './NavFolder.vue'
+import NavItem from './NavItem.vue'
 import type { NavFolderData } from './types'
 
 defineOptions({
@@ -29,8 +43,8 @@ const props = defineProps<{
 /**
  * Transform flat story list into hierarchical tree structure
  */
-const tree = computed<NavFolderData>(() => {
-  const tree: NavFolderData = {
+const nested = computed<NavFolderData>(() => {
+  const data: NavFolderData = {
     title: 'root',
     path: '/',
     folders: [],
@@ -38,54 +52,42 @@ const tree = computed<NavFolderData>(() => {
   }
 
   // tree
-  if (props.tree) {
-    // sort stories to ensure consistent order
-    const sorted = [...props.stories].sort((a, b) =>
-      a.shortPath.localeCompare(b.shortPath),
-    )
+  // sort stories to ensure consistent order
+  const sorted = [...props.stories].sort((a, b) =>
+    a.shortPath.localeCompare(b.shortPath),
+  )
 
-    // build the tree structure
-    for (const story of sorted) {
-      const parts = story.shortPath.split('/')
-      let current = tree
+  // build the tree structure
+  for (const story of sorted) {
+    const parts = story.shortPath.split('/')
+    let current = data
 
-      // handle nested paths
-      for (let i = 0; i < parts.length - 1; i++) {
-        const part = parts[i]
+    // handle nested paths
+    for (let i = 0; i < parts.length - 1; i++) {
+      const part = parts[i]
 
-        // find existing folder or create new one
-        let folder = current.folders.find(f => f.title === part)
+      // find existing folder or create new one
+      let folder = current.folders.find(f => f.title === part)
 
-        if (!folder) {
-          folder = {
-            title: part,
-            path: parts.slice(0, i + 1).join('/'),
-            folders: [],
-            stories: [],
-          }
-          current.folders.push(folder)
+      if (!folder) {
+        folder = {
+          title: part,
+          path: parts.slice(0, i + 1).join('/'),
+          folders: [],
+          stories: [],
         }
-
-        current = folder
+        current.folders.push(folder)
       }
 
-      // add the story to the current level
-      current.stories.push(story)
+      current = folder
     }
-  }
 
-  // flat
-  else {
-    tree.folders.push({
-      title: 'stories',
-      path: '/stories',
-      folders: [],
-      stories: props.stories,
-    })
+    // add the story to the current level
+    current.stories.push(story)
   }
 
   // return
-  return tree
+  return data
 })
 
 // prevent fouc

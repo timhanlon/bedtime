@@ -241,14 +241,6 @@ ${stories.map(s => `  '${s.kebabName}': {
         return
       }
 
-      // options
-      pages.push({
-        name: 'stories-options',
-        path: `${storyViewerRoute}/options`,
-        file: resolver.resolve('./runtime/pages/options-page.vue'),
-      })
-
-      // stories
       if (!pages.some(page => page.name === 'stories-slug')) {
         pages.push({
           name: 'stories-slug',
