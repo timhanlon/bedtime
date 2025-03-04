@@ -28,7 +28,7 @@ const props = defineProps<{
   story: BedtimeStory
 }>()
 
-const currentStory = computed(() => useRoute().params.slug as string)
+const currentStory = computed(() => useRoute()?.params.slug as string)
 
 /**
  * Compute formatted story name by removing the 'Story' suffix

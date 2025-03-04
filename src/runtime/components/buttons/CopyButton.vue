@@ -22,8 +22,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import CopyIcon from './icons/CopyIcon.vue'
-import CheckIcon from './icons/CheckIcon.vue'
+import CopyIcon from '../icons/CopyIcon.vue'
+import CheckIcon from '../icons/CheckIcon.vue'
 
 defineOptions({
   name: 'StoryCopyButton',
@@ -57,7 +57,7 @@ async function copyToClipboard() {
   position: absolute;
   top: 8px;
   right: 8px;
-  padding: 4px;
+  padding: 6px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;

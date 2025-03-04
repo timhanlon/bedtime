@@ -1,6 +1,7 @@
 <template>
   <div class="stories-layout">
     <div class="stories-container">
+      <!-- sidebar -->
       <aside
         ref="sidebarRef"
         class="stories-sidebar"
@@ -10,6 +11,8 @@
           :tree="options.tree"
         />
       </aside>
+
+      <!-- main -->
       <main class="stories-main">
         <slot />
       </main>
@@ -21,10 +24,10 @@
 import { onMounted, onUpdated, ref } from 'vue'
 import type { BedtimeStory } from '../../types/module'
 import NavRoot from '../components/nav/NavRoot.vue'
+import { useOptions } from '../composables/useOptions'
 import type { RouteLocationNormalized } from '#vue-router'
 import { onBeforeRouteLeave, onBeforeRouteUpdate, useState } from '#imports'
 import { stories as storyList } from '#build/stories.mjs'
-import { useOptions } from '../composables/useOptions'
 
 defineOptions({
   name: 'StoriesLayout',

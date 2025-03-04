@@ -1,5 +1,8 @@
 <template>
-  <Story title="Button">
+  <Story
+    title="Button"
+    :classes="{ content: 'grid grid-cols-2 gap-4' }"
+  >
     <Variant title="Default">
       <UButton>Button</UButton>
     </Variant>

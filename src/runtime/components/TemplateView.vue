@@ -2,33 +2,28 @@
   <div
     v-if="content"
     class="template-view"
-  >
-    <CopyButton :content="content" />
-    <pre><code>{{ content }}</code></pre>
-  </div>
+    v-html="html"
+  />
 </template>
 
 <script setup lang="ts">
-import CopyButton from './CopyButton.vue'
+// @ts-expect-error resolved at runtime
+import { getShikiHighlighter } from '#imports'
 
-defineProps<{
+const props = defineProps<{
   content?: string | null
 }>()
+
+const highlighter = await getShikiHighlighter()
+const html = highlighter.highlight(props.content ?? '', { lang: 'vue' })
 </script>
 
 <style scoped>
-.template-view {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #f8f8f8;
-  border-radius: 4px;
-  position: relative;
-}
-
-.template-view pre {
-  margin: 0;
-  white-space: pre;
-  overflow-x: scroll;
-  font-size: 14px;
+:deep(.shiki) {
+  border: var(--template-view-border);
+  border-radius: var(--template-view-border-radius);
+  font-size: var(--template-view-font-size);
+  margin: var(--template-view-margin);
+  padding: var(--template-view-padding);
 }
 </style>

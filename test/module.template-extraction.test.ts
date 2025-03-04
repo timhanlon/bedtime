@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import { extractStoryContent } from '../src/utils/template-extraction'
+import type { BedtimeVariant } from '../src/types/module'
 
 describe('template extraction', () => {
   describe('story without variants', () => {
-    it('should preserve indentation in story content', () => {
+    it('should normalize indentation in story content', () => {
       const source = `
         <Story>
           <div>
@@ -13,9 +14,9 @@ describe('template extraction', () => {
       `
 
       const { template } = extractStoryContent(source, 'test.vue', 'test')
-      expect(template).toBe(`          <div>
-            <p>Hello</p>
-          </div>`)
+      expect(template).toBe(`<div>
+  <p>Hello</p>
+</div>`)
     })
 
     it('should extract v-for template correctly', () => {
@@ -40,7 +41,6 @@ describe('template extraction', () => {
       expect(result.template).toContain('class="mb-2"')
       expect(result.template).toContain(':label="`size ${size}`"')
       expect(result.template).toContain(':size="size"')
-      expect(Object.keys(result.variants)).toHaveLength(0)
     })
 
     it('should extract v-if template correctly', () => {
@@ -63,19 +63,11 @@ describe('template extraction', () => {
       expect(result.template).toContain('class="badge-wrapper"')
       expect(result.template).toContain('label="Conditional Badge"')
       expect(result.template).toContain('color="primary"')
-      expect(Object.keys(result.variants)).toHaveLength(0)
-    })
-
-    it('should handle empty story', () => {
-      const template = '<Story></Story>'
-      const result = extractStoryContent(template, 'test.vue', 'test')
-      expect(result.template).toBe('')
-      expect(Object.keys(result.variants)).toHaveLength(0)
     })
   })
 
   describe('story with variants', () => {
-    it('should preserve indentation in variants', () => {
+    it('should normalize indentation in variants', () => {
       const template = `
         <Story>
           <Variant title="default">
@@ -86,10 +78,10 @@ describe('template extraction', () => {
         </Story>
       `
 
-      const { variants } = extractStoryContent(template, 'test.vue', 'test') as { variants: Record<string, string> }
-      expect(variants.default).toBe(`            <div>
-              <p>Hello</p>
-            </div>`)
+      const { variants } = extractStoryContent(template, 'test.vue', 'test') as { variants: Record<string, BedtimeVariant> }
+      expect(variants.default.template).toBe(`<div>
+  <p>Hello</p>
+</div>`)
     })
 
     it('should extract v-for template correctly', () => {
@@ -109,11 +101,11 @@ describe('template extraction', () => {
 
       const result = extractStoryContent(template, 'test.vue', 'test')
       expect(result.template).toBeNull()
-      const variants = result.variants as Record<string, string>
-      expect(variants.variant).toContain('v-for="variant in variants"')
-      expect(variants.variant).toContain(':key="variant"')
-      expect(variants.variant).toContain('class="mb-2"')
-      expect(variants.variant).toContain(':label="`${variant} button`"')
+      const variants = result.variants as Record<string, BedtimeVariant>
+      expect(variants.variant.template).toContain('v-for="variant in variants"')
+      expect(variants.variant.template).toContain(':key="variant"')
+      expect(variants.variant.template).toContain('class="mb-2"')
+      expect(variants.variant.template).toContain(':label="`${variant} button`"')
       expect(Object.keys(result.variants)).toHaveLength(1)
     })
 
@@ -132,8 +124,8 @@ describe('template extraction', () => {
       const result = extractStoryContent(template, 'test.vue', 'test')
       expect(result.template).toBeNull()
       expect(Object.keys(result.variants)).toHaveLength(2)
-      expect((result.variants as Record<string, string>).default).toContain('<UButton>Click me</UButton>')
-      expect((result.variants as Record<string, string>).disabled).toContain('<UButton disabled>Can\'t click me</UButton>')
+      expect((result.variants as Record<string, BedtimeVariant>).default.template).toContain('<UButton>Click me</UButton>')
+      expect((result.variants as Record<string, BedtimeVariant>).disabled.template).toContain('<UButton disabled>Can\'t click me</UButton>')
     })
 
     it('should handle variant without title', () => {

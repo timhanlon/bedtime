@@ -1,5 +1,7 @@
 import { compileTemplate } from '@vue/compiler-sfc'
 import type { ElementNode, TemplateChildNode } from '@vue/compiler-core'
+import * as changeCase from 'change-case'
+import type { BedtimeVariant } from '../types/module'
 
 /**
  * Get the leading whitespace from a line in the template.
@@ -16,6 +18,33 @@ function getIndentFromTemplate(template: string, startLine: number): string {
   const line = lines[startLine - 1]
   const match = line.match(/^\s*/)
   return match ? match[0] : ''
+}
+
+/**
+ * Normalize indentation of a code block by removing common leading whitespace
+ * while preserving relative indentation between lines.
+ *
+ * @param code - The code block to normalize
+ * @returns The code block with normalized indentation
+ */
+function normalizeIndentation(code: string): string {
+  if (!code) return code
+
+  // Split into lines
+  const lines = code.split('\n')
+
+  // Find minimum indentation level (excluding empty lines)
+  const minIndent = lines
+    .filter(line => line.trim())
+    .reduce((min, line) => {
+      const indent = line.match(/^\s*/)?.[0].length ?? 0
+      return Math.min(min, indent)
+    }, Infinity)
+
+  // Remove the common indentation from all lines
+  return lines
+    .map(line => line.slice(minIndent))
+    .join('\n')
 }
 
 function extractNodeContent(node: TemplateChildNode, _template: string): string {
@@ -51,13 +80,13 @@ export function extractVariantContent(variantNode: ElementNode, template: string
     .map(child => extractNodeContent(child, template))
     .join('')
 
-  // Get indentation from template
+  // Get indentation from template and normalize it
   if ('loc' in variantNode && variantNode.children?.[0] && 'loc' in variantNode.children[0]) {
     const indent = getIndentFromTemplate(template, variantNode.children[0].loc.start.line)
-    return { title, content: indent + content }
+    return { title, content: normalizeIndentation(indent + content) }
   }
 
-  return { title, content }
+  return { title, content: normalizeIndentation(content) }
 }
 
 /**
@@ -70,7 +99,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     id,
   })
 
-  if (!ast || !('children' in ast)) return { template: null, variants: {} }
+  if (!ast || !('children' in ast)) return { template: null, variants: {}, hasVariants: false }
 
   // Find the Story component's content
   const storyNode = ast.children.find(node =>
@@ -79,7 +108,7 @@ export function extractStoryContent(template: string, filename: string, id: stri
     && node.tag === 'Story',
   ) as ElementNode | undefined
 
-  if (!storyNode?.children) return { template: null, variants: {} }
+  if (!storyNode?.children) return { template: null, variants: {}, hasVariants: false }
 
   // Find all Variant components
   const variantNodes = storyNode.children
@@ -89,24 +118,34 @@ export function extractStoryContent(template: string, filename: string, id: stri
       && node.tag === 'Variant',
     )
 
-  // If no variants, return the story content as template
-  if (variantNodes.length === 0) {
+  const hasVariants = variantNodes.length > 0
+
+  // If no variants, create a Default variant with the story content
+  if (!hasVariants) {
     const content = storyNode.children
       .map(child => extractNodeContent(child, template))
       .join('')
 
-    // Add indentation based on the content's position
+    // Add indentation based on the content's position and normalize it
+    let normalizedContent = content
     if ('loc' in storyNode && storyNode.children?.[0] && 'loc' in storyNode.children[0]) {
       const indent = getIndentFromTemplate(template, storyNode.children[0].loc.start.line)
-      return {
-        template: indent + content,
-        variants: {},
-      }
+      normalizedContent = normalizeIndentation(indent + content)
+    }
+    else {
+      normalizedContent = normalizeIndentation(content)
     }
 
     return {
-      template: content,
-      variants: {},
+      template: normalizedContent,
+      variants: {
+        default: {
+          title: 'Default',
+          slug: 'default',
+          template: normalizedContent,
+        },
+      },
+      hasVariants: false,
     }
   }
 
@@ -116,10 +155,15 @@ export function extractStoryContent(template: string, filename: string, id: stri
     .filter((v): v is { title: string, content: string } => v !== null)
 
   // Store variant templates
-  const variants: Record<string, string> = {}
+  const variants: Record<string, BedtimeVariant> = {}
   processedVariants.forEach(({ title, content }) => {
-    variants[title] = content
+    const slug = changeCase.kebabCase(title)
+    variants[slug] = {
+      title,
+      slug,
+      template: content,
+    }
   })
 
-  return { template: null, variants }
+  return { template: null, variants, hasVariants }
 }
