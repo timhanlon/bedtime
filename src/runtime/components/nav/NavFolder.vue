@@ -17,7 +17,10 @@
     </div>
 
     <!-- folders -->
-    <div v-if="!isClosed" class="bt-nav-folder-container">
+    <div
+      v-if="!isClosed"
+      class="bt-nav-folder-container"
+    >
       <div v-if="folder.folders && folder.folders.length > 0">
         <NavFolder
           v-for="subfolder in folder.folders"
@@ -62,7 +65,7 @@ const props = withDefaults(defineProps<{
 
 const isClosed = ref(false)
 
-function getClosedKey () {
+function getClosedKey() {
   return `bt-folder-closed:${props.folder.path}`
 }
 

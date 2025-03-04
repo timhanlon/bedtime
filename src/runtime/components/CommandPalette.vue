@@ -126,7 +126,10 @@ function scrollIntoView(index: number) {
           class="command-palette-input"
           @focus="isOpen = true"
         >
-        <Icon name="search" class="command-palette-icon" />
+        <Icon
+          name="search"
+          class="command-palette-icon"
+        />
       </div>
       <div
         ref="itemsRef"
