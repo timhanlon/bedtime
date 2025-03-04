@@ -104,6 +104,7 @@ function scrollIntoView(index: number) {
 </script>
 
 <template>
+  <div class="command-pallete-bg" v-if="isOpen" />
   <div
     v-if="isOpen"
     ref="paletteRef"
@@ -163,9 +164,19 @@ function scrollIntoView(index: number) {
 </template>
 
 <style scoped>
+.command-pallete-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
 .command-palette {
   position: fixed;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
