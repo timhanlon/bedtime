@@ -5,25 +5,16 @@
     :title="copied ? 'Copied!' : 'Copy to clipboard'"
     @click="copyToClipboard"
   >
-    <span
-      v-if="!copied"
-      class="copy-icon bt-icon"
-    >
-      <CopyIcon />
-    </span>
-    <span
-      v-else
-      class="check-icon bt-icon"
-    >
-      <CheckIcon />
-    </span>
+    <Icon
+      :name="copied ? 'check' : 'copy'"
+      size="xs"
+    />
   </button>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import CopyIcon from '../icons/CopyIcon.vue'
-import CheckIcon from '../icons/CheckIcon.vue'
+import Icon from '../elements/Icon'
 
 defineOptions({
   name: 'StoryCopyButton',
@@ -54,10 +45,9 @@ async function copyToClipboard() {
 
 <style scoped>
 .copy-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 6px;
+  width: 24px;
+  height: 24px;
+  padding: 3px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;

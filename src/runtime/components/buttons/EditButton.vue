@@ -3,19 +3,19 @@
     class="open-in-editor-button"
     title="Open in editor"
   >
-    <EditIcon />
+    <Icon name="edit" />
   </button>
 </template>
 
 <script setup lang="ts">
-import EditIcon from '../icons/EditIcon.vue'
+import Icon from '../elements/Icon'
 </script>
 
 <style scoped>
 .open-in-editor-button {
   width: 24px;
   height: 24px;
-  padding: 4px;
+  padding: 3px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;

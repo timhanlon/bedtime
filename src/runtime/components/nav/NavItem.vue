@@ -6,8 +6,12 @@
       :class="{ 'bt-active': currentStory === story.kebabName }"
     >
       <div class="flex gap-2 items-center">
-        <FileIcon class="bt-nav-icon size-5" />
-        <span class="bt-nav-item-title">{{ formattedName }}</span>
+        <Icon
+          name="document"
+          size="sm"
+          class="bt-nav-item-icon"
+        />
+        <span class="bt-nav-item-title">{{ title }}</span>
       </div>
       <span class="bt-nav-item-variants">{{ Object.values(story.variants).length || 1 }}</span>
     </NuxtLink>
@@ -18,7 +22,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import type { BedtimeStory } from '../../types/module'
-import FileIcon from '../icons/FileIcon.vue'
+import Icon from '../elements/Icon'
 
 defineOptions({
   name: 'NavItem',

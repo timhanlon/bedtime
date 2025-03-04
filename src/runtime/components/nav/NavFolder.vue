@@ -1,8 +1,12 @@
 <template>
   <div class="bt-nav-folder">
     <!-- Folder title -->
-    <div class="bt-nav-folder-title flex items-center gap-1.5">
-      <FolderIcon class="bt-nav-icon size-5" /> {{ folder.title }}
+    <div class="bt-nav-folder-header flex items-center gap-1.5">
+      <Icon
+        name="folder-open"
+        class="bt-nav-folder-icon"
+      />
+      <span class="bt-nav-folder-title">{{ folder.title }}</span>
     </div>
 
     <!-- folders -->
@@ -29,7 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import FolderIcon from '../icons/FolderIcon.vue'
+import { ref } from 'vue'
+import Icon from '../elements/Icon'
 import NavItem from './NavItem.vue'
 import type { NavFolderData } from './types'
 

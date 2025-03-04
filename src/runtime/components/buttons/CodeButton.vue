@@ -6,13 +6,16 @@
     @click="model = !model"
   >
     <span class="code-icon bt-icon">
-      <CodeIcon class="size-4" />
+      <Icon
+        name="code"
+        size="full"
+      />
     </span>
   </button>
 </template>
 
 <script setup lang="ts">
-import CodeIcon from '../icons/CodeIcon.vue'
+import Icon from '../elements/Icon'
 
 defineOptions({
   name: 'StoryCodeButton',
@@ -25,7 +28,7 @@ const model = defineModel<boolean>()
 .code-button {
   width: 24px;
   height: 24px;
-  padding: 6px;
+  padding: 3px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
