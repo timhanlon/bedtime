@@ -152,7 +152,7 @@ async function openInEditor() {
 }
 </script>
 
-<style scoped>
+<style>
 [data-bedtime-theme]:not([data-bedtime-theme='false']) {
   .story-container {
     padding: var(--story-container-padding);
@@ -166,16 +166,6 @@ async function openInEditor() {
     letter-spacing: var(--story-title-letter-spacing);
   }
 
-  .story-content {
-    margin: var(--story-content-margin);
-    display: var(--story-content-display);
-    gap: var(--story-content-grid-gap);
-    grid-template-columns: var(--story-content-grid-template-columns);
-    & > * + * {
-      margin-top: var(--story-content-gap);
-    }
-  }
-
   .story-actions {
     align-items: var(--story-actions-align-content);
     display: var(--story-actions-display);
@@ -184,10 +174,50 @@ async function openInEditor() {
 
   .story-header {
     display: var(--story-header-display);
+    margin-bottom: var(--story-header-margin-bottom);
     gap: var(--story-header-gap);
     & > * + * {
       flex-shrink: 0;
     }
   }
+}
+
+.story-content[data-layout="none"] {
+  & > .variant-container + .variant-container {
+    margin-top: 1.5rem; /* aldi space-y-4 */
+  }
+}
+
+.story-content[data-layout="grid"] {
+  --gap: 1.5rem;
+  --columns: v-bind('layout.cols');
+  --numGaps: calc(var(--columns) - 1);
+  --allGaps: calc(var(--numGaps) * var(--gap));
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+
+  .variant-container {
+    width: calc(
+      (100% - var(--allGaps)) / var(--columns)
+    );
+  }
+}
+
+.story-content[data-layout="wrap"] {
+  --gap: 1.5rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap);
+
+  .variant-container {
+    width: v-bind('layout.width');
+  }
+}
+
+.story-content > .variant-container {
+  overflow: hidden;
 }
 </style>
