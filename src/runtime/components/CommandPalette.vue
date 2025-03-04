@@ -104,7 +104,10 @@ function scrollIntoView(index: number) {
 </script>
 
 <template>
-  <div class="command-pallete-bg" v-if="isOpen" />
+  <div
+    v-if="isOpen"
+    class="command-pallete-bg"
+  />
   <div
     v-if="isOpen"
     ref="paletteRef"

@@ -1,4 +1,4 @@
-import { watch, onMounted } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useState } from 'nuxt/app'
 
 interface Options {
@@ -7,7 +7,7 @@ interface Options {
 
 const KEY = 'bedtime-options'
 
-export function useOptions () {
+export function useOptions() {
   // initialize with default values for consistent ssr
   const options = useState<Options>(KEY, () => ({
     tree: true,
@@ -21,8 +21,8 @@ export function useOptions () {
         try {
           options.value = JSON.parse(stored)
         }
-        catch (e) {
-          console.error('Failed to parse stored options')
+        catch (err: unknown) {
+          console.error('Failed to parse stored options:', err)
         }
       }
     })

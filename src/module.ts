@@ -245,7 +245,7 @@ ${stories.map(s => `  '${s.kebabName}': {
       pages.push({
         name: 'stories-options',
         path: `${storyViewerRoute}/options`,
-        file: resolver.resolve('./runtime/pages/options.vue'),
+        file: resolver.resolve('./runtime/pages/options-page.vue'),
       })
 
       // stories

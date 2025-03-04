@@ -42,6 +42,7 @@ import { computed, defineAsyncComponent, provide, ref, onMounted, onUpdated } fr
 import type { BedtimeStory } from '../../types/module'
 import { useOptions } from '../composables/useOptions'
 import NavRoot from '../components/nav/NavRoot.vue'
+import CommandPalette from '../components/CommandPalette.vue'
 // @ts-expect-error resolved at runtime
 import type { RouteLocationNormalized } from '#vue-router'
 // @ts-expect-error resolved at runtime
@@ -82,12 +83,6 @@ onMounted(() => {
 onUpdated(() => {
   restoreScrollPosition()
 })
-
-function formatStoryName(name: string): string {
-  return name
-    .replace(/Story$/, '') // Remove 'Story' suffix
-    .trim()
-}
 
 const storyItems = computed(() => {
   return stories.map(story => ({
