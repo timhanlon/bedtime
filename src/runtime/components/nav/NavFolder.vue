@@ -45,7 +45,7 @@ withDefaults(defineProps<{
 })
 </script>
 
-<style scoped>
+<style>
 .bt-nav-folder-title {
   margin-bottom: .1em;
   padding: .25em .4em;

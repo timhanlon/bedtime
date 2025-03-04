@@ -42,7 +42,7 @@ const formattedName = computed(() => {
 })
 </script>
 
-<style scoped>
+<style>
 .bt-nav-item {}
 
 .bt-nav-item-link {
