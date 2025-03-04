@@ -78,6 +78,7 @@ const tree = computed<NavFolderData>(() => {
   else {
     tree.folders.push({
       title: 'stories',
+      path: '/stories',
       folders: [],
       stories: props.stories,
     })
@@ -99,7 +100,13 @@ onMounted(() => {
   width: 100%;
 }
 
-.bt-nav-icon {
+.bt-nav-root .bt-icon {
   opacity: 0.5;
+}
+
+.bt-nav-root .bt-nav-folder +.bt-nav-folder {
+  margin-top: 1.5rem;
+  padding-top: 1em;
+  border-top: 1px solid #EEE;
 }
 </style>

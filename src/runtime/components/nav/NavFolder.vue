@@ -10,7 +10,7 @@
       @click="isClosed = !isClosed"
     >
       <Icon
-        :name="isClosed ? 'plus-circle' : 'minus-circle'"
+        :name="isClosed ? 'plus' : 'minus'"
         class="bt-nav-folder-icon"
       />
       <span class="bt-nav-folder-title">{{ folder.title }}</span>
@@ -86,8 +86,13 @@ onMounted(() => {
 
 <style>
 .bt-nav-folder-header {
+  user-select: none;
   padding: .25em 0;
   gap: 0.4em;
+}
+
+.bt-nav-folder-header:hover .bt-icon {
+  opacity: 1;
 }
 
 .bt-nav-folder-title {
