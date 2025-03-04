@@ -34,6 +34,7 @@
     <div
       class="story-content"
       :class="tvStory().content({ class: [classes?.content, storyClasses.content] })"
+      :data-layout="layout.type"
     >
       <template v-if="hasVariants">
         <slot />
@@ -68,13 +69,20 @@ const tvStory = tv({
   },
 })
 
+interface Layout {
+  type?: 'grid' | 'wrap' | 'none'
+  cols?: number
+  width?: string
+}
+
 defineOptions({
   name: 'StoryContainer',
 })
 
-defineProps<{
+const props = defineProps<{
   title?: string
   classes?: ComponentSlotClasses
+  layout?: Layout
 }>()
 
 const config = useRuntimeConfig()
@@ -89,6 +97,45 @@ const hasVariants = computed(() => {
   return defaultSlot.some((node: VNode) =>
     node.type && typeof node.type === 'object' && 'name' in node.type && node.type.name === 'StoryVariant',
   )
+})
+
+// layout properties
+const layout = computed(() => {
+  // defaults
+  const layout: Layout = {
+    type: 'none',
+    cols: undefined,
+    width: undefined,
+  }
+
+  // columns
+  if (props.layout) {
+    const { cols, width } = props.layout
+
+    // grid
+    if (cols) {
+      layout.type = 'grid'
+      layout.cols = cols
+    }
+
+    else if (width) {
+      // grid
+      if (width.endsWith('%')) {
+        const percent = Number.parseInt(width)
+        layout.type = 'grid'
+        layout.cols = Math.round(1 / (percent / 100))
+      }
+
+      // wrap
+      else if (width.endsWith('px')) {
+        layout.type = 'wrap'
+        layout.width = width
+      }
+    }
+  }
+
+  // return
+  return layout
 })
 
 async function openInEditor() {
