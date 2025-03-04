@@ -146,6 +146,7 @@ watch(() => route.hash, (newHash) => {
 
   .variant-header {
     display: var(--variant-header-display);
+    justify-content: var(--variant-header-justify);
     gap: var(--variant-header-gap);
     align-items: var(--variant-actions-align-content);
   }
@@ -155,6 +156,8 @@ watch(() => route.hash, (newHash) => {
     font-size: var(--variant-title-font-size);
     font-weight: var(--variant-title-font-weight);
     letter-spacing: var(--variant-title-letter-spacing);
+    white-space: nowrap;
+    overflow: hidden;
   }
 }
 </style>
