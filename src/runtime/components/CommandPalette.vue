@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import { onKeyStroke, useMagicKeys, onClickOutside } from '@vueuse/core'
+import Icon from './elements/Icon.vue'
 
 interface CommandItem {
   id: string | number
   label: string
-  action: () => void
 }
+
+const emits = defineEmits(['update'])
 
 const props = withDefaults(defineProps<{
   items: CommandItem[]
@@ -49,9 +51,9 @@ const filteredItems = computed(() => {
 })
 
 function handleSelect(item: CommandItem) {
-  item.action()
   isOpen.value = false
   searchQuery.value = ''
+  emits('update', item.id)
 }
 
 onKeyStroke('ArrowDown', (e) => {
@@ -106,6 +108,10 @@ function scrollIntoView(index: number) {
 <template>
   <div
     v-if="isOpen"
+    class="command-pallete-bg"
+  />
+  <div
+    v-if="isOpen"
     ref="paletteRef"
     class="command-palette"
   >
@@ -121,25 +127,10 @@ function scrollIntoView(index: number) {
           class="command-palette-input"
           @focus="isOpen = true"
         >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-search command-palette-icon"
-        >
-          <circle
-            cx="11"
-            cy="11"
-            r="8"
-          />
-          <path d="m21 21-4.3-4.3" />
-        </svg>
+        <Icon
+          name="search"
+          class="command-palette-icon"
+        />
       </div>
       <div
         ref="itemsRef"
@@ -163,11 +154,21 @@ function scrollIntoView(index: number) {
 </template>
 
 <style scoped>
+.command-pallete-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
 .command-palette {
   position: fixed;
-  top: 50%;
+  top: 25%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -20%);
   width: 100%;
   max-width: 600px;
   z-index: 50;
