@@ -1,4 +1,5 @@
-import { h, useAttrs } from 'vue'
+<script setup lang="ts">
+import { computed, useAttrs } from 'vue'
 
 // @see https://heroicons.com/outline
 const PATHS = {
@@ -16,28 +17,56 @@ const PATHS = {
   'minus': `<path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />`,
 }
 
-const SIZES = {
-  xs: 'size-4',
-  sm: 'size-4.5',
-  md: 'size-5',
-  lg: 'size-8',
-  full: 'size-full',
+const props = defineProps<{
+  name: keyof typeof PATHS
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'full'
+}>()
+
+const path = computed(() => PATHS[props.name])
+const size = computed(() => props.size ?? 'md')
+const attrs = useAttrs()
+</script>
+
+<template>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    class="bt-icon"
+    :data-size="size"
+    v-bind="attrs"
+    v-html="path"
+  />
+</template>
+
+<style>
+.bt-icon{
+  display: inline-block;
 }
 
-export default function Icon(props: { name: keyof typeof PATHS, size?: keyof typeof SIZES }) {
-  const size = props.size ?? 'md'
-  const path = PATHS[props.name]
-  const { class: className, ...attrs } = useAttrs()
-  return h(
-    'svg',
-    {
-      class: `bt-icon inline-block ${SIZES[size]}`,
-      xmlns: 'http://www.w3.org/2000/svg',
-      fill: 'none',
-      viewBox: '0 0 24 24',
-      stroke: 'currentColor',
-      innerHTML: path,
-      ...attrs,
-    },
-  )
+.bt-icon[data-size="xs"] {
+  width: 1rem;
+  height: 1rem;
 }
+
+.bt-icon[data-size="sm"] {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.bt-icon[data-size="md"] {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.bt-icon[data-size="lg"] {
+  width: 2rem;
+  height: 2rem;
+}
+
+.bt-icon[data-size="full"] {
+  width: 100%;
+  height: 100%;
+}
+</style>

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import Icon from '../elements/Icon'
+import Icon from '../elements/Icon.vue'
 </script>
 
 <style scoped>

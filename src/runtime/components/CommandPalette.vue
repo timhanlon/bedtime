@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, nextTick } from 'vue'
 import { onKeyStroke, useMagicKeys, onClickOutside } from '@vueuse/core'
-import Icon from './elements/Icon'
+import Icon from './elements/Icon.vue'
 
 interface CommandItem {
   id: string | number

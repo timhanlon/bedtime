@@ -120,17 +120,22 @@ const layout = computed(() => {
     }
 
     else if (width) {
-      // grid
-      if (width.endsWith('%')) {
-        const percent = Number.parseInt(width)
+      let w = String(width)
+
+      // proportional
+      if (w.endsWith('%')) {
+        const percent = Number.parseInt(w)
         layout.type = 'grid'
         layout.cols = Math.round(1 / (percent / 100))
       }
 
-      // wrap
-      else if (width.endsWith('px')) {
+      // fixed size
+      else {
+        if (!w.endsWith('px')) {
+          w += 'px'
+        }
         layout.type = 'wrap'
-        layout.width = width
+        layout.width = w
       }
     }
   }
@@ -181,44 +186,45 @@ async function openInEditor() {
       flex-shrink: 0;
     }
   }
-}
 
-.story-content[data-layout="none"] {
-  & > .variant-container + .variant-container {
-    margin-top: 1.5rem; /* aldi space-y-4 */
+  .story-content[data-layout="none"] {
+    & > .variant-container + .variant-container {
+      margin-top: 1.5rem; /* aldi space-y-4 */
+    }
   }
-}
 
-.story-content[data-layout="grid"] {
-  --gap: 1.5rem;
-  --columns: v-bind('layout.cols');
-  --numGaps: calc(var(--columns) - 1);
-  --allGaps: calc(var(--numGaps) * var(--gap));
+  .story-content[data-layout="grid"] {
+    --gap: 1.5rem;
+    --columns: v-bind('layout.cols');
+    --numGaps: calc(var(--columns) - 1);
+    --allGaps: calc(var(--numGaps) * var(--gap));
 
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
 
-  .variant-container {
-    width: calc(
-      (100% - var(--allGaps)) / var(--columns)
-    );
+    .variant-container {
+      width: calc(
+        (100% - var(--allGaps)) / var(--columns)
+      );
+    }
   }
-}
 
-.story-content[data-layout="wrap"] {
-  --gap: 1.5rem;
+  .story-content[data-layout="wrap"] {
+    --gap: 1.5rem;
 
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap);
 
-  .variant-container {
-    width: v-bind('layout.width');
+    .variant-container {
+      flex-shrink: 0;
+      width: v-bind('layout.width');
+    }
   }
-}
 
-.story-content > .variant-container {
-  overflow: hidden;
+  .story-content > .variant-container {
+    overflow: hidden;
+  }
 }
 </style>

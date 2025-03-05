@@ -1,7 +1,7 @@
 <template>
   <nav
     class="bt-nav-root"
-    :class="isMounted ? 'block' : 'hidden'"
+    :style="{ display: !isMounted ? 'none' : undefined }"
   >
     <div v-if="tree">
       <NavFolder
@@ -12,7 +12,7 @@
     </div>
     <div
       v-else
-      class="space-y-1"
+      class="bt-nav-folder-items"
     >
       <NavItem
         v-for="story in stories"
@@ -106,9 +106,11 @@ onMounted(() => {
   opacity: 0.5;
 }
 
-.bt-nav-root .bt-nav-folder +.bt-nav-folder {
-  margin-top: 1.5rem;
-  padding-top: 1em;
-  border-top: 1px solid #EEE;
+.bt-nav-root {
+  > .bt-nav-folder +.bt-nav-folder {
+    margin-top: 1.5rem;
+    padding-top: 1em;
+    border-top: 1px solid #EEE;
+  }
 }
 </style>

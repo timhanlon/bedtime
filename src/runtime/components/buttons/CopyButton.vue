@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import Icon from '../elements/Icon'
+import Icon from '../elements/Icon.vue'
 
 defineOptions({
   name: 'StoryCopyButton',

@@ -9,7 +9,7 @@
       class="bt-nav-item-link"
       :class="{ 'bt-active': currentStory === story.kebabName }"
     >
-      <div class="flex gap-2 items-center">
+      <div class="bt-nav-item-content">
         <Icon
           name="document"
           size="sm"
@@ -26,7 +26,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import type { BedtimeStory } from '../../../types/module'
-import Icon from '../elements/Icon'
+import Icon from '../elements/Icon.vue'
 
 defineOptions({
   name: 'NavItem',
@@ -51,7 +51,9 @@ const title = computed(() => {
 </script>
 
 <style>
-.bt-nav-item {}
+.bt-nav-item {
+  font-size: .85em;
+}
 
 .bt-nav-item-link {
   display: flex;
@@ -72,6 +74,16 @@ const title = computed(() => {
 .bt-nav-item-link.bt-active {
   background-color: #e5e7eb;
   font-weight: 500;
+}
+
+.bt-nav-item-content {
+  display: flex;
+  gap: 0.4em;
+  align-items: center;
+}
+
+.bt-nav-item-icon {
+  transform: translateY(-.1em);
 }
 
 .bt-nav-item-variants {

@@ -6,10 +6,11 @@
   >
     <!-- Folder title -->
     <div
-      class="bt-nav-folder-header flex items-center"
+      class="bt-nav-folder-header"
       @click="isClosed = !isClosed"
     >
       <Icon
+        v-if="level > 0"
         :name="isClosed ? 'plus' : 'minus'"
         class="bt-nav-folder-icon"
       />
@@ -21,7 +22,10 @@
       v-if="!isClosed"
       class="bt-nav-folder-container"
     >
-      <div v-if="folder.folders && folder.folders.length > 0">
+      <div
+        v-if="folder.folders && folder.folders.length > 0"
+        class="bt-nav-folder-folders"
+      >
         <NavFolder
           v-for="subfolder in folder.folders"
           :key="subfolder.title"
@@ -33,7 +37,7 @@
       <!-- stories -->
       <div
         v-if="folder.stories && folder.stories.length > 0"
-        class="-ml-[5px]"
+        class="bt-nav-folder-items"
       >
         <NavItem
           v-for="story in folder.stories"
@@ -48,7 +52,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-import Icon from '../elements/Icon'
+import Icon from '../elements/Icon.vue'
 import NavItem from './NavItem.vue'
 import type { NavFolderData } from './types'
 
@@ -89,9 +93,11 @@ onMounted(() => {
 
 <style>
 .bt-nav-folder-header {
-  user-select: none;
-  padding: .25em 0;
+  display: flex;
+  align-items: center;
   gap: 0.4em;
+  padding: .25em 0;
+  user-select: none;
 }
 
 .bt-nav-folder-header:hover .bt-icon {
@@ -106,7 +112,7 @@ onMounted(() => {
   color: #374151;
 }
 
-.bt-nav-folder-container {
+.bt-nav-folder:not([data-level="0"]) > .bt-nav-folder-container {
   margin-left: 1.3em;
   margin-bottom: .5em;
 }
@@ -116,7 +122,8 @@ onMounted(() => {
   flex-direction: column;
   gap: .25em;
 }
-.bt-nav-folder-container > * > *{
+
+.bt-nav-folder-items {
   margin-bottom: .1em;
 }
 </style>
