@@ -5,11 +5,11 @@
   >
     <div class="stories-container">
       <!-- sidebar -->
-      <aside
-        ref="sidebarRef"
-        class="stories-sidebar"
-      >
-        <div class="stories-sidebar-list">
+      <aside class="stories-sidebar">
+        <div
+          ref="sidebarRef"
+          class="stories-sidebar-list"
+        >
           <NavRoot
             :stories="stories"
             :tree="options.tree"
@@ -52,52 +52,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, provide, ref, onMounted, onUpdated } from 'vue'
+import { computed, defineAsyncComponent, provide, ref } from 'vue'
 import type { BedtimeStory } from '../../types/module'
 import { useOptions } from '../composables/useOptions'
 import NavRoot from '../components/nav/NavRoot.vue'
 import CommandPalette from '../components/CommandPalette.vue'
+import { useFixScroll } from '../composables/useScrollfix'
 // @ts-expect-error resolved at runtime
-import type { RouteLocationNormalized } from '#vue-router'
-// @ts-expect-error resolved at runtime
-import { useRoute, onBeforeRouteLeave, onBeforeRouteUpdate, useRuntimeConfig, useState, navigateTo, useHead } from '#imports'
+import { useRoute, useRuntimeConfig, navigateTo, useHead } from '#imports'
 // @ts-expect-error virtual file
 import { stories as storyList } from '#build/stories.mjs'
 
-const route = useRoute()
+// fix scroll jump
 const sidebarRef = ref<HTMLElement>()
-const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
+useFixScroll(sidebarRef)
 
+// options
 const options = useOptions()
-
 const theme = useRuntimeConfig().public.bedtime?.viewer?.theme
 
-// This scroll position state stuff shouldn't be necessary
-// Maybe it's the fact that this isn't _really_ a Nuxt layout
-const lastScrollTop = useState<number>('bedtime-sidebar-scroll-top', () => 0)
-const saveScrollPosition = () => {
-  if (sidebarRef.value) {
-    lastScrollTop.value = sidebarRef.value.scrollTop
-  }
-}
-const restoreScrollPosition = () => {
-  if (sidebarRef.value) {
-    sidebarRef.value.scrollTop = lastScrollTop.value
-  }
-}
-onBeforeRouteLeave((_to: RouteLocationNormalized, _from: RouteLocationNormalized) => {
-  saveScrollPosition()
-})
-onBeforeRouteUpdate((_to: RouteLocationNormalized, _from: RouteLocationNormalized) => {
-  saveScrollPosition()
-})
-onMounted(() => {
-  restoreScrollPosition()
-})
-onUpdated(() => {
-  restoreScrollPosition()
-})
-
+// stories
+const stories = Object.values(storyList as Record<string, BedtimeStory>).sort((a, b) => a.pascalName.localeCompare(b.pascalName))
 const storyItems = computed(() => {
   return stories.map(story => ({
     id: story.kebabName,
@@ -106,6 +81,8 @@ const storyItems = computed(() => {
   }))
 })
 
+// page updates
+const route = useRoute()
 const slug = route.params.slug as string
 const story = storyList[slug]
 
@@ -114,7 +91,6 @@ provide('story', story)
 const storyComponent = story?.component
   ? defineAsyncComponent(story.component)
   : null
-
 useHead({
   title: story ? story.pascalName : 'Story Not Found',
 })
