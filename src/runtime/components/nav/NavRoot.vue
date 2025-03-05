@@ -26,7 +26,7 @@
 
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
-import type { BedtimeStory } from '../../types/module'
+import type { BedtimeStory } from '../../../types/module'
 import NavFolder from './NavFolder.vue'
 import NavItem from './NavItem.vue'
 import type { NavFolderData } from './types'

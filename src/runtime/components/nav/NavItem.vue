@@ -17,7 +17,7 @@
         />
         <span class="bt-nav-item-title">{{ title }}</span>
       </div>
-      <span class="bt-nav-item-variants">{{ Object.values(story.variants).length || 1 }}</span>
+      <span class="bt-nav-item-variants">{{ Object.values(story.variants ?? {}).length || 1 }}</span>
     </NuxtLink>
   </div>
 </template>
@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import type { BedtimeStory } from '../../types/module'
+import type { BedtimeStory } from '../../../types/module'
 import Icon from '../elements/Icon'
 
 defineOptions({
