@@ -137,11 +137,8 @@ useHead({
   flex: 1;
   overflow-y: auto;
   padding: var(--stories-main-padding);
-  min-height: 0;
-}
-
-.story-page {
   background-color: var(--stories-main-bg-color);
+  min-height: 0;
 }
 
 .error {

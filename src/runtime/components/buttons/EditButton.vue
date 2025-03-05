@@ -1,6 +1,6 @@
 <template>
   <button
-    class="open-in-editor-button"
+    class="bt-button open-in-editor-button"
     title="Open in editor"
   >
     <Icon name="edit" />

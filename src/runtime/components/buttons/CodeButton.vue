@@ -1,6 +1,6 @@
 <template>
   <button
-    class="code-button"
+    class="bt-button code-button"
     :class="{ active: model }"
     :title="model ? 'Hide code' : 'Show code'"
     @click="model = !model"

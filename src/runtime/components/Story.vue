@@ -10,11 +10,10 @@
       >
         <slot name="title">
           <h2
-            v-if="title"
             class="story-title"
             :class="tvStory().title({ class: [classes?.title, storyClasses.title] })"
           >
-            {{ title }}
+            {{ title || story?.pascalName }}
           </h2>
         </slot>
         <slot name="actions">
@@ -50,10 +49,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, useSlots } from 'vue'
 import type { VNode } from 'vue'
+import { computed, inject, useSlots } from 'vue'
 import { tv } from 'tailwind-variants'
-import type { ComponentSlotClasses, BedtimeStory } from '../../types/module'
+import type { BedtimeStory, ComponentSlotClasses } from '../../types/module'
 import Variant from './Variant.vue'
 import EditButton from './buttons/EditButton.vue'
 // @ts-expect-error resolved at runtime
@@ -144,7 +143,7 @@ const layout = computed(() => {
   return layout
 })
 
-async function openInEditor() {
+async function openInEditor () {
   if (!story) {
     return
   }
@@ -182,6 +181,7 @@ async function openInEditor() {
     display: var(--story-header-display);
     margin-bottom: var(--story-header-margin-bottom);
     gap: var(--story-header-gap);
+
     & > * + * {
       flex-shrink: 0;
     }
@@ -223,8 +223,17 @@ async function openInEditor() {
     }
   }
 
-  .story-content > .variant-container {
+  .story-content {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .variant-container.stretch {
+    display: flex !important;
     overflow: hidden;
+    height: 100%;
+    flex-direction: column;
+    flex-grow: 1;
   }
 }
 </style>

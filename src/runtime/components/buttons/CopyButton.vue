@@ -1,6 +1,6 @@
 <template>
   <button
-    class="copy-button"
+    class="bt-button copy-button"
     :class="{ copied }"
     :title="copied ? 'Copied!' : 'Copy to clipboard'"
     @click="copyToClipboard"

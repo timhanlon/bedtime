@@ -128,6 +128,7 @@ watch(() => route.hash, (newHash) => {
     margin: var(--variant-content-margin);
     padding: var(--variant-content-padding);
     position: var(--variant-content-position);
+    background-color: var(--variant-content-bg-color);
   }
 
   .variant-content::after {
