@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import { onKeyStroke, useMagicKeys, onClickOutside } from '@vueuse/core'
 import Icon from './elements/Icon.vue'
 
 interface CommandItem {
   id: string | number
   label: string
-  action: () => void
 }
+
+const emits = defineEmits(['update'])
 
 const props = withDefaults(defineProps<{
   items: CommandItem[]
@@ -50,9 +51,9 @@ const filteredItems = computed(() => {
 })
 
 function handleSelect(item: CommandItem) {
-  item.action()
   isOpen.value = false
   searchQuery.value = ''
+  emits('update', item.id)
 }
 
 onKeyStroke('ArrowDown', (e) => {
@@ -167,7 +168,7 @@ function scrollIntoView(index: number) {
   position: fixed;
   top: 25%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -20%);
   width: 100%;
   max-width: 600px;
   z-index: 50;

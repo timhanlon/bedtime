@@ -1,6 +1,7 @@
 <template>
   <div
     class="bt-nav-item"
+    :data-id="story.kebabName"
     :data-path="path"
     :data-level="level"
   >

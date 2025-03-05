@@ -47,7 +47,7 @@
         </div>
       </main>
     </div>
-    <CommandPalette :items="storyItems" />
+    <CommandPalette :items="storyItems" @update="onCommandUpdate" />
   </div>
 </template>
 
@@ -77,7 +77,6 @@ const storyItems = computed(() => {
   return stories.map(story => ({
     id: story.kebabName,
     label: story.pascalName,
-    action: () => { navigateTo(`/stories/${story.kebabName}`) },
   }))
 })
 
@@ -94,6 +93,14 @@ const storyComponent = story?.component
 useHead({
   title: story ? story.pascalName : 'Story Not Found',
 })
+
+function onCommandUpdate(id: string) {
+  navigateTo(`/stories/${id}`)
+  const target = document.querySelector(`.bt-nav-item[data-id="${id}"]`)
+  if (target) {
+    target?.scrollIntoView()
+  }
+}
 </script>
 
 <style scoped>
@@ -124,6 +131,7 @@ useHead({
   height: 100%;
   flex-grow: 1;
   overflow-y: auto;
+  scroll-padding: 0.4rem;
 }
 
 .stories-sidebar-options {
