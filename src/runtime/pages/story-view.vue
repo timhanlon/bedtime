@@ -47,7 +47,10 @@
         </div>
       </main>
     </div>
-    <CommandPalette :items="storyItems" @update="onCommandUpdate" />
+    <CommandPalette
+      :items="storyItems"
+      @update="onCommandUpdate"
+    />
   </div>
 </template>
 
