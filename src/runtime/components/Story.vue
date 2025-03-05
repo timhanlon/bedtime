@@ -143,7 +143,7 @@ const layout = computed(() => {
   return layout
 })
 
-async function openInEditor () {
+async function openInEditor() {
   if (!story) {
     return
   }
