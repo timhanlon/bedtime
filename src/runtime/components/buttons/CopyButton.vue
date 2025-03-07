@@ -1,57 +1,20 @@
 <template>
   <button
-    class="copy-button"
+    class="bt-button copy-button"
     :class="{ copied }"
     :title="copied ? 'Copied!' : 'Copy to clipboard'"
     @click="copyToClipboard"
   >
-    <span
-      v-if="!copied"
-      class="copy-icon"
-    >
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <rect
-          x="9"
-          y="9"
-          width="13"
-          height="13"
-          rx="2"
-          ry="2"
-        />
-        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-      </svg>
-    </span>
-    <span
-      v-else
-      class="check-icon"
-    >
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
-    </span>
+    <Icon
+      :name="copied ? 'check' : 'copy'"
+      size="xs"
+    />
   </button>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import Icon from '../elements/Icon.vue'
 
 defineOptions({
   name: 'StoryCopyButton',
@@ -84,7 +47,7 @@ async function copyToClipboard() {
 .copy-button {
   width: 24px;
   height: 24px;
-  padding: 6px;
+  padding: 3px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
@@ -94,6 +57,13 @@ async function copyToClipboard() {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.bt-icon {
+  line-height: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .copy-button:hover {

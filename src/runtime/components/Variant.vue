@@ -58,8 +58,8 @@
 import { inject, ref, watch } from 'vue'
 import { tv } from 'tailwind-variants'
 import type { ComponentSlotClasses, BedtimeStory } from '../../types/module'
-import CodeButton from './CodeButton.vue'
-import CopyButton from './CopyButton.vue'
+import CodeButton from './buttons/CodeButton.vue'
+import CopyButton from './buttons/CopyButton.vue'
 import TemplateView from './TemplateView.vue'
 // @ts-expect-error resolved at runtime
 import { useRoute, useRuntimeConfig } from '#imports'
@@ -128,6 +128,7 @@ watch(() => route.hash, (newHash) => {
     margin: var(--variant-content-margin);
     padding: var(--variant-content-padding);
     position: var(--variant-content-position);
+    background-color: var(--variant-content-bg-color);
   }
 
   .variant-content::after {

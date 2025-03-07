@@ -27,8 +27,11 @@
   --variant-actions-align-content: center;
   --variant-actions-display: flex;
   --variant-actions-gap: 0.5rem;
+
   --variant-border-color: #e5e5e5;
   --variant-container-padding: 0;
+
+  --variant-content-bg-color: #ffffff;
   --variant-content-border: 1px solid #e5e5e5;
   --variant-content-border-radius: 0.375rem;
   --variant-content-guide-color: #e5e5e5;
@@ -37,10 +40,12 @@
   --variant-content-padding: 1rem;
   --variant-content-position: relative;
   --variant-content-guideline-border: 0;
+
   --variant-header-align-content: center;
   --variant-header-display: flex;
   --variant-header-justify: space-between;
   --variant-header-gap: 0.5rem;
+
   --variant-title-font-size: 1rem;
   --variant-title-font-weight: 500;
   --variant-title-letter-spacing: -0.02em;
@@ -55,13 +60,15 @@
 
   /* Stories Layout */
   --stories-layout-height: 100vh;
-  --stories-main-bg-color: #fff;
+  --stories-main-bg-color: #f8f8f8;
   --stories-main-padding: 1.5rem;
+
   --stories-sidebar-bg-color: #f8f8f8;
   --stories-sidebar-border: 1px solid #e5e5e5;
   --stories-sidebar-padding: 1rem;
-  --stories-sidebar-width: 250px;
+  --stories-sidebar-width: 350px;
   --stories-sidebar-link-font-size: 0.875rem;
+  --stories-sidebar-link-color: ;
   --stories-sidebar-link-bg-color: #374151;
   --stories-sidebar-link-bg-hover: #e5e7eb;
   --stories-sidebar-link-padding: 0.5rem;

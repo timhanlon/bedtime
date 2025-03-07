@@ -1,29 +1,22 @@
 <template>
   <button
-    class="code-button"
+    class="bt-button code-button"
     :class="{ active: model }"
     :title="model ? 'Hide code' : 'Show code'"
     @click="model = !model"
   >
-    <span class="code-icon">
-      <svg
-        width="12"
-        height="12"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <polyline points="16 18 22 12 16 6" />
-        <polyline points="8 6 2 12 8 18" />
-      </svg>
+    <span class="code-icon bt-icon">
+      <Icon
+        name="code"
+        size="full"
+      />
     </span>
   </button>
 </template>
 
 <script setup lang="ts">
+import Icon from '../elements/Icon.vue'
+
 defineOptions({
   name: 'StoryCodeButton',
 })
@@ -35,7 +28,7 @@ const model = defineModel<boolean>()
 .code-button {
   width: 24px;
   height: 24px;
-  padding: 6px;
+  padding: 3px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
   border-radius: 6px;
