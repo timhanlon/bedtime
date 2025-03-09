@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v0.0.10
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.9...v0.0.10)
+
+### 🚀 Enhancements
+
+- Add story layout prop ([#19](https://github.com/timhanlon/bedtime/pull/19))
+- Add hierarchical navigation ([#18](https://github.com/timhanlon/bedtime/pull/18))
+
+### ❤️ Contributors
+
+- Dave Stewart <dev@davestewart.co.uk>
+
 ## v0.0.9
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.8...v0.0.9)
