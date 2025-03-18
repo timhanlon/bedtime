@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v0.10.1
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.10...v0.10.1)
+
+### 🩹 Fixes
+
+- Command palette keyboard event handling ([#26](https://github.com/timhanlon/bedtime/pull/26))
+
+### ❤️ Contributors
+
+- Dave Stewart <dev@davestewart.co.uk>
+
 ## v0.0.10
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.9...v0.0.10)
