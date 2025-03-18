@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, watch, nextTick } from 'vue'
-import { onKeyStroke, useMagicKeys, onClickOutside } from '@vueuse/core'
+import { computed, nextTick, ref, watch } from 'vue'
+import { onClickOutside, useMagicKeys } from '@vueuse/core'
 import Icon from './elements/Icon.vue'
 
 interface CommandItem {
@@ -56,33 +56,31 @@ function handleSelect(item: CommandItem) {
   emits('update', item.id)
 }
 
-onKeyStroke('ArrowDown', (e) => {
-  e.preventDefault()
+function onArrowDown() {
   isKeyboardNavigation.value = true
   if (selectedIndex.value < filteredItems.value.length - 1) {
     selectedIndex.value++
     scrollIntoView(selectedIndex.value)
   }
-})
+}
 
-onKeyStroke('ArrowUp', (e) => {
-  e.preventDefault()
+function onArrowUp() {
   isKeyboardNavigation.value = true
   if (selectedIndex.value > 0) {
     selectedIndex.value--
     scrollIntoView(selectedIndex.value)
   }
-})
+}
 
-onKeyStroke('Enter', () => {
+function onEnter() {
   if (filteredItems.value[selectedIndex.value])
     handleSelect(filteredItems.value[selectedIndex.value])
-})
+}
 
-onKeyStroke('Escape', () => {
+function onEscape() {
   isOpen.value = false
   searchQuery.value = ''
-})
+}
 
 onClickOutside(paletteRef, () => {
   isOpen.value = false
@@ -114,6 +112,10 @@ function scrollIntoView(index: number) {
     v-if="isOpen"
     ref="paletteRef"
     class="command-palette"
+    @keydown.up.prevent="onArrowUp"
+    @keydown.down.prevent="onArrowDown"
+    @keydown.enter.prevent="onEnter"
+    @keydown.esc.prevent="onEscape"
   >
     <div
       class="command-palette-inner"
@@ -126,6 +128,7 @@ function scrollIntoView(index: number) {
           placeholder="Search..."
           class="command-palette-input"
           @focus="isOpen = true"
+          @keydown.tab.prevent
         >
         <Icon
           name="search"
