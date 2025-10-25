@@ -223,11 +223,6 @@ async function openInEditor() {
     }
   }
 
-  .story-content {
-    display: flex;
-    align-items: stretch;
-  }
-
   .variant-container.stretch {
     display: flex !important;
     overflow: hidden;
