@@ -1,12 +1,3 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: Bedtime
-- Package name: nuxt-bedtime
-- Description: My new Nuxt module
--->
-
 # Bedtime
 
 [![npm version][npm-version-src]][npm-version-href]
@@ -23,7 +14,6 @@ Check the [playground](https://github.com/timhanlon/bedtime/tree/main/playground
 
 - [✨ &nbsp;Release Notes](/CHANGELOG.md)
 - [🏀 Online playground](https://codesandbox.io/p/devbox/github/timhanlon/bedtime/tree/main)
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
 
 ## Goals
 
@@ -36,11 +26,10 @@ Check the [playground](https://github.com/timhanlon/bedtime/tree/main/playground
 
 ## Features
 
-- Compatible with Nuxt 3.15 and Vite 6
+- Compatible with Nuxt 3+ and Vite 6+
 - Supports Nuxt [layers](https://nuxt.com/docs/getting-started/layers)
 - Supports stories co-located with components or in a dedicated stories directory
 - Copy Story/Variant templates to clipboard for easy implementation
-- The `useStory` composable can be used to build your own [custom story viewer](https://github.com/timhanlon/bedtime/tree/main/playground-custom)
 
 ## Usage
 
@@ -91,16 +80,6 @@ Note: this does not currently work in the playground, due to `nuxt dev playgroun
 ## Syntax Highlighting
 
 Syntax highlighting is provided by [Nuxt Shiki](https://github.com/nuxt-modules/shiki), and can be configured via the `shiki` key in your `nuxt.config.ts`.
-
-<!-- ## Quick Setup
-
-Install the module to your Nuxt application with one command:
-
-```bash
-npx nuxi module add bedtime
-```
-
-That's it! You can now use Bedtime in your Nuxt app ✨ -->
 
 ## Contribution
 
