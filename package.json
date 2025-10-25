@@ -1,6 +1,6 @@
 {
   "name": "nuxt-bedtime",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "description": "Nuxt module for creating component stories",
   "repository": "timhanlon/bedtime",
   "license": "MIT",

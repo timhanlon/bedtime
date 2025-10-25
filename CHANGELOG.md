@@ -1,6 +1,23 @@
 # Changelog
 
 
+## v0.11.1
+
+[compare changes](https://github.com/timhanlon/bedtime/compare/v0.10.1...v0.11.1)
+
+### 🚀 Enhancements
+
+- Nuxt 4 support ([#31](https://github.com/timhanlon/bedtime/pull/31))
+
+### 🩹 Fixes
+
+- Module builder warnings ([b82753d](https://github.com/timhanlon/bedtime/commit/b82753d))
+
+### ❤️ Contributors
+
+- Tim Hanlon <tim@timhanlon.com>
+- Timhanlon <tim@timhanlon.com>
+
 ## v0.10.1
 
 [compare changes](https://github.com/timhanlon/bedtime/compare/v0.0.10...v0.10.1)
